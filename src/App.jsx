@@ -17,12 +17,6 @@ const HowItWorksPage = () => (
   </div>
 );
 
-const SupportPage = () => (
-  <div className="min-h-screen bg-white">
-    <h1 className="text-4xl font-bold text-center pt-20">Support - Coming Soon</h1>
-  </div>
-);
-
 const PrivacyPage = () => (
   <div className="min-h-screen bg-white">
     <h1 className="text-4xl font-bold text-center pt-20">Privacy Policy - Coming Soon</h1>
@@ -53,7 +47,6 @@ export default function App() {
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/about" element={<><AboutPage /><Footer /></>} />
         <Route path="/how-it-works" element={<><HowItWorksPage /><Footer /></>} />
-        <Route path="/support" element={<><SupportPage /><Footer /></>} />
         <Route path="/privacy" element={<><PrivacyPage /><Footer /></>} />
       </Routes>
     </Router>

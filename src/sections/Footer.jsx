@@ -25,8 +25,7 @@ export default function Footer() {
                     <Link to="/about" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>About</Link>
                     <Link to="/how-it-works" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>How it Works</Link>
                     <Link to="/marketplace" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Marketplace</Link>
-                    <Link to="/support" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Support</Link>
-                    <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Terms</Link>
+                    <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Terms & Support</Link>
                     <Link to="/privacy" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Privacy</Link>
                 </div>
 
