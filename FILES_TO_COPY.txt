@@ -1,0 +1,144 @@
+================================================================================
+MARKETPLACE STANDALONE WEBSITE - FILES TO COPY
+================================================================================
+
+FOLDER: D:\v5\echo.copym-v5\src\pages\PublicMarketplace\
+
+This folder contains everything you need to create a standalone marketplace website.
+
+================================================================================
+STEP 1: CREATE NEW PROJECT FOLDER
+================================================================================
+
+Create a new folder for your marketplace website:
+  mkdir marketplace-website
+  cd marketplace-website
+
+================================================================================
+STEP 2: COPY THESE FILES FROM PublicMarketplace FOLDER
+================================================================================
+
+From: D:\v5\echo.copym-v5\src\pages\PublicMarketplace\
+
+Copy to: marketplace-website/src/pages/PublicMarketplace/
+
+✅ PublicMarketplace.jsx
+✅ sections/Publicmarketplace.jsx
+
+================================================================================
+STEP 3: COPY ROOT CONFIGURATION FILES
+================================================================================
+
+From: D:\v5\echo.copym-v5\
+
+Copy to: marketplace-website/
+
+✅ package.json
+✅ vite.config.js
+✅ tailwind.config.js
+✅ postcss.config.js
+✅ index.html
+✅ vercel.json (optional)
+
+================================================================================
+STEP 4: COPY SOURCE FILES
+================================================================================
+
+From: D:\v5\echo.copym-v5\src\
+
+Copy to: marketplace-website/src/
+
+✅ index.css (IMPORTANT: This contains all Tailwind styles)
+
+Create: marketplace-website/src/App.jsx
+Content:
+
+```jsx
+import React from 'react';
+import PublicMarketplace from './pages/PublicMarketplace/PublicMarketplace';
+
+function App() {
+  return (
+    <div className="min-h-screen bg-white">
+      <PublicMarketplace />
+    </div>
+  );
+}
+
+export default App;
+```
+
+Create: marketplace-website/src/main.jsx
+Content:
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+```
+
+================================================================================
+STEP 5: COPY PUBLIC FOLDER
+================================================================================
+
+From: D:\v5\echo.copym-v5\public\
+
+Copy entire folder to: marketplace-website/public/
+
+This contains all images, icons, and static assets.
+
+================================================================================
+STEP 6: INSTALL & RUN
+================================================================================
+
+cd marketplace-website
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+Visit: http://localhost:5173
+
+================================================================================
+STEP 7: BUILD FOR PRODUCTION
+================================================================================
+
+npm run build
+
+# Deploy the 'dist' folder to your hosting platform
+
+================================================================================
+DEPLOYMENT (VERCEL)
+================================================================================
+
+npm i -g vercel
+vercel
+
+================================================================================
+QUICK CHECKLIST
+================================================================================
+
+[ ] Created marketplace-website folder
+[ ] Copied package.json
+[ ] Copied vite.config.js
+[ ] Copied tailwind.config.js
+[ ] Copied postcss.config.js
+[ ] Copied index.html
+[ ] Copied src/index.css
+[ ] Created src/App.jsx
+[ ] Created src/main.jsx
+[ ] Copied src/pages/PublicMarketplace/ folder
+[ ] Copied public/ folder
+[ ] Ran npm install
+[ ] Tested with npm run dev
+
+================================================================================
