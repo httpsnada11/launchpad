@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, ChevronDown, Flame, Clock, Check, X, MapPin, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Checkbox from '../components/Checkbox';
 
 // Mock Data
 const MOCK_INVESTMENTS = [
@@ -572,7 +573,7 @@ const MOCK_LUXURY_GOODS = [
         availableTokens: 60000,
         totalTokens: 500000,
         status: 'open',
-        image: 'https://images.unsplash.com/photo-1552519507-cf0d5a6e5d0d?w=800&h=600&fit=crop',
+        image: '/assets/publicm/classic car.jpeg',
         badge: 'OPEN',
         launchDate: 'Live Now',
         progress: 88,
@@ -2128,19 +2129,15 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                         {/* Verification */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Verification</label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {LUXURY_VERIFICATION.map(verify => (
-                                    <button
+                                    <Checkbox
                                         key={verify}
-                                        onClick={() => toggleVerification(verify)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedVerification || []).includes(verify)
-                                            ? 'bg-purple-50 text-purple-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{verify}</span>
-                                        {(localFilters.selectedVerification || []).includes(verify) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`verify-${verify}`}
+                                        label={verify}
+                                        checked={(localFilters.selectedVerification || []).includes(verify)}
+                                        onChange={() => toggleVerification(verify)}
+                                    />
                                 ))}
                             </div>
                         </div>
