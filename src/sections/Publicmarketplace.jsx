@@ -215,7 +215,7 @@ const MOCK_ARTS = [
         availableTokens: 75000,
         totalTokens: 500000,
         status: 'open',
-        image: 'https://images.unsplash.com/photo-1579783902614-a3fb39279c23?w=800&h=600&fit=crop',
+        image: '/assets/publicm/monet lilies.jpeg',
         badge: 'OPEN',
         launchDate: 'Live Now',
         progress: 85,
@@ -2529,66 +2529,76 @@ export default function Publicmarketplace() {
         <section className="w-full py-12 md:py-20 bg-white min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                {/* Controls Bar */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-10">
+                {/* Controls Bar - Single Row Layout */}
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 mb-12 pb-6 border-b border-gray-100">
 
-                    {/* Left: Filters */}
-                    <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                        {FILTER_TABS.map((tab) => {
-                            const isClickable = tab === 'All' || tab === 'Real Estate' || tab === 'Commodities' || tab === 'Arts' || tab === 'Sports' || tab === 'Carbon Credits' || tab === 'Luxury Goods';
-                            return (
-                                <button
-                                    key={tab}
-                                    disabled={!isClickable}
-                                    onClick={() => {
-                                        if (isClickable) {
-                                            // Just switch tab and close filters - filters only open via Filters button
-                                            setActiveTab(tab);
-                                            setShowFilters(false);
-                                        }
-                                    }}
-                                    className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeTab === tab
-                                        ? 'bg-white text-gray-900 border border-gray-200 shadow-sm'
-                                        : isClickable
-                                            ? 'bg-transparent text-gray-500 hover:text-gray-900 hover:bg-gray-50'
-                                            : 'bg-transparent text-gray-900 cursor-not-allowed'
-                                        }`}
-                                >
-                                    {tab}
-                                </button>
-                            );
-                        })}
+                    {/* Left side: Navigation Tabs (Scrollable on small screens) */}
+                    <div className="flex items-center gap-1 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2 lg:pb-0">
+                        <div className="flex items-center p-1 bg-gray-50/50 rounded-full border border-gray-100">
+                            {FILTER_TABS.map((tab) => {
+                                const isClickable = tab === 'All' || tab === 'Real Estate' || tab === 'Commodities' || tab === 'Arts' || tab === 'Sports' || tab === 'Carbon Credits' || tab === 'Luxury Goods';
+                                const isActive = activeTab === tab;
+                                return (
+                                    <button
+                                        key={tab}
+                                        disabled={!isClickable}
+                                        onClick={() => {
+                                            if (isClickable) {
+                                                setActiveTab(tab);
+                                                setShowFilters(false);
+                                            }
+                                        }}
+                                        className={`whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold transition-all duration-300 ${isActive
+                                            ? 'bg-white text-[#0F172A] shadow-sm transform scale-[1.02]'
+                                            : isClickable
+                                                ? 'text-gray-500 hover:text-gray-900 hover:bg-white/50'
+                                                : 'text-gray-300 cursor-not-allowed'
+                                            }`}
+                                    >
+                                        {tab}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Right side: Actions Group (Filters, Search, Sort) */}
+                    <div className="flex items-center gap-3 w-full lg:w-auto justify-end">
+
+                        {/* Filters Button */}
                         {(activeTab === 'Real Estate' || activeTab === 'Commodities' || activeTab === 'Arts' || activeTab === 'Sports' || activeTab === 'Carbon Credits' || activeTab === 'Luxury Goods') && (
                             <button
                                 onClick={() => setShowFilters(!showFilters)}
-                                className={`ml-2 flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-colors shadow-lg shadow-gray-200 ${showFilters ? 'bg-[#0F172A] text-white' : 'bg-white text-gray-700 border border-gray-200'
+                                className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 border ${showFilters
+                                    ? 'bg-[#0F172A] text-white border-[#0F172A] shadow-lg shadow-blue-900/10'
+                                    : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:bg-gray-50'
                                     }`}
                             >
-                                <SlidersHorizontal size={16} />
-                                Filters
+                                <SlidersHorizontal size={14} className={showFilters ? 'animate-pulse' : ''} />
+                                <span>Filters</span>
                             </button>
                         )}
-                    </div>
 
-                    {/* Right: Search & Sort */}
-                    <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                        <div className="relative group">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                        {/* Search Input */}
+                        <div className="relative group flex-grow lg:flex-grow-0">
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#0F172A] transition-colors" size={16} />
                             <input
                                 type="text"
-                                placeholder="Search"
+                                placeholder="Search marketplace..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full sm:w-64 pl-11 pr-4 py-2.5 rounded-full border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-500 text-sm text-gray-900 placeholder-gray-400 transition-all"
+                                className="w-full lg:w-64 pl-12 pr-4 py-2.5 rounded-full border border-gray-200 bg-white focus:outline-none focus:ring-4 focus:ring-gray-100 focus:border-gray-300 text-xs font-medium text-gray-900 placeholder-gray-400 transition-all"
                             />
                         </div>
+
+                        {/* Sort Dropdown */}
                         <div className="relative">
                             <button
                                 onClick={() => setIsSortOpen(!isSortOpen)}
-                                className="w-full sm:w-auto flex items-center justify-between gap-3 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+                                className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm"
                             >
-                                <span>Sort by</span>
-                                <ChevronDown size={16} />
+                                <span>Sort</span>
+                                <ChevronDown size={14} className={`transition-transform duration-300 ${isSortOpen ? 'rotate-180' : ''}`} />
                             </button>
 
                             {/* Sort Dropdown */}

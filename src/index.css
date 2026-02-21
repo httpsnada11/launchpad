@@ -57,14 +57,26 @@ html.lenis body {
   stroke: #4285f4;
 }
 
-input[type="checkbox"]:checked + .check svg {
+input[type="checkbox"]:checked+.check svg {
   stroke: #4285f4;
 }
 
-input[type="checkbox"]:checked + .check svg path {
+input[type="checkbox"]:checked+.check svg path {
   stroke-dashoffset: 60;
 }
 
-input[type="checkbox"]:checked + .check svg polyline {
+input[type="checkbox"]:checked+.check svg polyline {
   stroke-dashoffset: 42;
+}
+
+/* Utility: Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
