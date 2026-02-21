@@ -527,6 +527,7 @@ const MOCK_LUXURY_GOODS = [
         title: 'Rare Diamond Collection',
         tokenSymbol: 'DIAM-LUX',
         category: 'LUXURY_GOODS',
+        assetType: 'Jewelry',
         luxuryCategory: 'Fine Jewelry',
         luxuryType: 'Diamonds',
         esgScore: 'A',
@@ -545,6 +546,8 @@ const MOCK_LUXURY_GOODS = [
         launchDate: 'Live Now',
         progress: 70,
         investmentStrategy: 'Capital Appreciation',
+        usageModel: 'Storage Only',
+        verification: ['Manufacturer Certified', 'Independently Valued'],
         brand: 'De Beers',
         rarity: 'Flawless',
         certification: 'GIA Certified',
@@ -559,6 +562,7 @@ const MOCK_LUXURY_GOODS = [
         title: 'Vintage Wine Portfolio',
         tokenSymbol: 'WINE-VTG',
         category: 'LUXURY_GOODS',
+        assetType: 'Wine',
         luxuryCategory: 'Fine Wine & Spirits',
         luxuryType: 'Wine',
         esgScore: 'A',
@@ -577,6 +581,8 @@ const MOCK_LUXURY_GOODS = [
         launchDate: 'Live Now',
         progress: 73,
         investmentStrategy: 'Yield via Appreciation',
+        usageModel: 'Storage Only',
+        verification: ['Independently Valued', 'Insurance Covered'],
         brand: 'Château Margaux',
         rarity: 'Limited Edition',
         certification: 'Wine Spectator Verified',
@@ -592,6 +598,7 @@ const MOCK_LUXURY_GOODS = [
         title: 'Luxury Watch Collection',
         tokenSymbol: 'WATCH-LUX',
         category: 'LUXURY_GOODS',
+        assetType: 'Watches',
         luxuryCategory: 'Luxury Watches',
         luxuryType: 'Swiss Watches',
         esgScore: 'A',
@@ -610,6 +617,8 @@ const MOCK_LUXURY_GOODS = [
         launchDate: 'Sold Out',
         progress: 100,
         investmentStrategy: 'Blue-Chip Stability',
+        usageModel: 'Storage Only',
+        verification: ['Manufacturer Certified', 'Service History Verified'],
         brand: 'Patek Philippe',
         rarity: 'Rare',
         certification: 'Swiss Certified',
@@ -624,6 +633,7 @@ const MOCK_LUXURY_GOODS = [
         title: 'Designer Handbag Vault',
         tokenSymbol: 'BAG-LUX',
         category: 'LUXURY_GOODS',
+        assetType: 'Designer Handbags',
         luxuryCategory: 'Designer Fashion',
         luxuryType: 'Handbags',
         esgScore: 'B',
@@ -642,6 +652,8 @@ const MOCK_LUXURY_GOODS = [
         launchDate: 'Live Now',
         progress: 64,
         investmentStrategy: 'Speculative Upside',
+        usageModel: 'Storage Only',
+        verification: ['Manufacturer Certified', 'Independently Valued'],
         brand: 'Hermès',
         rarity: 'Limited Edition',
         certification: 'Authenticity Verified',
@@ -656,6 +668,7 @@ const MOCK_LUXURY_GOODS = [
         title: 'Classic Car Collection',
         tokenSymbol: 'CAR-CLS',
         category: 'LUXURY_GOODS',
+        assetType: 'Cars',
         luxuryCategory: 'Classic Cars',
         luxuryType: 'Vintage Automobiles',
         esgScore: 'B',
@@ -674,6 +687,8 @@ const MOCK_LUXURY_GOODS = [
         launchDate: 'Live Now',
         progress: 88,
         investmentStrategy: 'Capital Appreciation',
+        usageModel: 'Rental Revenue Share',
+        verification: ['Service History Verified', 'Insurance Covered', 'Independently Valued'],
         brand: 'Ferrari',
         rarity: 'Ultra Rare',
         certification: 'Classic Car Registry',
@@ -683,6 +698,78 @@ const MOCK_LUXURY_GOODS = [
         location: 'Maranello',
         priceVal: 600000,
         tokenPercentage: 88
+    },
+    {
+        id: 506,
+        title: 'Super Yacht Charter Fund',
+        tokenSymbol: 'YACHT-LUX',
+        category: 'LUXURY_GOODS',
+        assetType: 'Yachts',
+        luxuryCategory: 'Marine Luxury',
+        luxuryType: 'Super Yachts',
+        esgScore: 'B',
+        roi: '24%',
+        cagr: '30.00%',
+        issuerName: 'Monaco Yacht Partners',
+        issuerLogo: 'https://ui-avatars.com/api/?name=Monaco+Yacht&background=0EA5E9&color=fff',
+        assetPrice: '$25M',
+        tokenPriceETH: '3.5 ETH',
+        tokenPriceUSD: '$10,500 USD',
+        availableTokens: 80000,
+        totalTokens: 600000,
+        status: 'open',
+        image: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&h=600&fit=crop',
+        badge: 'OPEN',
+        launchDate: 'Live Now',
+        progress: 55,
+        investmentStrategy: 'Rental / Charter Yield',
+        usageModel: 'Charter Income',
+        verification: ['Manufacturer Certified', 'Insurance Covered'],
+        brand: 'Lürssen',
+        rarity: 'Exclusive',
+        certification: 'Lloyd\'s Registered',
+        length: '85m',
+        country: 'Monaco',
+        region: 'Europe',
+        location: 'Monaco',
+        priceVal: 1050000,
+        tokenPercentage: 55
+    },
+    {
+        id: 507,
+        title: 'Private Jet Fractional Fund',
+        tokenSymbol: 'JET-LUX',
+        category: 'LUXURY_GOODS',
+        assetType: 'Private Jets',
+        luxuryCategory: 'Aviation',
+        luxuryType: 'Business Jets',
+        esgScore: 'C',
+        roi: '20%',
+        cagr: '26.00%',
+        issuerName: 'Gulfstream Capital',
+        issuerLogo: 'https://ui-avatars.com/api/?name=Gulfstream&background=64748B&color=fff',
+        assetPrice: '$18M',
+        tokenPriceETH: '2.5 ETH',
+        tokenPriceUSD: '$7,500 USD',
+        availableTokens: 100000,
+        totalTokens: 450000,
+        status: 'open',
+        image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800&h=600&fit=crop',
+        badge: 'OPEN',
+        launchDate: 'Live Now',
+        progress: 78,
+        investmentStrategy: 'Long-Term Collectible',
+        usageModel: 'Fractional Usage',
+        verification: ['Manufacturer Certified', 'Service History Verified', 'Insurance Covered'],
+        brand: 'Gulfstream',
+        rarity: 'Limited Edition',
+        certification: 'FAA Certified',
+        model: 'G650ER',
+        country: 'USA',
+        region: 'North America',
+        location: 'Miami',
+        priceVal: 750000,
+        tokenPercentage: 78
     }
 ];
 
@@ -791,8 +878,17 @@ const LUXURY_TYPES = ['All', 'Diamonds', 'Gemstones', 'Wine', 'Whisky', 'Swiss W
 // Luxury Brands
 const LUXURY_BRANDS = ['All', 'De Beers', 'Cartier', 'Tiffany', 'Château Margaux', 'Dom Pérignon', 'Patek Philippe', 'Rolex', 'Audemars Piguet', 'Hermès', 'Chanel', 'Louis Vuitton', 'Ferrari', 'Porsche', 'McLaren'];
 
+// Luxury Asset Types
+const LUXURY_ASSET_TYPES = ['All', 'Cars', 'Watches', 'Yachts', 'Private Jets', 'Designer Handbags', 'Jewelry'];
+
 // Luxury Investment Strategies
-const LUXURY_INVESTMENT_STRATEGIES = ['Capital Appreciation', 'Blue-Chip Stability', 'Speculative Upside', 'Yield via Appreciation', 'Rare Asset Collection'];
+const LUXURY_INVESTMENT_STRATEGIES = ['Capital Appreciation', 'Blue-Chip Stability', 'Speculative Upside', 'Yield via Appreciation', 'Rare Asset Collection', 'Limited Edition Scarcity', 'Rental / Charter Yield', 'Long-Term Collectible'];
+
+// Luxury Usage Models
+const LUXURY_USAGE_MODELS = ['Storage Only', 'Rental Revenue Share', 'Charter Income', 'Fractional Usage'];
+
+// Luxury Verification Options
+const LUXURY_VERIFICATION = ['Manufacturer Certified', 'Service History Verified', 'Insurance Covered', 'Independently Valued'];
 
 // Luxury Rarity Levels
 const LUXURY_RARITY_LEVELS = ['All', 'Flawless', 'Ultra Rare', 'Rare', 'Limited Edition', 'Exclusive'];
@@ -2043,12 +2139,12 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
         updateFilter('selectedInvestmentStrategies', updated);
     };
 
-    const toggleRarity = (rarity) => {
-        const current = localFilters.selectedRarityLevels || [];
-        const updated = current.includes(rarity)
-            ? current.filter(r => r !== rarity)
-            : [...current, rarity];
-        updateFilter('selectedRarityLevels', updated);
+    const toggleVerification = (verification) => {
+        const current = localFilters.selectedVerification || [];
+        const updated = current.includes(verification)
+            ? current.filter(v => v !== verification)
+            : [...current, verification];
+        updateFilter('selectedVerification', updated);
     };
 
     if (!isOpen || activeTab !== 'Luxury Goods') return null;
@@ -2075,66 +2171,26 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                     {/* Left Column */}
                     <div className="flex flex-col gap-4">
-                        {/* Category */}
+                        {/* Asset Type */}
                         <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-3">Category</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-3">Asset Type</label>
                             <div className="flex flex-wrap gap-2">
-                                {LUXURY_CATEGORIES.map(cat => (
+                                {LUXURY_ASSET_TYPES.map(type => (
                                     <button
-                                        key={cat}
-                                        onClick={() => updateFilter('selectedCategory', cat === localFilters.selectedCategory ? '' : cat)}
-                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${localFilters.selectedCategory === cat
+                                        key={type}
+                                        onClick={() => updateFilter('selectedAssetType', type)}
+                                        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${localFilters.selectedAssetType === type
                                             ? 'bg-[#0F172A] text-white border-[#0F172A]'
                                             : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
                                             }`}
                                     >
-                                        {cat}
+                                        {type}
                                     </button>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Type */}
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-3">Type</label>
-                            <div className="grid grid-cols-2 gap-2">
-                                {LUXURY_TYPES.map(type => (
-                                    <button
-                                        key={type}
-                                        onClick={() => updateFilter('selectedType', type)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedType === type
-                                            ? 'bg-purple-50 text-purple-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{type}</span>
-                                        {localFilters.selectedType === type && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Brand */}
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-3">Brand</label>
-                            <div className="relative">
-                                <select
-                                    className="w-full appearance-none bg-white border border-gray-200 text-gray-900 py-2.5 px-3 pr-8 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                    value={localFilters.selectedBrand || 'All'}
-                                    onChange={(e) => updateFilter('selectedBrand', e.target.value)}
-                                >
-                                    {LUXURY_BRANDS.map(brand => (
-                                        <option key={brand} value={brand}>{brand}</option>
-                                    ))}
-                                </select>
-                                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Right Column */}
-                    <div className="flex flex-col gap-4">
-                        {/* Investment Strategies */}
+                        {/* Investment Strategy */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
@@ -2155,24 +2211,65 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                                 ))}
                             </div>
                         </div>
+                    </div>
+
+                    {/* Right Column */}
+                    <div className="flex flex-col gap-4">
+                        {/* Usage Model */}
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-3">Usage Model</label>
+                            <div className="grid grid-cols-2 gap-2">
+                                {LUXURY_USAGE_MODELS.map(model => (
+                                    <button
+                                        key={model}
+                                        onClick={() => updateFilter('selectedUsageModel', model === localFilters.selectedUsageModel ? '' : model)}
+                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedUsageModel === model
+                                            ? 'bg-purple-50 text-purple-700 font-semibold'
+                                            : 'text-gray-600 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        <span className="truncate mr-1">{model}</span>
+                                        {localFilters.selectedUsageModel === model && <Check size={14} className="flex-shrink-0" />}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Verification */}
+                        <div>
+                            <label className="block text-sm font-bold text-gray-700 mb-3">Verification</label>
+                            <div className="grid grid-cols-2 gap-2">
+                                {LUXURY_VERIFICATION.map(verify => (
+                                    <button
+                                        key={verify}
+                                        onClick={() => toggleVerification(verify)}
+                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedVerification || []).includes(verify)
+                                            ? 'bg-purple-50 text-purple-700 font-semibold'
+                                            : 'text-gray-600 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        <span className="truncate mr-1">{verify}</span>
+                                        {(localFilters.selectedVerification || []).includes(verify) && <Check size={14} className="flex-shrink-0" />}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
                         {/* Rarity Levels */}
                         <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-3">
-                                Rarity
-                            </label>
+                            <label className="block text-sm font-bold text-gray-700 mb-3">Rarity</label>
                             <div className="grid grid-cols-2 gap-2">
                                 {LUXURY_RARITY_LEVELS.map(rarity => (
                                     <button
                                         key={rarity}
-                                        onClick={() => toggleRarity(rarity)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedRarityLevels || []).includes(rarity)
+                                        onClick={() => updateFilter('selectedRarity', rarity)}
+                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedRarity === rarity
                                             ? 'bg-purple-50 text-purple-700 font-semibold'
                                             : 'text-gray-600 hover:bg-gray-50'
                                             }`}
                                     >
                                         <span className="truncate mr-1">{rarity}</span>
-                                        {(localFilters.selectedRarityLevels || []).includes(rarity) && <Check size={14} className="flex-shrink-0" />}
+                                        {localFilters.selectedRarity === rarity && <Check size={14} className="flex-shrink-0" />}
                                     </button>
                                 ))}
                             </div>
@@ -2195,6 +2292,8 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                                     <option value="Switzerland">Switzerland</option>
                                     <option value="Italy">Italy</option>
                                     <option value="South Africa">South Africa</option>
+                                    <option value="UAE">UAE</option>
+                                    <option value="USA">USA</option>
                                 </select>
                                 <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                             </div>
@@ -2230,6 +2329,19 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                                         <>
                                             <option value="Johannesburg">Johannesburg</option>
                                             <option value="Cape Town">Cape Town</option>
+                                        </>
+                                    )}
+                                    {localFilters.country === 'UAE' && (
+                                        <>
+                                            <option value="Dubai">Dubai</option>
+                                            <option value="Abu Dhabi">Abu Dhabi</option>
+                                        </>
+                                    )}
+                                    {localFilters.country === 'USA' && (
+                                        <>
+                                            <option value="New York">New York</option>
+                                            <option value="Los Angeles">Los Angeles</option>
+                                            <option value="Miami">Miami</option>
                                         </>
                                     )}
                                 </select>
@@ -2323,10 +2435,10 @@ export default function Publicmarketplace() {
 
     // Filter State - Luxury Goods
     const [luxuryGoodsFilters, setLuxuryGoodsFilters] = useState({
-        selectedCategory: '',
-        selectedType: 'All',
-        selectedBrand: 'All',
+        selectedAssetType: 'All',
         selectedInvestmentStrategies: [],
+        selectedUsageModel: '',
+        selectedVerification: [],
         selectedRarity: 'All',
         country: '',
         city: '',
@@ -2518,38 +2630,42 @@ export default function Publicmarketplace() {
             }
         }
 
-        // Advanced Filters - Carbon Credits
-        if (activeTab === 'Carbon Credits') {
-            // Project Type
-            if (carbonCreditsFilters.selectedProjectType && carbonCreditsFilters.selectedProjectType !== 'All' && item.projectType !== carbonCreditsFilters.selectedProjectType) {
-                matchesAdvanced = false;
-            }
-            // Standard
-            if (matchesAdvanced && carbonCreditsFilters.selectedStandard && carbonCreditsFilters.selectedStandard !== 'All' && item.standard !== carbonCreditsFilters.selectedStandard) {
+        // Advanced Filters - Luxury Goods
+        if (activeTab === 'Luxury Goods') {
+            // Asset Type
+            if (luxuryGoodsFilters.selectedAssetType && luxuryGoodsFilters.selectedAssetType !== 'All' && item.assetType !== luxuryGoodsFilters.selectedAssetType) {
                 matchesAdvanced = false;
             }
             // Investment Strategy
-            if (matchesAdvanced && carbonCreditsFilters.selectedInvestmentStrategies.length > 0 && !carbonCreditsFilters.selectedInvestmentStrategies.includes(item.investmentStrategy)) {
+            if (matchesAdvanced && luxuryGoodsFilters.selectedInvestmentStrategies.length > 0 && !luxuryGoodsFilters.selectedInvestmentStrategies.includes(item.investmentStrategy)) {
                 matchesAdvanced = false;
             }
-            // Credit Type
-            if (matchesAdvanced && carbonCreditsFilters.selectedCreditTypes.length > 0) {
-                const itemCreditType = item.creditType ? [item.creditType] : [];
-                const hasMatchingCredit = carbonCreditsFilters.selectedCreditTypes.some(type => itemCreditType.includes(type));
-                if (!hasMatchingCredit) {
+            // Usage Model
+            if (matchesAdvanced && luxuryGoodsFilters.selectedUsageModel && item.usageModel !== luxuryGoodsFilters.selectedUsageModel) {
+                matchesAdvanced = false;
+            }
+            // Verification
+            if (matchesAdvanced && luxuryGoodsFilters.selectedVerification.length > 0) {
+                const itemVerification = item.verification || [];
+                const hasMatchingVerification = luxuryGoodsFilters.selectedVerification.some(verify => itemVerification.includes(verify));
+                if (!hasMatchingVerification) {
                     matchesAdvanced = false;
                 }
             }
+            // Rarity
+            if (matchesAdvanced && luxuryGoodsFilters.selectedRarity && luxuryGoodsFilters.selectedRarity !== 'All' && item.rarity !== luxuryGoodsFilters.selectedRarity) {
+                matchesAdvanced = false;
+            }
             // Country
-            if (matchesAdvanced && carbonCreditsFilters.country && item.country !== carbonCreditsFilters.country) {
+            if (matchesAdvanced && luxuryGoodsFilters.country && item.country !== luxuryGoodsFilters.country) {
                 matchesAdvanced = false;
             }
             // City
-            if (matchesAdvanced && carbonCreditsFilters.city && item.city !== carbonCreditsFilters.city) {
+            if (matchesAdvanced && luxuryGoodsFilters.city && item.city !== luxuryGoodsFilters.city) {
                 matchesAdvanced = false;
             }
             // Location
-            if (matchesAdvanced && carbonCreditsFilters.location && !item.location.toLowerCase().includes(carbonCreditsFilters.location.toLowerCase())) {
+            if (matchesAdvanced && luxuryGoodsFilters.location && !item.location.toLowerCase().includes(luxuryGoodsFilters.location.toLowerCase())) {
                 matchesAdvanced = false;
             }
         }
@@ -2580,7 +2696,7 @@ export default function Publicmarketplace() {
                     {/* Left: Filters */}
                     <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
                         {FILTER_TABS.map((tab) => {
-                            const isClickable = tab === 'All' || tab === 'Real Estate' || tab === 'Commodities' || tab === 'Arts' || tab === 'Sports' || tab === 'Carbon Credits';
+                            const isClickable = tab === 'All' || tab === 'Real Estate' || tab === 'Commodities' || tab === 'Arts' || tab === 'Sports' || tab === 'Carbon Credits' || tab === 'Luxury Goods';
                             return (
                                 <button
                                     key={tab}
@@ -2603,7 +2719,7 @@ export default function Publicmarketplace() {
                                 </button>
                             );
                         })}
-                        {(activeTab === 'Real Estate' || activeTab === 'Commodities' || activeTab === 'Arts' || activeTab === 'Sports' || activeTab === 'Carbon Credits') && (
+                        {(activeTab === 'Real Estate' || activeTab === 'Commodities' || activeTab === 'Arts' || activeTab === 'Sports' || activeTab === 'Carbon Credits' || activeTab === 'Luxury Goods') && (
                             <button
                                 onClick={() => setShowFilters(!showFilters)}
                                 className={`ml-2 flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-colors shadow-lg shadow-gray-200 ${showFilters ? 'bg-[#0F172A] text-white' : 'bg-white text-gray-700 border border-gray-200'
