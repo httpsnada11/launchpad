@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import Publicmarketplace from './sections/Publicmarketplace';
 import Footer from './sections/Footer';
 import TermsOfService from './sections/TermsOfService';
+import Navbar from './sections/Navbar';
 
 const AboutPage = () => (
   <div className="min-h-screen bg-white">
@@ -41,14 +42,17 @@ export default function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<><Publicmarketplace /><Footer /></>} />
-        <Route path="/marketplace" element={<><Publicmarketplace /><Footer /></>} />
-        <Route path="/terms" element={<TermsOfService />} />
-        <Route path="/about" element={<><AboutPage /><Footer /></>} />
-        <Route path="/how-it-works" element={<><HowItWorksPage /><Footer /></>} />
-        <Route path="/privacy" element={<><PrivacyPage /><Footer /></>} />
-      </Routes>
+      <Navbar />
+      <div className="pt-20 lg:pt-24">
+        <Routes>
+          <Route path="/" element={<><Publicmarketplace /><Footer /></>} />
+          <Route path="/marketplace" element={<><Publicmarketplace /><Footer /></>} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/about" element={<><AboutPage /><Footer /></>} />
+          <Route path="/how-it-works" element={<><HowItWorksPage /><Footer /></>} />
+          <Route path="/privacy" element={<><PrivacyPage /><Footer /></>} />
+        </Routes>
+      </div>
     </Router>
   );
 }

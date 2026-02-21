@@ -976,7 +976,7 @@ const FilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, onApply 
                             onApply(localFilters);
                             onClose();
                         }}
-                        className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg shadow-green-100"
+                        className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                     >
                         Apply
                     </button>
@@ -1244,7 +1244,7 @@ const CommoditiesFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                             onApply(localFilters);
                             onClose();
                         }}
-                        className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg shadow-green-100"
+                        className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                     >
                         Apply
                     </button>
@@ -1462,7 +1462,7 @@ const ArtsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, onAp
                             onApply(localFilters);
                             onClose();
                         }}
-                        className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg shadow-green-100"
+                        className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                     >
                         Apply
                     </button>
@@ -1680,7 +1680,7 @@ const SportsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, on
                             onApply(localFilters);
                             onClose();
                         }}
-                        className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg shadow-green-100"
+                        className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                     >
                         Apply
                     </button>
@@ -1896,7 +1896,7 @@ const CarbonCreditsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilt
                             onApply(localFilters);
                             onClose();
                         }}
-                        className="px-8 py-3 bg-[#10B981] hover:bg-[#059669] text-white font-bold rounded-lg transition-colors shadow-lg shadow-green-100"
+                        className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                     >
                         Apply
                     </button>
@@ -2131,7 +2131,7 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                         onApply(localFilters);
                         onClose();
                     }}
-                    className="px-8 py-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold rounded-lg transition-colors shadow-lg shadow-purple-100"
+                    className="px-8 py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-lg transition-colors"
                 >
                     Apply
                 </button>
