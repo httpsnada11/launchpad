@@ -2637,7 +2637,7 @@ export default function Publicmarketplace() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-[320px] border border-gray-100"
+                            className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-[420px] border border-gray-100"
                         >
                             {/* Sliding Container */}
                             <div className="absolute inset-0 flex w-[200%] transition-transform duration-500 ease-in-out -translate-x-0 group-hover:-translate-x-1/2">
@@ -2701,42 +2701,39 @@ export default function Publicmarketplace() {
                                     </div>
 
                                     {/* Right side of the split (Details Panel) */}
-                                    <div className="w-[65%] h-full bg-white p-4 flex flex-col justify-between">
-                                        <div>
-                                            <h4 className="text-sm font-bold text-[#0F172A] leading-tight mb-2 line-clamp-2">{item.title}</h4>
-                                            <div className="flex flex-wrap gap-1.5 mb-3">
-                                                <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[9px] font-bold text-gray-600">{item.investmentStrategy}</span>
-                                                <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[9px] font-bold text-gray-600 animate-pulse">{item.status === 'coming-soon' ? 'Coming Soon' : item.status === 'sold-out' ? 'Sold Out' : 'Open'}</span>
+                                    <div className="w-[65%] h-full bg-white p-3.5 flex flex-col justify-between">
+                                        <div className="overflow-hidden">
+                                            <h4 className="text-[13px] font-bold text-[#0F172A] leading-tight mb-2 line-clamp-2">{item.title}</h4>
+                                            <div className="flex flex-wrap gap-1 mb-3">
+                                                <span className="px-1.5 py-0.5 bg-gray-50 rounded text-[8px] font-bold text-gray-500 border border-gray-100">{item.investmentStrategy}</span>
+                                                <span className="px-1.5 py-0.5 bg-gray-50 rounded text-[8px] font-bold text-gray-500 border border-gray-100 animate-pulse">{item.status === 'coming-soon' ? 'Coming Soon' : item.status === 'sold-out' ? 'Sold Out' : 'Open'}</span>
                                             </div>
 
                                             {/* Arts-Specific Details */}
                                             {item.category === 'ARTS' && (
-                                                <div className="space-y-2 mb-3">
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Artist</span>
-                                                        <span className="text-xs font-bold text-[#0F172A] text-right">{item.artistName}</span>
+                                                <div className="space-y-1.5 mb-3">
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Artist</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A] text-right">{item.artistName}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Artist Tier</span>
-                                                        <span className={`text-xs font-bold text-right ${item.artistTier === 'Blue-Chip' ? 'text-purple-600' : item.artistTier === 'Established' ? 'text-blue-600' : item.artistTier === 'Mid-Career' ? 'text-green-600' : 'text-gray-600'}`}>{item.artistTier}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Artist Tier</span>
+                                                        <span className={`text-[11px] font-bold text-right ${item.artistTier === 'Blue-Chip' ? 'text-purple-600' : item.artistTier === 'Established' ? 'text-blue-600' : item.artistTier === 'Mid-Career' ? 'text-green-600' : 'text-gray-600'}`}>{item.artistTier}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Type</span>
-                                                        <span className="text-xs font-bold text-[#0F172A]">{item.artType}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Type</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A]">{item.artType}</span>
                                                     </div>
                                                     {item.authentication && item.authentication.length > 0 && (
-                                                        <div className="pt-1">
+                                                        <div className="pt-0.5">
                                                             <div className="flex items-center gap-1 mb-1">
-                                                                <BadgeCheck size={12} className="text-green-600" />
-                                                                <span className="text-[9px] text-gray-400 font-semibold uppercase">Authentication</span>
+                                                                <BadgeCheck size={10} className="text-green-600" />
+                                                                <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Authentication</span>
                                                             </div>
                                                             <div className="flex flex-wrap gap-1">
                                                                 {item.authentication.slice(0, 2).map((auth, idx) => (
-                                                                    <span key={idx} className="px-1.5 py-0.5 bg-green-50 rounded text-[8px] font-bold text-green-700">{auth}</span>
+                                                                    <span key={idx} className="px-1.5 py-0.5 bg-green-50 rounded text-[7px] font-bold text-green-700">{auth}</span>
                                                                 ))}
-                                                                {item.authentication.length > 2 && (
-                                                                    <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[8px] font-medium text-gray-500">+{item.authentication.length - 2}</span>
-                                                                )}
                                                             </div>
                                                         </div>
                                                     )}
@@ -2745,86 +2742,80 @@ export default function Publicmarketplace() {
 
                                             {/* Sports-Specific Details */}
                                             {item.category === 'SPORTS' && (
-                                                <div className="space-y-2 mb-3">
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Sport</span>
-                                                        <span className="text-xs font-bold text-[#0F172A] text-right">{item.sportType}</span>
+                                                <div className="space-y-1.5 mb-3">
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Sport</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A] text-right">{item.sportType}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Asset Type</span>
-                                                        <span className="text-xs font-bold text-[#0F172A] text-right">{item.assetType}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Asset Type</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A] text-right">{item.assetType}</span>
                                                     </div>
                                                     {item.athleteName && item.athleteName !== 'N/A' && (
-                                                        <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                            <span className="text-[9px] text-gray-400 font-semibold uppercase">Athlete</span>
-                                                            <span className="text-xs font-bold text-orange-600 text-right">{item.athleteName}</span>
+                                                        <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                            <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Athlete</span>
+                                                            <span className="text-[11px] font-bold text-orange-600 text-right">{item.athleteName}</span>
                                                         </div>
                                                     )}
-                                                    {item.teamAffiliation && (
-                                                        <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                            <span className="text-[9px] text-gray-400 font-semibold uppercase">Team/League</span>
-                                                            <span className="text-xs font-bold text-[#0F172A] text-right">{item.teamAffiliation}</span>
-                                                        </div>
-                                                    )}
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Revenue Model</span>
-                                                        <span className="text-xs font-bold text-orange-600">{item.revenueModel}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Revenue</span>
+                                                        <span className="text-[11px] font-bold text-orange-600">{item.revenueModel}</span>
                                                     </div>
                                                 </div>
                                             )}
 
                                             {/* Carbon Credits-Specific Details */}
                                             {item.category === 'CARBON_CREDITS' && (
-                                                <div className="space-y-2 mb-3">
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Project Type</span>
-                                                        <span className="text-xs font-bold text-emerald-600 text-right">{item.projectType}</span>
+                                                <div className="space-y-1.5 mb-3">
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Project Type</span>
+                                                        <span className="text-[11px] font-bold text-emerald-600 text-right">{item.projectType}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Standard</span>
-                                                        <span className="text-xs font-bold text-[#0F172A] text-right">{item.standard}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Standard</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A] text-right">{item.standard}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Credit Type</span>
-                                                        <span className="text-xs font-bold text-emerald-600">{item.creditType}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Credit Type</span>
+                                                        <span className="text-[11px] font-bold text-emerald-600">{item.creditType}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">CO₂ Volume</span>
-                                                        <span className="text-xs font-bold text-[#0F172A]">{item.co2Volume}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">CO₂ Volume</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A]">{item.co2Volume}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">SDG</span>
-                                                        <span className="text-xs font-bold text-emerald-600">{item.sdgAlignment}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">SDG</span>
+                                                        <span className="text-[11px] font-bold text-emerald-600">{item.sdgAlignment}</span>
                                                     </div>
-                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Location</span>
-                                                        <span className="text-xs font-bold text-[#0F172A]">{item.projectLocation}</span>
+                                                    <div className="flex justify-between items-center border-b border-gray-50 pb-1">
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Location</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A]">{item.projectLocation}</span>
                                                     </div>
                                                 </div>
                                             )}
 
                                             {/* Real Estate & Commodities Details */}
                                             {item.category !== 'ARTS' && item.category !== 'SPORTS' && item.category !== 'CARBON_CREDITS' && (
-                                                <div className="space-y-2.5">
+                                                <div className="space-y-2">
                                                     <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Asset Price</span>
-                                                        <span className="text-xs font-bold text-[#0F172A]">{item.assetPrice}</span>
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Asset Price</span>
+                                                        <span className="text-[11px] font-bold text-[#0F172A]">{item.assetPrice}</span>
                                                     </div>
                                                     <div className="flex justify-between items-center border-b border-gray-50 pb-1.5">
-                                                        <span className="text-[9px] text-gray-400 font-semibold uppercase">Token Price</span>
+                                                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Token Price</span>
                                                         <div className="text-right">
-                                                            <span className="text-xs font-bold text-[#0F172A] block">{item.tokenPriceETH}</span>
-                                                            <span className="text-[9px] text-gray-400">{item.tokenPriceUSD}</span>
+                                                            <span className="text-[11px] font-bold text-[#0F172A] block">{item.tokenPriceETH}</span>
+                                                            <span className="text-[8px] text-gray-400">{item.tokenPriceUSD}</span>
                                                         </div>
                                                     </div>
                                                     <div>
                                                         <div className="flex justify-between items-center mb-1">
-                                                            <span className="text-[9px] text-gray-400 font-semibold uppercase">Available Tokens</span>
+                                                            <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Available</span>
                                                             <span className="text-[9px] font-bold text-[#0F172A]">{item.availableTokens.toLocaleString()}</span>
                                                         </div>
-                                                        <div className="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                                                        <div className="w-full bg-gray-50 rounded-full h-1 overflow-hidden">
                                                             <div
-                                                                className={`h-full rounded-full ${item.availableTokens === 0 ? 'bg-gray-400' : 'bg-[#0F172A]'}`}
+                                                                className={`h-full rounded-full ${item.availableTokens === 0 ? 'bg-gray-300' : 'bg-[#0F172A]'}`}
                                                                 style={{ width: `${(item.availableTokens / item.totalTokens) * 100}%` }}
                                                             ></div>
                                                         </div>
@@ -2833,7 +2824,7 @@ export default function Publicmarketplace() {
                                             )}
                                         </div>
 
-                                        <button className="w-full py-2.5 rounded-lg bg-[#0F172A] hover:bg-blue-600 text-white text-[10px] font-bold tracking-widest uppercase transition-colors shadow-lg shadow-gray-200 mt-2">
+                                        <button className="w-full py-2.5 mt-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-white text-[10px] font-extrabold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
                                             View Details
                                         </button>
                                     </div>
