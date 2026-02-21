@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Search, SlidersHorizontal, ChevronDown, Flame, Clock, Check, X, MapPin, BadgeCheck } from 'lucide-react';
-// ... existing imports
-
-// ... inside the component loop ...
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Mock Data
@@ -24,7 +20,7 @@ const MOCK_INVESTMENTS = [
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
-        image: '/assets/publicm/villa.jpeg',
+        image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop',
         badge: 'COMING SOON',
         launchDate: 'Coming soon',
         propertyType: 'Residential',
@@ -53,7 +49,7 @@ const MOCK_INVESTMENTS = [
         availableTokens: 500000,
         totalTokens: 2000000,
         status: 'open',
-        image: '/assets/publicm/vilaa2.jpeg',
+        image: 'https://images.unsplash.com/photo-1613490493576-7fde6aacd81a?w=800&h=600&fit=crop',
         badge: 'OPEN',
         launchDate: 'Live Now',
         progress: 75,
@@ -83,7 +79,7 @@ const MOCK_INVESTMENTS = [
         availableTokens: 0,
         totalTokens: 1000000,
         status: 'sold-out',
-        image: '/assets/publicm/penthouse.jpeg',
+        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?w=800&h=600&fit=crop',
         badge: 'SOLD OUT',
         launchDate: 'Sold Out',
         progress: 100,
@@ -116,7 +112,7 @@ const MOCK_LAND_ITEMS = [
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
-        image: '/assets/publicm/plot.jpeg',
+        image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop',
         badge: 'NEW',
         launchDate: 'Coming soon',
         propertyType: 'Land',
