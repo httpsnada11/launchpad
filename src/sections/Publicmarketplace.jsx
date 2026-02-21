@@ -2872,7 +2872,7 @@ export default function Publicmarketplace() {
                                         <div className="bg-white/90 backdrop-blur-md px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase tracking-widest text-[#0F172A] shadow-lg">
                                             {item.category}
                                         </div>
-                                        <img src="/assets/publicm/verify.png" alt="Verified" className="h-[36px] w-auto object-contain drop-shadow-lg" />
+                                        <img src="/assets/publicm/veri.png" alt="Verified" className="h-[36px] w-auto object-contain drop-shadow-lg" />
                                     </div>
 
                                     <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5">
