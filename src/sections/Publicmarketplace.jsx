@@ -863,19 +863,15 @@ const FilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, onApply 
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-blue-50 text-blue-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`re-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1171,19 +1167,15 @@ const CommoditiesFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-blue-50 text-blue-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`comm-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1426,19 +1418,15 @@ const ArtsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, onAp
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {ARTS_INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-blue-50 text-blue-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`arts-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1449,19 +1437,15 @@ const ArtsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, onAp
                         {/* Authentication */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Authentication</label>
-                            <div className="grid grid-cols-1 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {AUTHENTICATION_OPTIONS.map(auth => (
-                                    <button
+                                    <Checkbox
                                         key={auth}
-                                        onClick={() => toggleAuthentication(auth)}
-                                        className={`px-4 py-3 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedAuthentications || []).includes(auth)
-                                            ? 'bg-green-50 text-green-700 font-semibold border-2 border-green-200'
-                                            : 'text-gray-600 hover:bg-gray-50 border-2 border-transparent'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-2">{auth}</span>
-                                        {(localFilters.selectedAuthentications || []).includes(auth) && <Check size={16} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`arts-auth-${auth}`}
+                                        label={auth}
+                                        checked={(localFilters.selectedAuthentications || []).includes(auth)}
+                                        onChange={() => toggleAuthentication(auth)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1652,19 +1636,15 @@ const SportsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, on
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {SPORTS_INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-blue-50 text-blue-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`sports-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1675,19 +1655,15 @@ const SportsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilters, on
                         {/* Revenue Model */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Revenue Model</label>
-                            <div className="grid grid-cols-1 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {SPORTS_REVENUE_MODELS.map(model => (
-                                    <button
+                                    <Checkbox
                                         key={model}
-                                        onClick={() => toggleRevenueModel(model)}
-                                        className={`px-4 py-3 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedRevenueModels || []).includes(model)
-                                            ? 'bg-orange-50 text-orange-700 font-semibold border-2 border-orange-200'
-                                            : 'text-gray-600 hover:bg-gray-50 border-2 border-transparent'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-2">{model}</span>
-                                        {(localFilters.selectedRevenueModels || []).includes(model) && <Check size={16} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`sports-rev-${model}`}
+                                        label={model}
+                                        checked={(localFilters.selectedRevenueModels || []).includes(model)}
+                                        onChange={() => toggleRevenueModel(model)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1856,19 +1832,15 @@ const CarbonCreditsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilt
                         {/* Standard */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Standard</label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {CARBON_STANDARDS.map(standard => (
-                                    <button
+                                    <Checkbox
                                         key={standard}
-                                        onClick={() => updateFilter('selectedStandard', standard)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedStandard === standard
-                                            ? 'bg-green-50 text-green-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{standard}</span>
-                                        {localFilters.selectedStandard === standard && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`carbon-std-${standard}`}
+                                        label={standard}
+                                        checked={localFilters.selectedStandard === standard}
+                                        onChange={() => updateFilter('selectedStandard', standard)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1878,19 +1850,15 @@ const CarbonCreditsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilt
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {CARBON_INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-blue-50 text-blue-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`carbon-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -1901,19 +1869,15 @@ const CarbonCreditsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilt
                         {/* Credit Type */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Credit Type</label>
-                            <div className="grid grid-cols-1 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {CARBON_CREDIT_TYPES.map(type => (
-                                    <button
+                                    <Checkbox
                                         key={type}
-                                        onClick={() => toggleCreditType(type)}
-                                        className={`px-4 py-3 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedCreditTypes || []).includes(type)
-                                            ? 'bg-emerald-50 text-emerald-700 font-semibold border-2 border-emerald-200'
-                                            : 'text-gray-600 hover:bg-gray-50 border-2 border-transparent'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-2">{type}</span>
-                                        {(localFilters.selectedCreditTypes || []).includes(type) && <Check size={16} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`carbon-credit-${type}`}
+                                        label={type}
+                                        checked={(localFilters.selectedCreditTypes || []).includes(type)}
+                                        onChange={() => toggleCreditType(type)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -2086,19 +2050,15 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                             <label className="block text-sm font-bold text-gray-700 mb-3">
                                 Investment Strategy
                             </label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {LUXURY_INVESTMENT_STRATEGIES.map(strategy => (
-                                    <button
+                                    <Checkbox
                                         key={strategy}
-                                        onClick={() => toggleInvestmentStrategy(strategy)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${(localFilters.selectedInvestmentStrategies || []).includes(strategy)
-                                            ? 'bg-purple-50 text-purple-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{strategy}</span>
-                                        {(localFilters.selectedInvestmentStrategies || []).includes(strategy) && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`lux-inv-${strategy}`}
+                                        label={strategy}
+                                        checked={(localFilters.selectedInvestmentStrategies || []).includes(strategy)}
+                                        onChange={() => toggleInvestmentStrategy(strategy)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -2109,19 +2069,15 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                         {/* Usage Model */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Usage Model</label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {LUXURY_USAGE_MODELS.map(model => (
-                                    <button
+                                    <Checkbox
                                         key={model}
-                                        onClick={() => updateFilter('selectedUsageModel', model === localFilters.selectedUsageModel ? '' : model)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedUsageModel === model
-                                            ? 'bg-purple-50 text-purple-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{model}</span>
-                                        {localFilters.selectedUsageModel === model && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`lux-usage-${model}`}
+                                        label={model}
+                                        checked={localFilters.selectedUsageModel === model}
+                                        onChange={() => updateFilter('selectedUsageModel', model === localFilters.selectedUsageModel ? '' : model)}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -2145,19 +2101,15 @@ const LuxuryGoodsFilterPanel = ({ isOpen, onClose, activeTab, filters, setFilter
                         {/* Rarity Levels */}
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-3">Rarity</label>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="flex flex-col gap-2">
                                 {LUXURY_RARITY_LEVELS.map(rarity => (
-                                    <button
+                                    <Checkbox
                                         key={rarity}
-                                        onClick={() => updateFilter('selectedRarity', rarity)}
-                                        className={`px-3 py-2 rounded-lg text-sm text-left transition-colors flex items-center justify-between group ${localFilters.selectedRarity === rarity
-                                            ? 'bg-purple-50 text-purple-700 font-semibold'
-                                            : 'text-gray-600 hover:bg-gray-50'
-                                            }`}
-                                    >
-                                        <span className="truncate mr-1">{rarity}</span>
-                                        {localFilters.selectedRarity === rarity && <Check size={14} className="flex-shrink-0" />}
-                                    </button>
+                                        id={`lux-rarity-${rarity}`}
+                                        label={rarity}
+                                        checked={localFilters.selectedRarity === rarity}
+                                        onChange={() => updateFilter('selectedRarity', rarity)}
+                                    />
                                 ))}
                             </div>
                         </div>
