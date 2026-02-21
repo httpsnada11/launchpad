@@ -230,40 +230,6 @@ const MOCK_ARTS = [
         tokenPercentage: 85
     },
     {
-        id: 202,
-        title: 'Contemporary Sculpture Series',
-        tokenSymbol: 'CONT-SCULPT',
-        category: 'ARTS',
-        artType: 'Sculptures',
-        artistName: 'Anish Kapoor',
-        artistTier: 'Established',
-        yearCreated: 2020,
-        esgScore: 'A',
-        roi: '15%',
-        cagr: '18.00%',
-        issuerName: 'Sotheby\'s Digital',
-        issuerLogo: 'https://ui-avatars.com/api/?name=Sothebys&background=DC2626&color=fff',
-        assetPrice: '$1.8M',
-        tokenPriceETH: '0.3 ETH',
-        tokenPriceUSD: '$900 USD',
-        availableTokens: 120000,
-        totalTokens: 400000,
-        status: 'open',
-        image: 'https://images.unsplash.com/photo-1554188248-986adbb73be0?w=800&h=600&fit=crop',
-        badge: 'OPEN',
-        launchDate: 'Live Now',
-        progress: 70,
-        investmentStrategy: 'Capital Growth',
-        authentication: ['Authenticated', 'Auction Proven'],
-        provenance: 'Gallery Exhibition 2021',
-        exhibitionHistory: 'Tate Modern 2022',
-        country: 'UK',
-        region: 'Europe',
-        location: 'London',
-        priceVal: 90000,
-        tokenPercentage: 70
-    },
-    {
         id: 203,
         title: 'NFT Digital Art Masterpiece',
         tokenSymbol: 'NFT-DIGI',
@@ -478,40 +444,6 @@ const MOCK_CARBON_CREDITS = [
         location: 'Rajasthan',
         priceVal: 150000,
         tokenPercentage: 60
-    },
-    {
-        id: 403,
-        title: 'Methane Capture Landfill',
-        tokenSymbol: 'METH-CAP',
-        category: 'CARBON_CREDITS',
-        projectType: 'Methane Capture',
-        standard: 'Gold Standard',
-        creditType: 'Avoidance',
-        esgScore: 'A',
-        roi: '18%',
-        cagr: '22.00%',
-        issuerName: 'Waste Management Corp',
-        issuerLogo: 'https://ui-avatars.com/api/?name=Waste+Management&background=1E40AF&color=fff',
-        assetPrice: '$8M',
-        tokenPriceETH: '1.5 ETH',
-        tokenPriceUSD: '$4,500 USD',
-        availableTokens: 0,
-        totalTokens: 300000,
-        status: 'sold-out',
-        image: 'https://images.unsplash.com/photo-1532996122724-e3c351a81f80?w=800&h=600&fit=crop',
-        badge: 'SOLD OUT',
-        launchDate: 'Sold Out',
-        progress: 100,
-        investmentStrategy: 'Capital Appreciation',
-        co2Volume: '75,000 tonnes/year',
-        sdgAlignment: 'SDG 11, 13',
-        projectLocation: 'USA',
-        permanencePeriod: '30 years',
-        country: 'USA',
-        region: 'North America',
-        location: 'California',
-        priceVal: 450000,
-        tokenPercentage: 100
     }
 ];
 
@@ -2620,7 +2552,7 @@ export default function Publicmarketplace() {
                                                     setSortBy(option.value);
                                                     setIsSortOpen(false);
                                                 }}
-                                                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${sortBy === option.value ? 'font-bold text-blue-600' : 'text-gray-700'
+                                                className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${sortBy === option.value ? 'font-bold text-[#0F172A]' : 'text-gray-700'
                                                     }`}
                                             >
                                                 {option.label}

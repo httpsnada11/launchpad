@@ -54,11 +54,11 @@ html.lenis body {
 }
 
 .check:hover svg {
-  stroke: #4285f4;
+  stroke: #0F172A;
 }
 
 input[type="checkbox"]:checked+.check svg {
-  stroke: #4285f4;
+  stroke: #0F172A;
 }
 
 input[type="checkbox"]:checked+.check svg path {
