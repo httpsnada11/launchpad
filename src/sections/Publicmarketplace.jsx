@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, SlidersHorizontal, ChevronDown, Flame, Clock, Check, X, MapPin, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Checkbox from '../components/Checkbox';
@@ -2679,12 +2680,12 @@ export default function Publicmarketplace() {
                                         <h3 className="text-lg font-bold leading-tight mb-0.5 font-palanquin">{item.title}</h3>
                                         <p className="text-xs text-gray-300 font-medium mb-3">{item.tokenSymbol}</p>
 
-                                        <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-wide text-gray-400">
+                                        <Link to={`/property/${item.id}`} className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-wide text-gray-400 hover:text-white transition-colors">
                                             <span>DETAILS</span>
                                             <svg className="w-3 h-3 animate-bounce-x" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                             </svg>
-                                        </div>
+                                        </Link>
                                     </div>
                                 </div>
 
@@ -2824,9 +2825,9 @@ export default function Publicmarketplace() {
                                             )}
                                         </div>
 
-                                        <button className="w-full py-2.5 mt-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-white text-[10px] font-extrabold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5">
+                                        <Link to={`/property/${item.id}`} className="block w-full py-2.5 mt-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-white text-[10px] font-extrabold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5 text-center">
                                             View Details
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

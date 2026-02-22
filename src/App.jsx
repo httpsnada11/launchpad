@@ -5,6 +5,7 @@ import Publicmarketplace from './sections/Publicmarketplace';
 import Footer from './sections/Footer';
 import TermsOfService from './sections/TermsOfService';
 import Navbar from './sections/Navbar';
+import PropertyDetailPage from './pages/PropertyDetailPage';
 
 const AboutPage = () => (
   <div className="min-h-screen bg-white">
@@ -47,6 +48,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<><Publicmarketplace /><Footer /></>} />
           <Route path="/marketplace" element={<><Publicmarketplace /><Footer /></>} />
+          <Route path="/property/:id" element={<><PropertyDetailPage /><Footer /></>} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/about" element={<><AboutPage /><Footer /></>} />
           <Route path="/how-it-works" element={<><HowItWorksPage /><Footer /></>} />
