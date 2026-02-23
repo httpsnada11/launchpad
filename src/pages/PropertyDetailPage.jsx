@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-    MapPin, BadgeCheck, Clock, Calendar, DollarSign, TrendingUp,
-    Home, Building, Ruler, Bed, Bath, Car, Percent,
-    ChevronLeft, Share2, Heart, ExternalLink,
-    CheckCircle2, BarChart3, PieChart, Layers,
-    Navigation, Globe, Award, Maximize2, X, ChevronRight, ChevronDown, Search
+    MapPin, DollarSign, TrendingUp,
+    Home, Building, Ruler, Bed, Bath,
+    ChevronLeft, Share2, Heart, ChevronRight,
+    PieChart,
+    Navigation, Globe, Award, Info,
+    FileText, Calendar, Shield
 } from 'lucide-react';
-import Checkbox from '../components/Checkbox';
 import InvestmentCalculator from '../components/InvestmentCalculator';
 import HowItWorks from '../components/HowItWorks';
 import InvestmentCard from '../components/InvestmentCard';
+import PropertyDetailsModal from '../components/PropertyDetailsModal';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -355,60 +356,28 @@ const PROPERTY_DETAILS = {
     }
 };
 
-// Image Gallery Modal
-const ImageGalleryModal = ({ images, currentIndex, onClose, onNext, onPrev }) => {
+// Info Card Component
+const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
+    const colorClasses = {
+        blue: 'bg-blue-50 text-blue-600',
+        green: 'bg-green-50 text-green-600',
+        purple: 'bg-purple-50 text-purple-600',
+        orange: 'bg-orange-50 text-orange-600'
+    };
+    
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
-            onClick={onClose}
-        >
-            <button onClick={onClose} className="absolute top-6 right-6 text-white hover:text-gray-300 z-50">
-                <X size={32} />
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); onPrev(); }} className="absolute left-6 text-white hover:text-gray-300 z-50">
-                <ChevronLeft size={40} />
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); onNext(); }} className="absolute right-6 text-white hover:text-gray-300 z-50">
-                <ChevronRight size={40} />
-            </button>
-            <div className="max-w-6xl max-h-screen p-4" onClick={(e) => e.stopPropagation()}>
-                <img
-                    src={images[currentIndex]}
-                    alt={`Property image ${currentIndex + 1}`}
-                    className="max-w-full max-h-[85vh] object-contain rounded-lg"
-                />
-                <div className="text-white text-center mt-4">
-                    {currentIndex + 1} / {images.length}
-                </div>
+        <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-gray-100">
+            <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
+                <Icon size={20} />
             </div>
-        </motion.div>
+            <div>
+                <p className="text-xs text-gray-500 font-semibold uppercase">{label}</p>
+                <p className="font-bold text-gray-900">{value}</p>
+                {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
+            </div>
+        </div>
     );
 };
-
-// Info Card Component
-const InfoCard = ({ icon: Icon, label, value, subtext }) => (
-    <div className="bg-gray-50 rounded-xl p-4 flex items-start gap-3">
-        <div className="bg-white p-2 rounded-lg shadow-sm">
-            <Icon size={20} className="text-[#0F172A]" />
-        </div>
-        <div>
-            <p className="text-sm text-gray-500">{label}</p>
-            <p className="font-bold text-gray-900">{value}</p>
-            {subtext && <p className="text-xs text-gray-400 mt-1">{subtext}</p>}
-        </div>
-    </div>
-);
-
-// Feature Badge Component
-const FeatureBadge = ({ feature }) => (
-    <div className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-2 rounded-lg text-sm font-medium">
-        <CheckCircle2 size={16} />
-        {feature}
-    </div>
-);
 
 // Timeline Item Component
 const TimelineItem = ({ item, isLast }) => (
@@ -436,6 +405,7 @@ export default function PropertyDetailPage() {
     const [showGallery, setShowGallery] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isWishlisted, setIsWishlisted] = useState(false);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     useEffect(() => {
         const propertyId = parseInt(id);
@@ -477,20 +447,16 @@ export default function PropertyDetailPage() {
     }
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Image Gallery Modal */}
-            {showGallery && (
-                <ImageGalleryModal
-                    images={property.images}
-                    currentIndex={currentImageIndex}
-                    onClose={() => setShowGallery(false)}
-                    onNext={() => setCurrentImageIndex((prev) => (prev + 1) % property.images.length)}
-                    onPrev={() => setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)}
-                />
-            )}
+        <div className="min-h-screen bg-gray-50">
+            {/* Property Details Modal */}
+            <PropertyDetailsModal
+                property={property}
+                isOpen={showDetailsModal}
+                onClose={() => setShowDetailsModal(false)}
+            />
 
             {/* Hero Section */}
-            <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+            <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">
                 <img
                     src={property.images[0]}
                     alt={property.title}
@@ -504,7 +470,7 @@ export default function PropertyDetailPage() {
                     className="absolute top-6 left-6 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full font-semibold hover:bg-white transition-colors"
                 >
                     <ChevronLeft size={20} />
-                    Back to Marketplace
+                    Back
                 </Link>
 
                 {/* Action Buttons */}
@@ -526,7 +492,7 @@ export default function PropertyDetailPage() {
 
                 {/* Badge */}
                 <div className="absolute top-20 left-6">
-                    <span className={`px-4 py-2 rounded-full text-sm font-bold ${property.badge === 'OPEN'
+                    <span className={`px-4 py-2 rounded-full text-sm font-bold shadow-lg ${property.badge === 'OPEN'
                             ? 'bg-green-500 text-white'
                             : property.badge === 'SOLD OUT'
                                 ? 'bg-red-500 text-white'
@@ -541,37 +507,11 @@ export default function PropertyDetailPage() {
                     <div className="max-w-7xl mx-auto">
                         <div className="flex items-center gap-2 text-white/90 mb-2">
                             <MapPin size={16} />
-                            <span className="text-sm">{property.fullAddress}</span>
+                            <span className="text-sm">{property.location}, {property.city}</span>
                         </div>
                         <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                             {property.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-4 text-white/90">
-                            <span className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm">
-                                <Home size={16} />
-                                {property.propertyType}
-                            </span>
-                            <span className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm">
-                                <Building size={16} />
-                                {property.investmentStrategy}
-                            </span>
-                            {property.beds > 0 && (
-                                <span className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm">
-                                    <Bed size={16} />
-                                    {property.beds} Beds
-                                </span>
-                            )}
-                            {property.baths > 0 && (
-                                <span className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm">
-                                    <Bath size={16} />
-                                    {property.baths} Baths
-                                </span>
-                            )}
-                            <span className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm">
-                                <Ruler size={16} />
-                                {property.area}
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -585,195 +525,171 @@ export default function PropertyDetailPage() {
                         label="Token Price"
                         value={property.tokenPriceUSD}
                         subtext={property.tokenPriceETH}
+                        color="green"
                     />
                     <InfoCard
                         icon={TrendingUp}
                         label="Expected ROI"
                         value={property.roi}
                         subtext={`CAGR: ${property.cagr}`}
+                        color="blue"
                     />
                     <InfoCard
                         icon={PieChart}
                         label="Tokens Available"
                         value={property.availableTokens.toLocaleString()}
                         subtext={`of ${property.totalTokens.toLocaleString()}`}
+                        color="purple"
                     />
                     <InfoCard
                         icon={Award}
                         label="ESG Score"
                         value={property.esgScore}
                         subtext="Sustainability Rating"
+                        color="orange"
                     />
                 </div>
 
-                {/* Main Content - Single Page Layout */}
+                {/* Main Content - Investment Focus Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Content Area */}
-                    <div className="lg:col-span-2 space-y-8">
-                        {/* Description */}
-                        <div>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-4">About This Property</h2>
-                            <p className="text-gray-600 leading-relaxed">{property.description}</p>
-                        </div>
-
-                        {/* Features */}
-                        <div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Features & Amenities</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {property.features.map((feature, idx) => (
-                                    <FeatureBadge key={idx} feature={feature} />
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Image Gallery */}
-                        <div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Gallery</h3>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                {property.images.map((image, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => openGallery(idx)}
-                                        className="relative aspect-square rounded-xl overflow-hidden group"
-                                    >
-                                        <img
-                                            src={image}
-                                            alt={`Property ${idx + 1}`}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                                        />
-                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
-                                        {idx === 0 && (
-                                            <div className="absolute bottom-2 right-2 bg-white/90 px-2 py-1 rounded text-xs font-semibold">
-                                                Main
-                                            </div>
-                                        )}
-                                    </button>
-                                ))}
-                            </div>
-                            <button
-                                onClick={() => openGallery(0)}
-                                className="mt-4 flex items-center gap-2 text-[#0F172A] font-semibold hover:underline"
-                            >
-                                <Maximize2 size={18} />
-                                View All Images ({property.images.length})
-                            </button>
-                        </div>
-
-                        {/* Floor Plans */}
-                        {property.floorPlans && property.floorPlans.length > 0 && (
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-4">Floor Plans</h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {property.floorPlans.map((plan, idx) => (
-                                        <div key={idx} className="bg-gray-50 rounded-xl p-4">
-                                            <div className="aspect-video bg-white rounded-lg mb-3 flex items-center justify-center">
-                                                <img
-                                                    src={plan.image}
-                                                    alt={plan.name}
-                                                    className="max-h-full max-w-full object-contain"
-                                                />
-                                            </div>
-                                            <p className="font-semibold text-gray-900">{plan.name}</p>
-                                        </div>
-                                    ))}
+                    {/* Main Content Area - Investment Opportunities */}
+                    <div className="lg:col-span-2 space-y-6">
+                        {/* Investment Opportunity Header */}
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h2 className="text-xl font-bold text-gray-900 mb-2">Investment Opportunity</h2>
+                            <p className="text-gray-600 text-sm">{property.description}</p>
+                            
+                            {/* Key Investment Metrics */}
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                                <div className="text-center p-4 bg-green-50 rounded-xl">
+                                    <p className="text-xs text-gray-500 font-semibold uppercase">Asset Price</p>
+                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.assetPrice}</p>
+                                </div>
+                                <div className="text-center p-4 bg-blue-50 rounded-xl">
+                                    <p className="text-xs text-gray-500 font-semibold uppercase">Property Type</p>
+                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.propertyType}</p>
+                                </div>
+                                <div className="text-center p-4 bg-purple-50 rounded-xl">
+                                    <p className="text-xs text-gray-500 font-semibold uppercase">Strategy</p>
+                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.investmentStrategy}</p>
+                                </div>
+                                <div className="text-center p-4 bg-orange-50 rounded-xl">
+                                    <p className="text-xs text-gray-500 font-semibold uppercase">Status</p>
+                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.completionStatus}</p>
                                 </div>
                             </div>
-                        )}
+                        </div>
 
                         {/* Investment Timeline */}
-                        <div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Investment Timeline</h3>
-                            <div className="bg-gray-50 rounded-xl p-6">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <Calendar size={20} className="text-blue-600" />
+                                Investment Timeline
+                            </h3>
+                            <div className="pl-2">
                                 {property.timeline.map((item, idx) => (
                                     <TimelineItem key={idx} item={item} isLast={idx === property.timeline.length - 1} />
                                 ))}
                             </div>
                         </div>
 
-                        {/* Investment Calculator */}
-                        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                        {/* Investment Calculator with Single Chart */}
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <InvestmentCalculator property={property} />
                         </div>
 
-                        {/* Location Details Section */}
-                        <div className="mt-12">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Location Details</h2>
+                        {/* About This Property - ACTION BUTTON */}
+                        <div className="bg-gradient-to-br from-[#0F172A] to-slate-800 rounded-2xl p-6 shadow-lg text-white">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-3 bg-white/10 rounded-xl">
+                                        <Info size={24} className="text-yellow-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold">Property Details</h3>
+                                        <p className="text-gray-300 text-sm">Features, Gallery, Floor Plans & More</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div className="bg-white/5 rounded-lg p-3 text-center">
+                                    <Home size={20} className="mx-auto mb-1 text-gray-400" />
+                                    <p className="text-xs text-gray-400">Type</p>
+                                    <p className="font-semibold text-sm">{property.propertyType}</p>
+                                </div>
+                                {property.beds > 0 && (
+                                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                                        <Bed size={20} className="mx-auto mb-1 text-gray-400" />
+                                        <p className="text-xs text-gray-400">Beds</p>
+                                        <p className="font-semibold text-sm">{property.beds}</p>
+                                    </div>
+                                )}
+                                {property.baths > 0 && (
+                                    <div className="bg-white/5 rounded-lg p-3 text-center">
+                                        <Bath size={20} className="mx-auto mb-1 text-gray-400" />
+                                        <p className="text-xs text-gray-400">Baths</p>
+                                        <p className="font-semibold text-sm">{property.baths}</p>
+                                    </div>
+                                )}
+                                <div className="bg-white/5 rounded-lg p-3 text-center">
+                                    <Ruler size={20} className="mx-auto mb-1 text-gray-400" />
+                                    <p className="text-xs text-gray-400">Area</p>
+                                    <p className="font-semibold text-sm">{property.area}</p>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setShowDetailsModal(true)}
+                                className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"
+                            >
+                                <FileText size={20} />
+                                About This Property
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
+
+                        {/* Location Details */}
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <MapPin size={20} className="text-red-600" />
+                                Location
+                            </h2>
                             
                             {/* Map Placeholder */}
-                            <div className="bg-gray-100 rounded-2xl h-64 md:h-80 flex items-center justify-center mb-6 relative overflow-hidden">
-                                <div className="text-center text-gray-500 z-10">
-                                    <img
-                                        src="/assets/images/avif/mapicon.png"
-                                        alt="Map Location"
-                                        className="w-16 h-16 mx-auto mb-2 object-contain"
-                                    />
-                                    <p className="font-semibold">Interactive Map</p>
-                                    <p className="text-sm">Integration with Google Maps / Mapbox</p>
-                                </div>
-                                {/* Decorative Map Background */}
-                                <div className="absolute inset-0 opacity-10 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=0,0&zoom=1&size=800x400&sensor=false&key=YOUR_API_KEY')] bg-cover bg-center" />
-                            </div>
-
-                            {/* Location Highlights */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                                <div className="bg-gray-50 rounded-xl p-4">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <Globe size={20} className="text-blue-600" />
-                                        <h4 className="font-semibold text-gray-900">Country</h4>
-                                    </div>
-                                    <p className="text-gray-600">{property.country}</p>
-                                </div>
-                                <div className="bg-gray-50 rounded-xl p-4">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <MapPin size={20} className="text-green-600" />
-                                        <h4 className="font-semibold text-gray-900">City</h4>
-                                    </div>
-                                    <p className="text-gray-600">{property.city}</p>
-                                </div>
-                                <div className="bg-gray-50 rounded-xl p-4">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <Navigation size={20} className="text-purple-600" />
-                                        <h4 className="font-semibold text-gray-900">District</h4>
-                                    </div>
-                                    <p className="text-gray-600">{property.location}</p>
-                                </div>
-                                <div className="bg-gray-50 rounded-xl p-4">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <Ruler size={20} className="text-orange-600" />
-                                        <h4 className="font-semibold text-gray-900">Coordinates</h4>
-                                    </div>
-                                    <p className="text-gray-600">
-                                        {property.coordinates.lat}, {property.coordinates.lng}
-                                    </p>
+                            <div className="bg-gray-100 rounded-xl h-48 flex items-center justify-center mb-4">
+                                <div className="text-center text-gray-500">
+                                    <Navigation size={32} className="mx-auto mb-2" />
+                                    <p className="text-sm">Map Integration</p>
                                 </div>
                             </div>
 
-                            {/* Nearby Amenities */}
-                            <div className="bg-gradient-to-br from-slate-50 to-white rounded-2xl p-6 border border-gray-100">
-                                <h4 className="font-bold text-gray-900 mb-4">Nearby Amenities</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                    <div className="bg-white rounded-xl p-4 border border-gray-100">
-                                        <p className="text-sm text-gray-500 mb-1">Schools</p>
-                                        <p className="text-lg font-bold text-gray-900">0.5 km</p>
-                                    </div>
-                                    <div className="bg-white rounded-xl p-4 border border-gray-100">
-                                        <p className="text-sm text-gray-500 mb-1">Hospitals</p>
-                                        <p className="text-lg font-bold text-gray-900">1.2 km</p>
-                                    </div>
-                                    <div className="bg-white rounded-xl p-4 border border-gray-100">
-                                        <p className="text-sm text-gray-500 mb-1">Shopping Malls</p>
-                                        <p className="text-lg font-bold text-gray-900">0.8 km</p>
-                                    </div>
-                                    <div className="bg-white rounded-xl p-4 border border-gray-100">
-                                        <p className="text-sm text-gray-500 mb-1">Public Transport</p>
-                                        <p className="text-lg font-bold text-gray-900">0.3 km</p>
-                                    </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                    <Globe size={18} className="mx-auto mb-1 text-blue-600" />
+                                    <p className="text-xs text-gray-500">Country</p>
+                                    <p className="font-semibold text-sm">{property.country}</p>
+                                </div>
+                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                    <MapPin size={18} className="mx-auto mb-1 text-green-600" />
+                                    <p className="text-xs text-gray-500">City</p>
+                                    <p className="font-semibold text-sm">{property.city}</p>
+                                </div>
+                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                    <Navigation size={18} className="mx-auto mb-1 text-purple-600" />
+                                    <p className="text-xs text-gray-500">District</p>
+                                    <p className="font-semibold text-sm">{property.location}</p>
+                                </div>
+                                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                                    <Shield size={18} className="mx-auto mb-1 text-orange-600" />
+                                    <p className="text-xs text-gray-500">Coordinates</p>
+                                    <p className="font-semibold text-xs">{property.coordinates.lat}, {property.coordinates.lng}</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* How It Works */}
-                        <div className="mt-12">
+                        <div className="mt-6">
                             <HowItWorks />
                         </div>
                     </div>
@@ -784,7 +700,7 @@ export default function PropertyDetailPage() {
 
                         {/* Similar Properties */}
                         <div className="mt-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4">Similar Properties</h3>
+                            <h3 className="text-lg font-bold text-gray-900 mb-4">Similar Opportunities</h3>
                             <div className="space-y-4">
                                 {property.similarProperties.map((similarId) => {
                                     const similarProp = PROPERTY_DETAILS[similarId];
@@ -793,7 +709,7 @@ export default function PropertyDetailPage() {
                                         <Link
                                             key={similarId}
                                             to={`/property/${similarId}`}
-                                            className="block bg-gray-50 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+                                            className="block bg-white rounded-xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100"
                                         >
                                             <img
                                                 src={similarProp.images[0]}
@@ -801,9 +717,9 @@ export default function PropertyDetailPage() {
                                                 className="w-full h-32 object-cover"
                                             />
                                             <div className="p-3">
-                                                <p className="font-semibold text-gray-900 truncate">{similarProp.title}</p>
+                                                <p className="font-semibold text-gray-900 truncate text-sm">{similarProp.title}</p>
                                                 <div className="flex items-center justify-between mt-2">
-                                                    <span className="text-sm text-gray-500">{similarProp.propertyType}</span>
+                                                    <span className="text-xs text-gray-500">{similarProp.propertyType}</span>
                                                     <span className="text-sm font-bold text-gray-900">{similarProp.tokenPriceUSD}</span>
                                                 </div>
                                             </div>
