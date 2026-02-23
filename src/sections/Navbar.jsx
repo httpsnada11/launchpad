@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
     return (
         <nav className="fixed top-0 left-0 w-full z-50 bg-black py-4 px-8 border-b border-white/10">
-            <div className="max-w-7xl mx-auto flex justify-center items-center">
+            <div className="max-w-7xl mx-auto flex justify-start items-center">
                 <Link to="/" className="cursor-pointer">
                     <img
                         loading="lazy"
