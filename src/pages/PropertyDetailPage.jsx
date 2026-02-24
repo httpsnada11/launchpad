@@ -13,6 +13,7 @@ import InvestmentCalculator from '../components/InvestmentCalculator';
 import HowItWorks from '../components/HowItWorks';
 import InvestmentCard from '../components/InvestmentCard';
 import PropertyDetailsModal from '../components/PropertyDetailsModal';
+import ContactExpert from '../components/ContactExpert';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -364,7 +365,7 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
         purple: 'bg-purple-50 text-purple-600',
         orange: 'bg-orange-50 text-orange-600'
     };
-    
+
     return (
         <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-gray-100">
             <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
@@ -384,10 +385,10 @@ const TimelineItem = ({ item, isLast }) => (
     <div className="flex gap-4">
         <div className="flex flex-col items-center">
             <div className={`w-3 h-3 rounded-full ${item.status === 'completed'
-                    ? 'bg-green-500'
-                    : item.status === 'current'
-                        ? 'bg-blue-500 ring-4 ring-blue-100'
-                        : 'bg-gray-300'
+                ? 'bg-green-500'
+                : item.status === 'current'
+                    ? 'bg-blue-500 ring-4 ring-blue-100'
+                    : 'bg-gray-300'
                 }`} />
             {!isLast && <div className={`w-0.5 flex-1 my-2 ${item.status === 'completed' ? 'bg-green-500' : 'bg-gray-200'}`} />}
         </div>
@@ -493,10 +494,10 @@ export default function PropertyDetailPage() {
                 {/* Badge */}
                 <div className="absolute top-20 left-6">
                     <span className={`px-4 py-2 rounded-full text-sm font-bold shadow-lg ${property.badge === 'OPEN'
-                            ? 'bg-green-500 text-white'
-                            : property.badge === 'SOLD OUT'
-                                ? 'bg-red-500 text-white'
-                                : 'bg-blue-500 text-white'
+                        ? 'bg-green-500 text-white'
+                        : property.badge === 'SOLD OUT'
+                            ? 'bg-red-500 text-white'
+                            : 'bg-blue-500 text-white'
                         }`}>
                         {property.badge}
                     </span>
@@ -554,11 +555,10 @@ export default function PropertyDetailPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content Area - Investment Opportunities */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Investment Opportunity Header */}
+                        {/* Property Description */}
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <h2 className="text-xl font-bold text-gray-900 mb-2">Investment Opportunity</h2>
                             <p className="text-gray-600 text-sm">{property.description}</p>
-                            
+
                             {/* Key Investment Metrics */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                                 <div className="text-center p-4 bg-green-50 rounded-xl">
@@ -611,7 +611,7 @@ export default function PropertyDetailPage() {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                                 <div className="bg-white/5 rounded-lg p-3 text-center">
                                     <Home size={20} className="mx-auto mb-1 text-gray-400" />
@@ -655,7 +655,7 @@ export default function PropertyDetailPage() {
                                 <MapPin size={20} className="text-red-600" />
                                 Location
                             </h2>
-                            
+
                             {/* Map Placeholder */}
                             <div className="bg-gray-100 rounded-xl h-48 flex items-center justify-center mb-4">
                                 <div className="text-center text-gray-500">
@@ -692,6 +692,9 @@ export default function PropertyDetailPage() {
                         <div className="mt-6">
                             <HowItWorks />
                         </div>
+
+                        {/* Contact Expert Section */}
+                        <ContactExpert />
                     </div>
 
                     {/* Sidebar - Investment Card */}

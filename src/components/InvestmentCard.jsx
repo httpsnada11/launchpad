@@ -11,7 +11,7 @@ export default function InvestmentCard({ property }) {
     const fundedPercentage = property.tokenPercentage || 0;
     const projectedRentalYield = parseFloat(property.financials?.projectedRentalYield) || 0;
     const annualAppreciation = parseFloat(property.financials?.annualAppreciation) || 0;
-    
+
     // Calculate returns from property data
     const fiveYearReturn = ((Math.pow(1 + (projectedRentalYield + annualAppreciation) / 100, 5) - 1) * 100).toFixed(2);
     const yearlyReturn = (projectedRentalYield + annualAppreciation).toFixed(2);
@@ -106,7 +106,7 @@ export default function InvestmentCard({ property }) {
             {/* Investment Box - Compact */}
             <div className="p-4">
                 <h4 className="text-xs font-bold text-gray-700 mb-2">Investment Amount</h4>
-                
+
                 {/* Input Field */}
                 <div className="relative mb-2">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-semibold text-sm">$</span>
@@ -125,13 +125,12 @@ export default function InvestmentCard({ property }) {
                         <button
                             key={amount}
                             onClick={() => setInvestmentAmount(amount)}
-                            className={`flex-1 py-1.5 rounded text-[10px] font-bold transition-all ${
-                                investmentAmount === amount
+                            className={`flex-1 py-1.5 rounded text-[10px] font-bold transition-all ${investmentAmount === amount
                                     ? 'bg-green-600 text-white'
                                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                            }`}
+                                }`}
                         >
-                            +${amount/1000}K
+                            +${amount / 1000}K
                         </button>
                     ))}
                 </div>
@@ -140,11 +139,10 @@ export default function InvestmentCard({ property }) {
                 <button
                     onClick={handleAddToCart}
                     disabled={isAdded || investmentAmount <= 0}
-                    className={`w-full py-2.5 rounded-lg font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${
-                        isAdded
+                    className={`w-full py-2.5 rounded-lg font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 ${isAdded
                             ? 'bg-green-500 text-white'
                             : 'bg-[#0F172A] hover:bg-[#1E293B] text-white'
-                    } disabled:opacity-50 disabled:cursor-not-allowed`}
+                        } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                     {isAdded ? (
                         <>
