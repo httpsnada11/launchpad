@@ -14,6 +14,7 @@ import HowItWorks from './components/HowItWorks';
 import InvestmentCard from './components/InvestmentCard';
 import PropertyDetailsModal from './components/PropertyDetailsModal';
 import ContactExpert from './components/ContactExpert';
+import PropertyGallery from './components/PropertyGallery';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -418,11 +419,6 @@ export default function PropertyDetailPage() {
         }
     }, [id, navigate]);
 
-    const openGallery = (index) => {
-        setCurrentImageIndex(index);
-        setShowGallery(true);
-    };
-
     const handleShare = () => {
         if (navigator.share) {
             navigator.share({
@@ -456,83 +452,129 @@ export default function PropertyDetailPage() {
                 onClose={() => setShowDetailsModal(false)}
             />
 
-            {/* Hero Section */}
-            <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">
-                <img
-                    src={property.images[0]}
-                    alt={property.title}
-                    className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            {/* Redesigned Hero / Top Section */}
+            <div className="bg-white border-b border-gray-100">
+                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
+                    {/* Breadcrumbs / Back Link & Actions */}
+                    <div className="flex items-center justify-between mb-8">
+                        <Link
+                            to="/marketplace"
+                            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium"
+                        >
+                            <ChevronLeft size={20} />
+                            Back to Marketplace
+                        </Link>
 
-                {/* Back Button */}
-                <Link
-                    to="/marketplace"
-                    className="absolute top-6 left-6 flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full font-semibold hover:bg-white transition-colors"
-                >
-                    <ChevronLeft size={20} />
-                    Back
-                </Link>
-
-                {/* Action Buttons */}
-                <div className="absolute top-6 right-6 flex gap-3">
-                    <button
-                        onClick={() => setIsWishlisted(!isWishlisted)}
-                        className={`p-3 rounded-full backdrop-blur-sm transition-colors ${isWishlisted ? 'bg-red-500 text-white' : 'bg-white/90 text-gray-700 hover:bg-white'
-                            }`}
-                    >
-                        <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
-                    </button>
-                    <button
-                        onClick={handleShare}
-                        className="p-3 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:bg-white transition-colors"
-                    >
-                        <Share2 size={20} />
-                    </button>
-                </div>
-
-                {/* Badge */}
-                <div className="absolute top-20 left-6">
-                    <span className={`px-4 py-2 rounded-full text-sm font-bold shadow-lg ${property.badge === 'OPEN'
-                        ? 'bg-green-500 text-white'
-                        : property.badge === 'SOLD OUT'
-                            ? 'bg-red-500 text-white'
-                            : 'bg-blue-500 text-white'
-                        }`}>
-                        {property.badge}
-                    </span>
-                </div>
-
-                {/* Title Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex items-center gap-2 text-white/90 mb-2">
-                            <MapPin size={16} />
-                            <span className="text-sm">{property.location}, {property.city}</span>
+                        <div className="flex gap-3">
+                            <button
+                                onClick={() => setIsWishlisted(!isWishlisted)}
+                                className={`p-2.5 rounded-xl border transition-all ${isWishlisted
+                                        ? 'bg-red-50 border-red-200 text-red-500'
+                                        : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                    }`}
+                            >
+                                <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
+                            </button>
+                            <button
+                                onClick={handleShare}
+                                className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:bg-gray-50 transition-all"
+                            >
+                                <Share2 size={20} />
+                            </button>
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                            {property.title}
-                        </h1>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        {/* Left Side: Gallery (lg: 7 cols) */}
+                        <div className="lg:col-span-7">
+                            <PropertyGallery
+                                images={property.images}
+                                onOpenFullScreen={(index) => {
+                                    setCurrentImageIndex(index);
+                                    setShowGallery(true);
+                                }}
+                            />
+                        </div>
+
+                        {/* Right Side: Primary Info & Engagement (lg: 5 cols) */}
+                        <div className="lg:col-span-5 flex flex-col h-full">
+                            <div className="mb-6">
+                                <span className={`inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4 ${property.status === 'open'
+                                        ? 'bg-green-100 text-green-700'
+                                        : property.status === 'sold-out'
+                                            ? 'bg-red-100 text-red-700'
+                                            : 'bg-blue-100 text-blue-700'
+                                    }`}>
+                                    {property.badge}
+                                </span>
+
+                                <h1 className="text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
+                                    {property.title}
+                                </h1>
+
+                                <div className="flex items-center gap-2 text-gray-500 mb-6 font-medium">
+                                    <MapPin size={18} className="text-[#15a36e]" />
+                                    <span className="text-base">{property.location}, {property.city}</span>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
+                                        <div className="grid grid-cols-2 gap-6">
+                                            <div>
+                                                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Token Price</p>
+                                                <p className="text-2xl font-black text-[#0F172A]">{property.tokenPriceUSD}</p>
+                                                <p className="text-sm text-gray-400 font-medium">{property.tokenPriceETH}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Target ROI</p>
+                                                <p className="text-2xl font-black text-[#15a36e]">{property.roi}</p>
+                                                <p className="text-sm text-gray-400 font-medium">Est. CAGR: {property.cagr}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-[#0F172A] rounded-2xl p-6 text-white shadow-xl shadow-slate-200">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 bg-white/10 rounded-lg">
+                                                <Info size={20} className="text-yellow-400" />
+                                            </div>
+                                            <h3 className="font-bold text-lg">Asset Summary</h3>
+                                        </div>
+                                        <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+                                            Access complete technical specifications, ESG ratings, amenities list, and historical valuation data for this asset.
+                                        </p>
+                                        <button
+                                            onClick={() => setShowDetailsModal(true)}
+                                            className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-[#0F172A] font-extrabold rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-yellow-400/20"
+                                        >
+                                            <FileText size={20} />
+                                            About This Property
+                                            <ChevronRight size={20} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-6 py-8">
-                {/* Quick Stats */}
+                {/* Secondary Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     <InfoCard
                         icon={DollarSign}
-                        label="Token Price"
-                        value={property.tokenPriceUSD}
-                        subtext={property.tokenPriceETH}
+                        label="Asset Price"
+                        value={property.assetPrice}
+                        subtext="Total Valuation"
                         color="green"
                     />
                     <InfoCard
                         icon={TrendingUp}
-                        label="Expected ROI"
-                        value={property.roi}
-                        subtext={`CAGR: ${property.cagr}`}
+                        label="Strategy"
+                        value={property.investmentStrategy}
+                        subtext="Investment Goal"
                         color="blue"
                     />
                     <InfoCard
@@ -544,45 +586,26 @@ export default function PropertyDetailPage() {
                     />
                     <InfoCard
                         icon={Award}
-                        label="ESG Score"
-                        value={property.esgScore}
-                        subtext="Sustainability Rating"
+                        label="Completion"
+                        value={property.completionStatus}
+                        subtext="Current Phase"
                         color="orange"
                     />
                 </div>
 
-                {/* Main Content - Investment Focus Layout */}
+                {/* Main Content - Grid Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Content Area - Investment Opportunities */}
+                    {/* Main Content Area */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Property Description */}
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <p className="text-gray-600 text-sm">{property.description}</p>
-
-                            {/* Key Investment Metrics */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                                <div className="text-center p-4 bg-green-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 font-semibold uppercase">Asset Price</p>
-                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.assetPrice}</p>
-                                </div>
-                                <div className="text-center p-4 bg-blue-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 font-semibold uppercase">Property Type</p>
-                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.propertyType}</p>
-                                </div>
-                                <div className="text-center p-4 bg-purple-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 font-semibold uppercase">Strategy</p>
-                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.investmentStrategy}</p>
-                                </div>
-                                <div className="text-center p-4 bg-orange-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 font-semibold uppercase">Status</p>
-                                    <p className="text-lg font-bold text-gray-900 mt-1">{property.completionStatus}</p>
-                                </div>
-                            </div>
+                            <h3 className="text-lg font-bold text-gray-900 mb-4">Investment Overview</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
 
                         {/* Investment Timeline */}
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
                                 <Calendar size={20} className="text-blue-600" />
                                 Investment Timeline
                             </h3>
@@ -593,74 +616,23 @@ export default function PropertyDetailPage() {
                             </div>
                         </div>
 
-                        {/* Investment Calculator with Single Chart */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        {/* Investment Calculator */}
+                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                             <InvestmentCalculator property={property} />
-                        </div>
-
-                        {/* About This Property - ACTION BUTTON */}
-                        <div className="bg-gradient-to-br from-[#0F172A] to-slate-800 rounded-2xl p-6 shadow-lg text-white">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="p-3 bg-white/10 rounded-xl">
-                                        <Info size={24} className="text-yellow-400" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold">Property Details</h3>
-                                        <p className="text-gray-300 text-sm">Features, Gallery, Floor Plans & More</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                <div className="bg-white/5 rounded-lg p-3 text-center">
-                                    <Home size={20} className="mx-auto mb-1 text-gray-400" />
-                                    <p className="text-xs text-gray-400">Type</p>
-                                    <p className="font-semibold text-sm">{property.propertyType}</p>
-                                </div>
-                                {property.beds > 0 && (
-                                    <div className="bg-white/5 rounded-lg p-3 text-center">
-                                        <Bed size={20} className="mx-auto mb-1 text-gray-400" />
-                                        <p className="text-xs text-gray-400">Beds</p>
-                                        <p className="font-semibold text-sm">{property.beds}</p>
-                                    </div>
-                                )}
-                                {property.baths > 0 && (
-                                    <div className="bg-white/5 rounded-lg p-3 text-center">
-                                        <Bath size={20} className="mx-auto mb-1 text-gray-400" />
-                                        <p className="text-xs text-gray-400">Baths</p>
-                                        <p className="font-semibold text-sm">{property.baths}</p>
-                                    </div>
-                                )}
-                                <div className="bg-white/5 rounded-lg p-3 text-center">
-                                    <Ruler size={20} className="mx-auto mb-1 text-gray-400" />
-                                    <p className="text-xs text-gray-400">Area</p>
-                                    <p className="font-semibold text-sm">{property.area}</p>
-                                </div>
-                            </div>
-
-                            <button
-                                onClick={() => setShowDetailsModal(true)}
-                                className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg"
-                            >
-                                <FileText size={20} />
-                                About This Property
-                                <ChevronRight size={20} />
-                            </button>
                         </div>
 
                         {/* Location Details */}
                         <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                            <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
                                 <MapPin size={20} className="text-red-600" />
-                                Location
+                                Asset Location
                             </h2>
 
-                            {/* Map Placeholder */}
-                            <div className="bg-gray-100 rounded-xl h-48 flex items-center justify-center mb-4">
-                                <div className="text-center text-gray-500">
-                                    <Navigation size={32} className="mx-auto mb-2" />
-                                    <p className="text-sm">Map Integration</p>
+                            <div className="bg-gray-100 rounded-xl h-48 flex items-center justify-center mb-6 overflow-hidden relative">
+                                <div className="absolute inset-0 bg-[#0F172A]/5 animate-pulse" />
+                                <div className="relative text-center text-gray-400 z-10">
+                                    <Navigation size={32} className="mx-auto mb-2 opacity-50" />
+                                    <p className="text-sm font-medium italic">Interactive Geolocation Integration</p>
                                 </div>
                             </div>
 
@@ -682,14 +654,14 @@ export default function PropertyDetailPage() {
                                 </div>
                                 <div className="text-center p-3 bg-gray-50 rounded-lg">
                                     <Shield size={18} className="mx-auto mb-1 text-orange-600" />
-                                    <p className="text-xs text-gray-500">Coordinates</p>
-                                    <p className="font-semibold text-xs">{property.coordinates.lat}, {property.coordinates.lng}</p>
+                                    <p className="text-xs text-gray-500">ESG Rank</p>
+                                    <p className="font-semibold text-sm">{property.esgScore}</p>
                                 </div>
                             </div>
                         </div>
 
                         {/* How It Works */}
-                        <div className="mt-6">
+                        <div className="pt-4">
                             <HowItWorks />
                         </div>
 
@@ -697,38 +669,45 @@ export default function PropertyDetailPage() {
                         <ContactExpert />
                     </div>
 
-                    {/* Sidebar - Investment Card */}
-                    <div className="lg:col-span-1">
-                        <InvestmentCard property={property} />
+                    {/* Sidebar */}
+                    <div className="lg:col-span-1 space-y-6">
+                        <div className="sticky top-24">
+                            <InvestmentCard property={property} />
 
-                        {/* Similar Properties */}
-                        <div className="mt-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4">Similar Opportunities</h3>
-                            <div className="space-y-4">
-                                {property.similarProperties.map((similarId) => {
-                                    const similarProp = PROPERTY_DETAILS[similarId];
-                                    if (!similarProp) return null;
-                                    return (
-                                        <Link
-                                            key={similarId}
-                                            to={`/property/${similarId}`}
-                                            className="block bg-white rounded-xl overflow-hidden hover:shadow-lg transition-shadow border border-gray-100"
-                                        >
-                                            <img
-                                                src={similarProp.images[0]}
-                                                alt={similarProp.title}
-                                                className="w-full h-32 object-cover"
-                                            />
-                                            <div className="p-3">
-                                                <p className="font-semibold text-gray-900 truncate text-sm">{similarProp.title}</p>
-                                                <div className="flex items-center justify-between mt-2">
-                                                    <span className="text-xs text-gray-500">{similarProp.propertyType}</span>
-                                                    <span className="text-sm font-bold text-gray-900">{similarProp.tokenPriceUSD}</span>
+                            {/* Similar Properties */}
+                            <div className="mt-8">
+                                <h3 className="text-lg font-bold text-[#0F172A] mb-4">Similar Opportunities</h3>
+                                <div className="space-y-4">
+                                    {property.similarProperties.map((similarId) => {
+                                        const similarProp = PROPERTY_DETAILS[similarId];
+                                        if (!similarProp) return null;
+                                        return (
+                                            <Link
+                                                key={similarId}
+                                                to={`/property/${similarId}`}
+                                                className="block bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-gray-100 group"
+                                            >
+                                                <div className="relative h-32 overflow-hidden">
+                                                    <img
+                                                        src={similarProp.images[0]}
+                                                        alt={similarProp.title}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                                    />
+                                                    <div className="absolute top-2 right-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold">
+                                                        {similarProp.badge}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    );
-                                })}
+                                                <div className="p-4">
+                                                    <p className="font-bold text-[#0F172A] truncate text-sm mb-2">{similarProp.title}</p>
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-xs text-gray-400 font-medium">{similarProp.propertyType}</span>
+                                                        <span className="text-sm font-black text-[#15a36e]">{similarProp.tokenPriceUSD}</span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
