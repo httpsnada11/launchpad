@@ -9,29 +9,33 @@ export default function Footer() {
                 <div className="absolute inset-0 bg-black" />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center">
-                {/* Logo Section */}
-                <div className="flex flex-col items-center mb-10">
-                    <img
-                        loading="lazy"
-                        src="/assets/images/avif/Copym-01-1.avif"
-                        alt="COPYM"
-                        className="h-14 w-auto object-contain"
-                    />
-                </div>
+            <div className="relative z-10 max-w-7xl mx-auto px-6">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-10">
+                    {/* Logo Section */}
+                    <div className="flex-shrink-0 mb-4 md:mb-0">
+                        <img
+                            loading="lazy"
+                            src="/assets/images/avif/Copym-01-1.avif"
+                            alt="COPYM"
+                            className="h-16 md:h-20 w-auto object-contain"
+                        />
+                    </div>
 
-                {/* Links Section */}
-                <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-10 text-[15px] font-medium tracking-wide">
-                    <Link to="/about" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>About</Link>
-                    <Link to="/how-it-works" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>How it Works</Link>
-                    <Link to="/marketplace" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Marketplace</Link>
-                    <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Terms & Support</Link>
-                    <Link to="/privacy" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Privacy</Link>
+                    {/* Links Section */}
+                    <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 text-[15px] font-medium tracking-wide">
+                        <Link to="/about" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>About</Link>
+                        <Link to="/how-it-works" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>How it Works</Link>
+                        <Link to="/marketplace" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Marketplace</Link>
+                        <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Terms & Support</Link>
+                        <Link to="/privacy" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Privacy</Link>
+                    </div>
                 </div>
 
                 {/* Copyright Section */}
-                <div className="text-[13px] text-gray-500 font-medium tracking-wider" style={{ fontFamily: 'Palanquin, sans-serif' }}>
-                    © 2026 COPYM. ALL RIGHTS RESERVED.
+                <div className="mt-12 pt-8 border-t border-white/5 text-center">
+                    <p className="text-[12px] text-gray-500 font-medium tracking-[0.15em]" style={{ fontFamily: 'Palanquin, sans-serif' }}>
+                        © 2026 COPYM. ALL RIGHTS RESERVED.
+                    </p>
                 </div>
             </div>
 

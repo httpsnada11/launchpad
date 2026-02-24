@@ -5,99 +5,151 @@ import {
     Info, Calculator, Zap, ArrowUpRight
 } from 'lucide-react';
 
-// Custom SVG Line Chart Component - Single Projection Chart (Stake-style)
-const ProjectionChart = ({ data }) => {
+// Custom SVG Stacked Bar Chart Component - Stake-style
+const StackedBarChart = ({ data }) => {
+    const height = 320;
+    const width = 650;
+    const padding = { top: 50, right: 40, bottom: 60, left: 70 };
+    const chartHeight = height - padding.top - padding.bottom;
+    const chartWidth = width - padding.left - padding.right;
+
+    // Find max value for scaling
     const maxValue = Math.max(...data.map(d => d.totalValue));
-    const minValue = Math.min(...data.map(d => d.investment));
-    const range = maxValue - minValue || 1;
-    const height = 280;
-    const width = 600;
-    const padding = 50;
+    const yScale = (value) => chartHeight - (value / maxValue) * chartHeight;
 
-    const points = data.map((d, i) => {
-        const x = padding + (i / (data.length - 1)) * (width - 2 * padding);
-        const y = height - padding - ((d.totalValue - minValue) / range) * (height - 2 * padding);
-        return `${x},${y}`;
-    }).join(' ');
-
-    const areaPoints = `${padding},${height - padding} ${points} ${width - padding},${height - padding}`;
+    // Bar dimensions
+    const barWidth = chartWidth / data.length - 20;
+    const gap = 20;
 
     return (
-        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full">
+        <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full" preserveAspectRatio="xMidYMid meet">
             <defs>
-                <linearGradient id="gradient-projection" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#10B981" stopOpacity={0.4} />
-                    <stop offset="100%" stopColor="#10B981" stopOpacity={0} />
+                {/* Colors for each segment */}
+                <linearGradient id="grad-investment" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#6B7280" />
+                    <stop offset="100%" stopColor="#4B5563" />
+                </linearGradient>
+                <linearGradient id="grad-gains" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#0F172A" />
+                    <stop offset="100%" stopColor="#1E293B" />
+                </linearGradient>
+                <linearGradient id="grad-rental" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#10B981" />
+                    <stop offset="100%" stopColor="#059669" />
                 </linearGradient>
             </defs>
 
             {/* Grid lines */}
-            {[0, 1, 2, 3, 4].map(i => (
-                <line
-                    key={i}
-                    x1={padding}
-                    y1={padding + (i * (height - 2 * padding)) / 4}
-                    x2={width - padding}
-                    y2={padding + (i * (height - 2 * padding)) / 4}
-                    stroke="#E5E7EB"
-                    strokeWidth="1"
-                    strokeDasharray="4,4"
-                />
-            ))}
-
-            {/* Area fill */}
-            <polygon
-                points={areaPoints}
-                fill="url(#gradient-projection)"
-            />
-
-            {/* Line */}
-            <polyline
-                points={points}
-                fill="none"
-                stroke="#10B981"
-                strokeWidth="4"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-
-            {/* Data points */}
-            {data.map((d, i) => {
-                const x = padding + (i / (data.length - 1)) * (width - 2 * padding);
-                const y = height - padding - ((d.totalValue - minValue) / range) * (height - 2 * padding);
+            {[0, 1, 2, 3, 4].map(i => {
+                const y = padding.top + (i * chartHeight) / 4;
+                const value = maxValue - (i * maxValue) / 4;
                 return (
                     <g key={i}>
-                        <circle cx={x} cy={y} r="8" fill="white" stroke="#10B981" strokeWidth="4" />
-                        <circle cx={x} cy={y} r="4" fill="#10B981" />
-                        <text x={x} y={height - 20} textAnchor="middle" fontSize="13" fill="#6B7280" fontWeight="600">
+                        <line
+                            x1={padding.left}
+                            y1={y}
+                            x2={width - padding.right}
+                            y2={y}
+                            stroke="#E5E7EB"
+                            strokeWidth="1"
+                            strokeDasharray="4,4"
+                        />
+                        <text
+                            x={padding.left - 10}
+                            y={y + 4}
+                            textAnchor="end"
+                            fontSize="11"
+                            fill="#9CA3AF"
+                            fontWeight="500"
+                        >
+                            ${value >= 1000 ? `${(value / 1000).toFixed(0)}K` : value.toFixed(0)}
+                        </text>
+                    </g>
+                );
+            })}
+
+            {/* Stacked Bars */}
+            {data.map((d, i) => {
+                const x = padding.left + i * (barWidth + gap) + gap / 2;
+                
+                // Calculate segment heights
+                const investmentHeight = yScale(d.investment);
+                const gainsHeight = yScale(d.propertyValue) - yScale(d.investment);
+                const rentalHeight = yScale(d.totalValue) - yScale(d.propertyValue);
+
+                return (
+                    <g key={i}>
+                        {/* Bottom Segment - Initial Investment */}
+                        <rect
+                            x={x}
+                            y={padding.top + chartHeight - investmentHeight}
+                            width={barWidth}
+                            height={investmentHeight}
+                            fill="url(#grad-investment)"
+                            rx="4"
+                            className="transition-all duration-300 hover:opacity-80"
+                        />
+
+                        {/* Middle Segment - Capital Gains */}
+                        <rect
+                            x={x}
+                            y={padding.top + chartHeight - investmentHeight - gainsHeight}
+                            width={barWidth}
+                            height={gainsHeight}
+                            fill="url(#grad-gains)"
+                            rx="4"
+                            className="transition-all duration-300 hover:opacity-80"
+                        />
+
+                        {/* Top Segment - Rental Income */}
+                        <rect
+                            x={x}
+                            y={padding.top + chartHeight - investmentHeight - gainsHeight - rentalHeight}
+                            width={barWidth}
+                            height={rentalHeight}
+                            fill="url(#grad-rental)"
+                            rx="4"
+                            className="transition-all duration-300 hover:opacity-80"
+                        />
+
+                        {/* Total Value Label on top of bar */}
+                        <text
+                            x={x + barWidth / 2}
+                            y={padding.top + chartHeight - investmentHeight - gainsHeight - rentalHeight - 8}
+                            textAnchor="middle"
+                            fontSize="10"
+                            fill="#10B981"
+                            fontWeight="700"
+                        >
+                            ${d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
+                        </text>
+
+                        {/* Year Label */}
+                        <text
+                            x={x + barWidth / 2}
+                            y={height - padding.bottom + 20}
+                            textAnchor="middle"
+                            fontSize="12"
+                            fill="#6B7280"
+                            fontWeight="600"
+                        >
                             Y{d.year}
                         </text>
                     </g>
                 );
             })}
 
-            {/* Y-axis labels */}
-            {[0, 1, 2, 3, 4].map(i => {
-                const value = maxValue - (i * (range)) / 4;
-                return (
-                    <text
-                        key={i}
-                        x={padding - 15}
-                        y={padding + (i * (height - 2 * padding)) / 4 + 5}
-                        textAnchor="end"
-                        fontSize="12"
-                        fill="#9CA3AF"
-                        fontWeight="500"
-                    >
-                        ${(value / 1000).toFixed(0)}K
-                    </text>
-                );
-            })}
-
-            {/* Chart Title */}
-            <text x={width / 2} y={25} textAnchor="middle" fontSize="14" fill="#1F2937" fontWeight="700">
-                Projected Total Returns Over Time
-            </text>
+            {/* Legend */}
+            <g transform={`translate(${padding.left}, ${padding.top - 30})`}>
+                <rect x="0" y="0" width="14" height="14" rx="3" fill="url(#grad-rental)" />
+                <text x="20" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Rental Income</text>
+                
+                <rect x="110" y="0" width="14" height="14" rx="3" fill="url(#grad-gains)" />
+                <text x="130" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Capital Gains</text>
+                
+                <rect x="230" y="0" width="14" height="14" rx="3" fill="url(#grad-investment)" />
+                <text x="250" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Initial Investment</text>
+            </g>
         </svg>
     );
 };
@@ -321,7 +373,7 @@ export default function InvestmentCalculator({ property }) {
                 </motion.div>
             </div>
 
-            {/* Single Projection Chart - Stake Style */}
+            {/* Stacked Bar Chart - Stake Style */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -332,15 +384,9 @@ export default function InvestmentCalculator({ property }) {
                         <TrendingUp size={20} className="text-green-600" />
                         <h3 className="font-bold text-gray-900">Investment Projection</h3>
                     </div>
-                    <div className="flex items-center gap-4 text-sm">
-                        <span className="flex items-center gap-1">
-                            <div className="w-3 h-3 rounded-full bg-green-500" />
-                            <span className="text-gray-600">Total Value</span>
-                        </span>
-                    </div>
                 </div>
-                <div className="h-72">
-                    <ProjectionChart data={chartData} />
+                <div className="h-80">
+                    <StackedBarChart data={chartData} />
                 </div>
             </motion.div>
 

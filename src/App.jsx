@@ -44,7 +44,7 @@ export default function App() {
   return (
     <Router>
       <Navbar />
-      <div className="pt-20 lg:pt-24">
+      <div className="pt-16 lg:pt-20">
         <Routes>
           <Route path="/" element={<><Publicmarketplace /><Footer /></>} />
           <Route path="/marketplace" element={<><Publicmarketplace /><Footer /></>} />
