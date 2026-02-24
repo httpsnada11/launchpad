@@ -9,11 +9,11 @@ import {
     Navigation, Globe, Award, Info,
     FileText, Calendar, Shield
 } from 'lucide-react';
-import InvestmentCalculator from '../components/InvestmentCalculator';
-import HowItWorks from '../components/HowItWorks';
-import InvestmentCard from '../components/InvestmentCard';
-import PropertyDetailsModal from '../components/PropertyDetailsModal';
-import ContactExpert from '../components/ContactExpert';
+import InvestmentCalculator from './components/InvestmentCalculator';
+import HowItWorks from './components/HowItWorks';
+import InvestmentCard from './components/InvestmentCard';
+import PropertyDetailsModal from './components/PropertyDetailsModal';
+import ContactExpert from './components/ContactExpert';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {

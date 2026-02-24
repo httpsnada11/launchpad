@@ -5,7 +5,7 @@ import Publicmarketplace from './sections/Publicmarketplace';
 import Footer from './sections/Footer';
 import TermsOfService from './sections/TermsOfService';
 import Navbar from './sections/Navbar';
-import PropertyDetailPage from './pages/PropertyDetailPage';
+import PropertyDetailPage from './pages/PropertyDetailPage/PropertyDetailPage';
 
 const AboutPage = () => (
   <div className="min-h-screen bg-white">
