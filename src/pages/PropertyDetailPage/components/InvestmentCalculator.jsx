@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
-    TrendingUp, DollarSign, Percent, Calendar,
+    TrendingUp, Percent, Calendar,
     Info, Calculator, Zap, ArrowUpRight
 } from 'lucide-react';
 
@@ -62,7 +62,7 @@ const StackedBarChart = ({ data }) => {
                             fill="#9CA3AF"
                             fontWeight="500"
                         >
-                            ${value >= 1000 ? `${(value / 1000).toFixed(0)}K` : value.toFixed(0)}
+                            {value >= 1000 ? `${(value / 1000).toFixed(0)}K` : value.toFixed(0)} AED
                         </text>
                     </g>
                 );
@@ -121,7 +121,7 @@ const StackedBarChart = ({ data }) => {
                             fill="#10B981"
                             fontWeight="700"
                         >
-                            ${d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
+                            {d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
                         </text>
 
                         {/* Year Label */}
@@ -160,7 +160,7 @@ export default function InvestmentCalculator({ property }) {
     const [holdingPeriod, setHoldingPeriod] = useState(5);
 
     // Parse property financial data
-    const tokenPrice = parseFloat(property.tokenPriceUSD.replace(/[$,]/g, '')) || 45;
+    const tokenPrice = parseFloat(property.tokenPriceAED?.replace(/[, AED]/g, '')) || 165;
     const rentalYield = parseFloat(property.financials?.projectedRentalYield) || 4.5;
     const appreciation = parseFloat(property.financials?.annualAppreciation) || 6.2;
 
@@ -207,12 +207,12 @@ export default function InvestmentCalculator({ property }) {
     }));
 
     const formatCurrency = (value) => {
-        return new Intl.NumberFormat('en-US', {
+        return new Intl.NumberFormat('en-AE', {
             style: 'currency',
-            currency: 'USD',
+            currency: 'AED',
             minimumFractionDigits: 0,
             maximumFractionDigits: 0
-        }).format(value);
+        }).format(value).replace('DH', 'AED');
     };
 
     return (
@@ -229,12 +229,12 @@ export default function InvestmentCalculator({ property }) {
             </div>
 
             {/* Input Controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
                 {/* Investment Amount Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <DollarSign size={18} className="text-green-600" />
+                            <span className="text-emerald-600 font-bold">AED</span>
                             Initial Investment
                         </label>
                         <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold">
@@ -251,8 +251,8 @@ export default function InvestmentCalculator({ property }) {
                         className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
                     />
                     <div className="flex justify-between text-xs text-gray-500">
-                        <span>$1,000</span>
-                        <span>$100,000</span>
+                        <span>1,000 AED</span>
+                        <span>100,000 AED</span>
                     </div>
 
                     {/* Quick Amount Buttons */}
@@ -266,7 +266,7 @@ export default function InvestmentCalculator({ property }) {
                                     : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
                                     }`}
                             >
-                                ${amount.toLocaleString()}
+                                {amount.toLocaleString()} AED
                             </button>
                         ))}
                     </div>
@@ -380,7 +380,7 @@ export default function InvestmentCalculator({ property }) {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm"
+                className="p-6 rounded-2xl border-0 shadow-0"
             >
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">

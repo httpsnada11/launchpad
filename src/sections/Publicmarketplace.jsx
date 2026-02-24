@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Search, SlidersHorizontal, ChevronDown, Flame, Clock, Check, X, MapPin, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Checkbox from '../components/Checkbox';
+import Button from '../components/Button';
 
 // Mock Data
 const MOCK_INVESTMENTS = [
@@ -18,7 +19,7 @@ const MOCK_INVESTMENTS = [
         issuerLogo: 'https://ui-avatars.com/api/?name=London+Estates&background=0D8ABC&color=fff',
         assetPrice: 'AED 1M',
         tokenPriceETH: '0.015 ETH',
-        tokenPriceUSD: '$45 USD',
+        tokenPriceAED: '165 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
@@ -47,7 +48,7 @@ const MOCK_INVESTMENTS = [
         issuerLogo: 'https://ui-avatars.com/api/?name=Emaar&background=3B82F6&color=fff',
         assetPrice: 'AED 12M',
         tokenPriceETH: '0.25 ETH',
-        tokenPriceUSD: '$750 USD',
+        tokenPriceAED: '2,750 AED',
         availableTokens: 500000,
         totalTokens: 2000000,
         status: 'open',
@@ -75,9 +76,9 @@ const MOCK_INVESTMENTS = [
         cagr: '18.50%',
         issuerName: 'NYC Realty',
         issuerLogo: 'https://ui-avatars.com/api/?name=NYC&background=6366F1&color=fff',
-        assetPrice: '$5M',
+        assetPrice: 'AED 18M',
         tokenPriceETH: '1.5 ETH',
-        tokenPriceUSD: '$4,500 USD',
+        tokenPriceAED: '16,500 AED',
         availableTokens: 0,
         totalTokens: 1000000,
         status: 'sold-out',
@@ -110,7 +111,7 @@ const MOCK_LAND_ITEMS = [
         issuerLogo: 'https://ui-avatars.com/api/?name=Nakheel&background=10B981&color=fff',
         assetPrice: 'AED 5M',
         tokenPriceETH: '0.1 ETH',
-        tokenPriceUSD: '$300 USD',
+        tokenPriceAED: '300 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
@@ -144,9 +145,9 @@ const MOCK_COMMODITIES = [
         cagr: '10.50%',
         issuerName: 'Global Precious Metals',
         issuerLogo: 'https://ui-avatars.com/api/?name=Global+Precious+Metals&background=F59E0B&color=fff',
-        assetPrice: '$1M',
+        assetPrice: 'AED 1M',
         tokenPriceETH: '0.05 ETH',
-        tokenPriceUSD: '$150 USD',
+        tokenPriceAED: '150 AED',
         availableTokens: 50000,
         totalTokens: 500000,
         status: 'open',
@@ -173,9 +174,9 @@ const MOCK_COMMODITIES = [
         cagr: '16.00%',
         issuerName: 'Renewable Energy Corp',
         issuerLogo: 'https://ui-avatars.com/api/?name=Renewable+Energy&background=10B981&color=fff',
-        assetPrice: '$2.5M',
+        assetPrice: 'AED 2.5M',
         tokenPriceETH: '0.1 ETH',
-        tokenPriceUSD: '$300 USD',
+        tokenPriceAED: '300 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'open',
@@ -210,9 +211,9 @@ const MOCK_ARTS = [
         cagr: '22.50%',
         issuerName: 'Christie\'s Tokenized Art',
         issuerLogo: 'https://ui-avatars.com/api/?name=Christies&background=7C3AED&color=fff',
-        assetPrice: '$2.5M',
+        assetPrice: 'AED 2.5M',
         tokenPriceETH: '0.5 ETH',
-        tokenPriceUSD: '$1,500 USD',
+        tokenPriceAED: '1,500 AED',
         availableTokens: 75000,
         totalTokens: 500000,
         status: 'open',
@@ -244,9 +245,9 @@ const MOCK_ARTS = [
         cagr: '45.00%',
         issuerName: 'Nifty Gateway',
         issuerLogo: 'https://ui-avatars.com/api/?name=Nifty+Gateway&background=EC4899&color=fff',
-        assetPrice: '$5M',
+        assetPrice: 'AED 5M',
         tokenPriceETH: '1.2 ETH',
-        tokenPriceUSD: '$3,600 USD',
+        tokenPriceAED: '3,600 AED',
         availableTokens: 200000,
         totalTokens: 1000000,
         status: 'open',
@@ -284,9 +285,9 @@ const MOCK_SPORTS = [
         cagr: '30.00%',
         issuerName: 'SportX Capital',
         issuerLogo: 'https://ui-avatars.com/api/?name=SportX&background=EF4444&color=fff',
-        assetPrice: '$10M',
+        assetPrice: 'AED 10M',
         tokenPriceETH: '2.0 ETH',
-        tokenPriceUSD: '$6,000 USD',
+        tokenPriceAED: '6,000 AED',
         availableTokens: 150000,
         totalTokens: 500000,
         status: 'open',
@@ -296,7 +297,7 @@ const MOCK_SPORTS = [
         progress: 70,
         investmentStrategy: 'Revenue Yield',
         revenueModel: 'Contracted Revenue Share',
-        contractValue: '$200M',
+        contractValue: 'AED 200M',
         contractDuration: '3 years',
         country: 'Saudi Arabia',
         region: 'Middle East',
@@ -318,9 +319,9 @@ const MOCK_SPORTS = [
         cagr: '22.00%',
         issuerName: 'Premier League Investments',
         issuerLogo: 'https://ui-avatars.com/api/?name=PL&background=3B0764&color=fff',
-        assetPrice: '$50M',
+        assetPrice: 'AED 50M',
         tokenPriceETH: '5.0 ETH',
-        tokenPriceUSD: '$15,000 USD',
+        tokenPriceAED: '15,000 AED',
         availableTokens: 80000,
         totalTokens: 200000,
         status: 'open',
@@ -352,9 +353,9 @@ const MOCK_SPORTS = [
         cagr: '25.00%',
         issuerName: 'NBA Digital Ventures',
         issuerLogo: 'https://ui-avatars.com/api/?name=NBA&background=1D428A&color=fff',
-        assetPrice: '$25M',
+        assetPrice: 'AED 25M',
         tokenPriceETH: '3.5 ETH',
-        tokenPriceUSD: '$10,500 USD',
+        tokenPriceAED: '10,500 AED',
         availableTokens: 0,
         totalTokens: 300000,
         status: 'sold-out',
@@ -364,7 +365,7 @@ const MOCK_SPORTS = [
         progress: 100,
         investmentStrategy: 'Revenue Yield',
         revenueModel: 'Media Rights Distribution',
-        contractValue: '$24B',
+        contractValue: 'AED 24B',
         contractDuration: '9 years',
         country: 'USA',
         region: 'North America',
@@ -391,9 +392,9 @@ const MOCK_CARBON_CREDITS = [
         cagr: '18.00%',
         issuerName: 'Rainforest Trust',
         issuerLogo: 'https://ui-avatars.com/api/?name=Rainforest+Trust&background=059669&color=fff',
-        assetPrice: '$5M',
+        assetPrice: 'AED 5M',
         tokenPriceETH: '0.8 ETH',
-        tokenPriceUSD: '$2,400 USD',
+        tokenPriceAED: '2,400 AED',
         availableTokens: 100000,
         totalTokens: 250000,
         status: 'open',
@@ -425,9 +426,9 @@ const MOCK_CARBON_CREDITS = [
         cagr: '14.50%',
         issuerName: 'Clean Energy Fund',
         issuerLogo: 'https://ui-avatars.com/api/?name=Clean+Energy&background=F59E0B&color=fff',
-        assetPrice: '$3M',
+        assetPrice: 'AED 11M',
         tokenPriceETH: '0.5 ETH',
-        tokenPriceUSD: '$1,500 USD',
+        tokenPriceAED: '1,500 AED',
         availableTokens: 80000,
         totalTokens: 200000,
         status: 'open',
@@ -465,9 +466,9 @@ const MOCK_LUXURY_GOODS = [
         cagr: '22.00%',
         issuerName: 'Swiss Timepiece Fund',
         issuerLogo: 'https://ui-avatars.com/api/?name=Swiss+Timepiece&background=F59E0B&color=fff',
-        assetPrice: '$6M',
+        assetPrice: 'AED 22M',
         tokenPriceETH: '0.8 ETH',
-        tokenPriceUSD: '$2,400 USD',
+        tokenPriceAED: '2,400 AED',
         availableTokens: 0,
         totalTokens: 350000,
         status: 'sold-out',
@@ -500,9 +501,9 @@ const MOCK_LUXURY_GOODS = [
         cagr: '28.00%',
         issuerName: 'Classic Auto Investments',
         issuerLogo: 'https://ui-avatars.com/api/?name=Classic+Auto&background=DC2626&color=fff',
-        assetPrice: '$12M',
+        assetPrice: 'AED 12M',
         tokenPriceETH: '2.0 ETH',
-        tokenPriceUSD: '$6,000 USD',
+        tokenPriceAED: '6,000 AED',
         availableTokens: 60000,
         totalTokens: 500000,
         status: 'open',
@@ -536,9 +537,9 @@ const MOCK_LUXURY_GOODS = [
         cagr: '30.00%',
         issuerName: 'Monaco Yacht Partners',
         issuerLogo: 'https://ui-avatars.com/api/?name=Monaco+Yacht&background=0EA5E9&color=fff',
-        assetPrice: '$25M',
+        assetPrice: 'AED 25M',
         tokenPriceETH: '3.5 ETH',
-        tokenPriceUSD: '$10,500 USD',
+        tokenPriceAED: '10,500 AED',
         availableTokens: 80000,
         totalTokens: 600000,
         status: 'open',
@@ -572,9 +573,9 @@ const MOCK_LUXURY_GOODS = [
         cagr: '26.00%',
         issuerName: 'Gulfstream Capital',
         issuerLogo: 'https://ui-avatars.com/api/?name=Gulfstream&background=64748B&color=fff',
-        assetPrice: '$18M',
+        assetPrice: 'AED 18M',
         tokenPriceETH: '2.5 ETH',
-        tokenPriceUSD: '$7,500 USD',
+        tokenPriceAED: '7,500 AED',
         availableTokens: 100000,
         totalTokens: 450000,
         status: 'open',
@@ -2806,7 +2807,7 @@ export default function Publicmarketplace() {
                                                         <span className="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Token Price</span>
                                                         <div className="text-right">
                                                             <span className="text-[11px] font-bold text-[#0F172A] block">{item.tokenPriceETH}</span>
-                                                            <span className="text-[8px] text-gray-400">{item.tokenPriceUSD}</span>
+                                                            <span className="text-[8px] text-gray-400">{item.tokenPriceAED}</span>
                                                         </div>
                                                     </div>
                                                     <div>
@@ -2825,9 +2826,11 @@ export default function Publicmarketplace() {
                                             )}
                                         </div>
 
-                                        <Link to={`/property/${item.id}`} className="block w-full py-2.5 mt-2 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] text-white text-[10px] font-extrabold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-0.5 text-center">
-                                            View Details
-                                        </Link>
+                                        <Button
+                                            text="View Details"
+                                            to={`/property/${item.id}`}
+                                            className="w-full text-xs py-2 mt-2"
+                                        />
                                     </div>
                                 </div>
                             </div>

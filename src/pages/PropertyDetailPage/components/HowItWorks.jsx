@@ -237,7 +237,7 @@ export default function HowItWorks() {
 
     return (
         <>
-            <div className="bg-white p-6 md:p-8">
+            <div className="p-6 md:p-8">
                 <div className="flex flex-col md:flex-row gap-8 items-stretch pt-4">
                     {/* Vertical Sidebar Title */}
                     <div className="hidden md:flex items-center justify-center px-4">
@@ -254,7 +254,7 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Interactive Steps Grid/Flex */}
-                    <div className="flex-1 flex flex-col md:flex-row gap-4 min-h-[300px] max-w-4xl mx-auto">
+                    <div className="flex-1 flex flex-col md:flex-row gap-3 min-h-[300px] max-w-2xl mx-auto">
                         {steps.map((item, index) => (
                             <motion.div
                                 key={item.step}

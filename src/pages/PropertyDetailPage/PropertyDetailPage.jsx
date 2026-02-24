@@ -9,6 +9,7 @@ import {
     Navigation, Globe, Award, Info,
     FileText, Calendar, Shield
 } from 'lucide-react';
+import Button from '../../components/Button';
 import InvestmentCalculator from './components/InvestmentCalculator';
 import HowItWorks from './components/HowItWorks';
 import InvestmentCard from './components/InvestmentCard';
@@ -29,7 +30,7 @@ const PROPERTY_DETAILS = {
         issuerLogo: 'https://ui-avatars.com/api/?name=London+Estates&background=0D8ABC&color=fff',
         assetPrice: 'AED 1M',
         tokenPriceETH: '0.015 ETH',
-        tokenPriceUSD: '$45 USD',
+        tokenPriceAED: '165 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
@@ -101,7 +102,7 @@ const PROPERTY_DETAILS = {
         issuerLogo: 'https://ui-avatars.com/api/?name=Emaar&background=3B82F6&color=fff',
         assetPrice: 'AED 12M',
         tokenPriceETH: '0.25 ETH',
-        tokenPriceUSD: '$750 USD',
+        tokenPriceAED: '2,750 AED',
         availableTokens: 500000,
         totalTokens: 2000000,
         status: 'open',
@@ -176,9 +177,9 @@ const PROPERTY_DETAILS = {
         cagr: '18.50%',
         issuerName: 'NYC Realty',
         issuerLogo: 'https://ui-avatars.com/api/?name=NYC&background=6366F1&color=fff',
-        assetPrice: '$5M',
+        assetPrice: 'AED 18M',
         tokenPriceETH: '1.5 ETH',
-        tokenPriceUSD: '$4,500 USD',
+        tokenPriceAED: '16,500 AED',
         availableTokens: 0,
         totalTokens: 1000000,
         status: 'sold-out',
@@ -251,7 +252,7 @@ const PROPERTY_DETAILS = {
         issuerLogo: 'https://ui-avatars.com/api/?name=Nakheel&background=10B981&color=fff',
         assetPrice: 'AED 5M',
         tokenPriceETH: '0.1 ETH',
-        tokenPriceUSD: '$300 USD',
+        tokenPriceAED: '1,100 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
         status: 'coming-soon',
@@ -323,7 +324,7 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
 
     return (
         <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-gray-100">
-            <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
+            <div className={`p - 2 rounded - lg ${colorClasses[color]} `}>
                 <Icon size={20} />
             </div>
             <div>
@@ -339,13 +340,13 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
 const TimelineItem = ({ item, isLast }) => (
     <div className="flex gap-4">
         <div className="flex flex-col items-center">
-            <div className={`w-3 h-3 rounded-full ${item.status === 'completed'
+            <div className={`w - 3 h - 3 rounded - full ${item.status === 'completed'
                 ? 'bg-green-500'
                 : item.status === 'current'
                     ? 'bg-blue-500 ring-4 ring-blue-100'
                     : 'bg-gray-300'
-                }`} />
-            {!isLast && <div className={`w-0.5 flex-1 my-2 ${item.status === 'completed' ? 'bg-green-500' : 'bg-gray-200'}`} />}
+                } `} />
+            {!isLast && <div className={`w - 0.5 flex - 1 my - 2 ${item.status === 'completed' ? 'bg-green-500' : 'bg-gray-200'} `} />}
         </div>
         <div className="pb-8">
             <p className="font-semibold text-gray-900">{item.event}</p>
@@ -422,10 +423,10 @@ export default function PropertyDetailPage() {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setIsWishlisted(!isWishlisted)}
-                                className={`p-2.5 rounded-xl border transition-all ${isWishlisted
+                                className={`p - 2.5 rounded - xl border transition - all ${isWishlisted
                                     ? 'bg-red-50 border-red-200 text-red-500'
                                     : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                                    }`}
+                                    } `}
                             >
                                 <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
                             </button>
@@ -459,12 +460,12 @@ export default function PropertyDetailPage() {
                         {/* Right Side: Primary Info & Engagement (lg: 5 cols) */}
                         <div className="lg:col-span-5 flex flex-col h-full">
                             <div className="mb-6">
-                                <span className={`inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4 ${property.status === 'open'
+                                <span className={`inline - flex px - 3 py - 1 rounded - full text - xs font - bold tracking - wider mb - 4 ${property.status === 'open'
                                     ? 'bg-green-100 text-green-700'
                                     : property.status === 'sold-out'
                                         ? 'bg-red-100 text-red-700'
                                         : 'bg-blue-100 text-blue-700'
-                                    }`}>
+                                    } `}>
                                     {property.badge}
                                 </span>
 
@@ -482,7 +483,7 @@ export default function PropertyDetailPage() {
                                         <div className="grid grid-cols-2 gap-6">
                                             <div>
                                                 <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Token Price</p>
-                                                <p className="text-2xl font-black text-[#0F172A]">{property.tokenPriceUSD}</p>
+                                                <p className="text-2xl font-black text-[#0F172A]">{property.tokenPriceAED}</p>
                                                 <p className="text-sm text-gray-400 font-medium">{property.tokenPriceETH}</p>
                                             </div>
                                             <div>
@@ -493,24 +494,12 @@ export default function PropertyDetailPage() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-[#0F172A] rounded-2xl p-6 text-white shadow-xl shadow-slate-200">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="p-2 bg-white/10 rounded-lg">
-                                                <Info size={20} className="text-yellow-400" />
-                                            </div>
-                                            <h3 className="font-bold text-lg">Asset Summary</h3>
-                                        </div>
-                                        <p className="text-sm text-gray-400 mb-6 leading-relaxed">
-                                            Access complete technical specifications, ESG ratings, amenities list, and historical valuation data for this asset.
-                                        </p>
-                                        <button
+                                    <div className="rounded-2xl p-6 text-white">
+                                        <Button
+                                            text="About this property"
                                             onClick={() => setShowDetailsModal(true)}
-                                            className="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-[#0F172A] font-extrabold rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-yellow-400/20"
-                                        >
-                                            <FileText size={20} />
-                                            About This Property
-                                            <ChevronRight size={20} />
-                                        </button>
+                                            className="w-full"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -527,13 +516,13 @@ export default function PropertyDetailPage() {
                     {/* Main Content Area */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Property Description */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        <div className="p-6">
                             <h3 className="text-lg font-bold text-gray-900 mb-4">Investment Overview</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
 
                         {/* Investment Timeline */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        <div className="p-6">
                             <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
                                 <Calendar size={20} className="text-blue-600" />
                                 Investment Timeline
@@ -551,12 +540,12 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Investment Calculator */}
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                        <div className="overflow-hidden">
                             <InvestmentCalculator property={property} />
                         </div>
 
                         {/* Location Details */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        <div className="p-6">
                             <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
                                 <MapPin size={20} className="text-red-600" />
                                 Asset Location
@@ -599,60 +588,6 @@ export default function PropertyDetailPage() {
                         <div className="sticky top-24">
                             <InvestmentCard property={property} />
 
-                            {/* Premium Recommendation Feed */}
-                            <div className="mt-12">
-                                <div className="flex items-center justify-between mb-6 px-1">
-                                    <h3 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">Similar Assets</h3>
-                                    <div className="h-px flex-1 bg-slate-100 ml-4 mr-2" />
-                                    <Link to="/marketplace" className="text-[10px] font-black text-emerald-600 hover:text-emerald-700 uppercase tracking-widest transition-colors">See All</Link>
-                                </div>
-                                <div className="space-y-4">
-                                    {property.similarProperties.map((similarId) => {
-                                        const similarProp = PROPERTY_DETAILS[similarId];
-                                        if (!similarProp) return null;
-                                        return (
-                                            <Link
-                                                key={similarId}
-                                                to={`/property/${similarId}`}
-                                                className="group block bg-white rounded-[2rem] p-3 border border-slate-100 hover:border-emerald-100 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-500"
-                                            >
-                                                <div className="flex gap-4 items-center">
-                                                    <div className="relative w-20 h-20 shrink-0 rounded-[1.5rem] overflow-hidden shadow-md">
-                                                        <img
-                                                            src={similarProp.images[0]}
-                                                            alt={similarProp.title}
-                                                            className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-1000"
-                                                        />
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                                                    </div>
-                                                    <div className="flex-1 min-w-0 pr-2">
-                                                        <div className="flex items-center gap-1.5 mb-1.5">
-                                                            <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[8px] font-black rounded-full uppercase tracking-tighter">
-                                                                {similarProp.propertyType}
-                                                            </span>
-                                                            <span className="text-[8px] font-black text-emerald-600 uppercase tracking-tighter px-2">
-                                                                {similarProp.badge}
-                                                            </span>
-                                                        </div>
-                                                        <p className="font-black text-slate-900 truncate text-sm mb-1 group-hover:text-emerald-700 transition-colors">
-                                                            {similarProp.title}
-                                                        </p>
-                                                        <div className="flex items-center justify-between">
-                                                            <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1">
-                                                                <MapPin size={10} className="text-emerald-500" />
-                                                                {similarProp.city}
-                                                            </p>
-                                                            <p className="text-sm font-black text-slate-900 tracking-tight">
-                                                                {similarProp.tokenPriceUSD}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

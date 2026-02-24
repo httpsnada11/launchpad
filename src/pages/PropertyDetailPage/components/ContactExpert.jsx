@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Calendar, ArrowRight } from 'lucide-react';
+import Button from '../../../components/Button';
 
 export default function ContactExpert() {
     return (
@@ -10,7 +11,7 @@ export default function ContactExpert() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100"
+                className="rounded-2xl p-8 md:p-10"
             >
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     {/* Expert Portrait */}
@@ -34,20 +35,19 @@ export default function ContactExpert() {
                             Our real estate experts are available to help you understand the nuances of this investment opportunity.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-                            <button
-                                className="px-6 py-3 bg-[#0F172A] text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-[#1E293B] transition-all text-sm md:text-base"
-                            >
-                                <MessageCircle size={18} />
-                                Message us
-                            </button>
-
-                            <button
-                                className="px-6 py-3 bg-white border border-gray-200 text-[#0F172A] font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-gray-50 transition-all text-sm md:text-base"
-                            >
-                                <Calendar size={18} />
-                                Schedule a Call
-                            </button>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                            <Button
+                                text="Message us"
+                                icon={MessageCircle}
+                                className="w-full sm:w-auto"
+                                onClick={() => { }}
+                            />
+                            <Button
+                                text="Schedule a Call"
+                                icon={Calendar}
+                                className="w-full sm:w-auto"
+                                onClick={() => { }}
+                            />
                         </div>
                     </div>
                 </div>
