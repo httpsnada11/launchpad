@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import {
+    ChevronLeft, ChevronRight, Maximize2,
+    DollarSign, TrendingUp, PieChart, Award,
+    Zap, CheckCircle2
+} from 'lucide-react';
 
-export default function PropertyGallery({ images, onOpenFullScreen }) {
+export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextImage = () => {
@@ -14,70 +18,71 @@ export default function PropertyGallery({ images, onOpenFullScreen }) {
     };
 
     return (
-        <div className="space-y-4">
-            {/* Main Image View */}
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 group">
-                <AnimatePresence mode="wait">
-                    <motion.img
-                        key={currentIndex}
-                        src={images[currentIndex]}
-                        alt={`Property view ${currentIndex + 1}`}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-full h-full object-cover cursor-pointer"
-                        onClick={() => onOpenFullScreen(currentIndex)}
-                    />
-                </AnimatePresence>
-
-                {/* Navigation Arrows */}
-                {images.length > 1 && (
-                    <>
-                        <button
-                            onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/40"
-                        >
-                            <ChevronLeft size={24} />
-                        </button>
-                        <button
-                            onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white/40"
-                        >
-                            <ChevronRight size={24} />
-                        </button>
-                    </>
-                )}
-
-                {/* Fullscreen Button */}
-                <button
+        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 group shadow-lg border border-gray-100">
+            <AnimatePresence mode="wait">
+                <motion.img
+                    key={currentIndex}
+                    src={images[currentIndex]}
+                    alt={`Property view ${currentIndex + 1}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full object-cover cursor-pointer"
                     onClick={() => onOpenFullScreen(currentIndex)}
-                    className="absolute bottom-4 right-4 p-2 rounded-lg bg-black/50 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70 flex items-center gap-2 text-sm font-medium"
-                >
-                    <Maximize2 size={18} />
-                    View All
-                </button>
-            </div>
+                />
+            </AnimatePresence>
 
-            {/* Thumbnails */}
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {images.map((img, idx) => (
+            {/* Glassy Stat Pills - Micro UI for Maximum Visibility */}
+            {stats && (
+                <div className="absolute bottom-5 left-5 right-5 flex flex-nowrap gap-1.5 z-10 overflow-x-auto no-scrollbar py-1 select-none">
+                    <div className="flex gap-1.5 pr-36"> {/* Reserved space for View All button */}
+                        <StatPill icon={DollarSign} label="Price" value={stats.price} />
+                        <StatPill icon={TrendingUp} label="Strategy" value={stats.strategy} />
+                        <StatPill icon={PieChart} label="Available" value={stats.available} />
+                        <StatPill icon={Award} label="Status" value={stats.status} />
+                    </div>
+                </div>
+            )}
+
+            {/* Navigation Arrows */}
+            {images.length > 1 && (
+                <>
                     <button
-                        key={idx}
-                        onClick={() => setCurrentIndex(idx)}
-                        className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${currentIndex === idx
-                                ? 'border-[#0F172A] scale-105 shadow-lg'
-                                : 'border-transparent opacity-70 hover:opacity-100'
-                            }`}
+                        onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
                     >
-                        <img
-                            src={img}
-                            alt={`Thumbnail ${idx + 1}`}
-                            className="w-full h-full object-cover"
-                        />
+                        <ChevronLeft size={24} />
                     </button>
-                ))}
-            </div>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+                </>
+            )}
+
+            {/* Fullscreen Button */}
+            <button
+                onClick={() => onOpenFullScreen(currentIndex)}
+                className="absolute bottom-5 right-5 px-4 py-2 rounded-full bg-[#0F172A]/80 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#0F172A] flex items-center gap-2 text-sm font-medium border border-white/10 shadow-lg"
+            >
+                <Maximize2 size={18} />
+                View All
+            </button>
         </div>
     );
 }
+
+const StatPill = ({ icon: Icon, label, value }) => (
+    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-xl px-2.5 py-1.5 rounded-full border border-white/20 shadow-[0_4px_24px_0_rgba(0,0,0,0.2)] hover:bg-white/20 transition-all group/pill cursor-default flex-shrink-0">
+        <div className="p-1 bg-white/10 rounded-full group-hover/pill:bg-white/20 transition-colors flex items-center justify-center">
+            <Icon size={12} className="text-white" />
+        </div>
+        <div className="flex items-center gap-2 pr-1">
+            <span className="text-[7px] text-white/50 font-bold uppercase tracking-wider leading-none">{label}</span>
+            <span className="text-[10px] font-bold text-white leading-none whitespace-nowrap">{value}</span>
+        </div>
+    </div>
+);

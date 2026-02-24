@@ -237,24 +237,24 @@ export default function HowItWorks() {
 
     return (
         <>
-            <div className="bg-white p-8 md:p-12">
-                <div className="flex flex-col md:flex-row gap-8 items-stretch pt-8">
+            <div className="bg-white p-6 md:p-8">
+                <div className="flex flex-col md:flex-row gap-8 items-stretch pt-4">
                     {/* Vertical Sidebar Title */}
                     <div className="hidden md:flex items-center justify-center px-4">
-                        <h2 className="text-4xl font-bold text-[#334155] rotate-180 [writing-mode:vertical-lr] whitespace-nowrap uppercase tracking-[0.2em] opacity-80">
+                        <h2 className="text-3xl font-bold text-[#334155] rotate-180 [writing-mode:vertical-lr] whitespace-nowrap uppercase tracking-[0.2em] opacity-80">
                             How it works
                         </h2>
                     </div>
 
                     {/* Mobile Title */}
-                    <div className="md:hidden mb-8">
-                        <h2 className="text-3xl font-bold text-[#334155] uppercase tracking-widest text-center">
+                    <div className="md:hidden mb-6">
+                        <h2 className="text-2xl font-bold text-[#334155] uppercase tracking-widest text-center">
                             How it works
                         </h2>
                     </div>
 
                     {/* Interactive Steps Grid/Flex */}
-                    <div className="flex-1 flex flex-col md:flex-row gap-4 min-h-[450px]">
+                    <div className="flex-1 flex flex-col md:flex-row gap-4 min-h-[300px] max-w-4xl mx-auto">
                         {steps.map((item, index) => (
                             <motion.div
                                 key={item.step}
@@ -272,20 +272,20 @@ export default function HowItWorks() {
                                 </div>
 
                                 {/* Hover State (Full Content) */}
-                                <div className="h-full bg-white p-8 group-hover:opacity-100 opacity-0 transition-opacity duration-300 flex flex-col">
-                                    <div className="mb-6">
-                                        <span className="text-[#10b981] font-bold text-xl uppercase tracking-wider">
+                                <div className="h-full bg-white p-6 group-hover:opacity-100 opacity-0 transition-opacity duration-300 flex flex-col">
+                                    <div className="mb-4">
+                                        <span className="text-[#10b981] font-bold text-lg uppercase tracking-wider">
                                             Step {item.step}
                                         </span>
                                     </div>
 
                                     <div className="mb-auto">
-                                        <h3 className="text-3xl font-bold text-[#334155] leading-tight mb-4">
+                                        <h3 className="text-2xl font-bold text-[#334155] leading-tight mb-4">
                                             {item.title}
                                         </h3>
                                     </div>
 
-                                    <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+                                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                                         <div className="flex items-center gap-2">
                                             <item.footerIcon className="w-5 h-5 text-black" />
                                             <span className="text-base font-semibold text-black">

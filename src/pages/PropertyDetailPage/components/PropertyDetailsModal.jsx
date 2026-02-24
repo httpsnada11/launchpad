@@ -11,8 +11,8 @@ const TabButton = ({ active, onClick, icon: Icon, label }) => (
     <button
         onClick={onClick}
         className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold rounded-xl transition-all ${active
-                ? 'bg-[#0F172A] text-white shadow-lg'
-                : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+            ? 'bg-[#0F172A] text-white shadow-lg'
+            : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
             }`}
     >
         <Icon size={16} />
@@ -28,18 +28,6 @@ const FeatureBadge = ({ feature }) => (
     </div>
 );
 
-// ESG Feature Component
-const ESGFeature = ({ icon: Icon, label, value, color }) => (
-    <div className="bg-gray-50 rounded-xl p-4 flex items-center gap-3">
-        <div className={`p-2 rounded-lg ${color}`}>
-            <Icon size={20} className="text-white" />
-        </div>
-        <div>
-            <p className="text-xs text-gray-500 font-semibold uppercase">{label}</p>
-            <p className="font-bold text-gray-900">{value}</p>
-        </div>
-    </div>
-);
 
 // Floor Plan Card
 const FloorPlanCard = ({ plan }) => (
@@ -142,7 +130,6 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
         { id: 'features', icon: Star, label: 'Features' },
         { id: 'gallery', icon: Image, label: 'Gallery' },
         { id: 'floorplans', icon: FileText, label: 'Floor Plans' },
-        { id: 'esg', icon: Leaf, label: 'ESG' },
         { id: 'documents', icon: Key, label: 'Documents' },
     ];
 
@@ -343,53 +330,6 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                             </div>
                         )}
 
-                        {/* ESG Tab */}
-                        {activeTab === 'esg' && property.esgDetails && (
-                            <div className="space-y-6">
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900 mb-4">Sustainability Details</h3>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <ESGFeature
-                                            icon={Leaf}
-                                            label="Energy Rating"
-                                            value={property.esgDetails.energyRating}
-                                            color="bg-green-500"
-                                        />
-                                        <ESGFeature
-                                            icon={Zap}
-                                            label="Carbon Footprint"
-                                            value={property.esgDetails.carbonFootprint}
-                                            color="bg-blue-500"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h4 className="font-semibold text-gray-900 mb-3">Sustainability Features</h4>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                        {property.esgDetails.sustainabilityFeatures.map((feature, idx) => (
-                                            <FeatureBadge key={idx} feature={feature} />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {property.esgDetails.certifications && (
-                                    <div>
-                                        <h4 className="font-semibold text-gray-900 mb-3">Certifications</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {property.esgDetails.certifications.map((cert, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-semibold"
-                                                >
-                                                    {cert}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
 
                         {/* Documents Tab */}
                         {activeTab === 'documents' && property.documents && (

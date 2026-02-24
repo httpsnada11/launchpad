@@ -71,7 +71,7 @@ const StackedBarChart = ({ data }) => {
             {/* Stacked Bars */}
             {data.map((d, i) => {
                 const x = padding.left + i * (barWidth + gap) + gap / 2;
-                
+
                 // Calculate segment heights
                 const investmentHeight = yScale(d.investment);
                 const gainsHeight = yScale(d.propertyValue) - yScale(d.investment);
@@ -143,10 +143,10 @@ const StackedBarChart = ({ data }) => {
             <g transform={`translate(${padding.left}, ${padding.top - 30})`}>
                 <rect x="0" y="0" width="14" height="14" rx="3" fill="url(#grad-rental)" />
                 <text x="20" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Rental Income</text>
-                
+
                 <rect x="110" y="0" width="14" height="14" rx="3" fill="url(#grad-gains)" />
                 <text x="130" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Capital Gains</text>
-                
+
                 <rect x="230" y="0" width="14" height="14" rx="3" fill="url(#grad-investment)" />
                 <text x="250" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Initial Investment</text>
             </g>
@@ -315,7 +315,7 @@ export default function InvestmentCalculator({ property }) {
                 </div>
             </div>
 
-            {/* Key Metrics Cards */}
+            {/* Key Metrics Cards
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -323,11 +323,13 @@ export default function InvestmentCalculator({ property }) {
                     className="bg-gradient-to-br from-green-50 to-emerald-100 p-5 rounded-2xl border border-green-200"
                 >
                     <div className="flex items-center gap-2 mb-2">
-                        <TrendingUp size={18} className="text-green-600" />
-                        <span className="text-xs font-bold text-green-700">TOTAL RETURNS</span>
+                        <div className="flex items-center gap-2 mb-2">
+                            <TrendingUp size={18} className="text-green-600" />
+                            <span className="text-xs font-bold text-green-700">TOTAL RETURNS</span>
+                        </div>
+                        <p className="text-3xl font-bold text-green-900">{totalROI}%</p>
+                        <p className="text-xs text-green-600 mt-1">{formatCurrency(totalReturns)} total profit</p>
                     </div>
-                    <p className="text-3xl font-bold text-green-900">{totalROI}%</p>
-                    <p className="text-xs text-green-600 mt-1">{formatCurrency(totalReturns)} total profit</p>
                 </motion.div>
 
                 <motion.div
@@ -372,6 +374,7 @@ export default function InvestmentCalculator({ property }) {
                     <p className="text-xs text-orange-600 mt-1">{rentalYield}% annual yield</p>
                 </motion.div>
             </div>
+            */}
 
             {/* Stacked Bar Chart - Stake Style */}
             <motion.div

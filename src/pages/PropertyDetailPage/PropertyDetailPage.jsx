@@ -23,7 +23,6 @@ const PROPERTY_DETAILS = {
         title: 'UK Property Tokens',
         tokenSymbol: 'UKPT',
         category: 'REAL ESTATE',
-        esgScore: 'A+',
         roi: '12%',
         cagr: '15.50%',
         issuerName: 'London Estates',
@@ -77,17 +76,6 @@ const PROPERTY_DETAILS = {
             exitStrategy: 'Sale or Refinance',
             distributionFrequency: 'Quarterly'
         },
-        esgDetails: {
-            energyRating: 'B',
-            carbonFootprint: 'Low',
-            sustainabilityFeatures: [
-                'Solar Panels',
-                'Energy Efficient Windows',
-                'Smart Thermostat',
-                'Rainwater Harvesting'
-            ],
-            certifications: ['LEED Gold', 'BREEAM Excellent']
-        },
         documents: [
             { name: 'Investment Memorandum', type: 'PDF', size: '2.4 MB' },
             { name: 'Title Deed', type: 'PDF', size: '1.1 MB' },
@@ -107,7 +95,6 @@ const PROPERTY_DETAILS = {
         title: 'Dubai Luxury Villa',
         tokenSymbol: 'DLXV',
         category: 'REAL ESTATE',
-        esgScore: 'B',
         roi: '10%',
         cagr: '12.00%',
         issuerName: 'Emaar Properties',
@@ -166,17 +153,6 @@ const PROPERTY_DETAILS = {
             exitStrategy: 'Capital Appreciation',
             distributionFrequency: 'Quarterly'
         },
-        esgDetails: {
-            energyRating: 'A',
-            carbonFootprint: 'Medium',
-            sustainabilityFeatures: [
-                'District Cooling',
-                'LED Lighting',
-                'Water Recycling System',
-                'EV Charging Station'
-            ],
-            certifications: ['Dubai Green Building Regulations']
-        },
         documents: [
             { name: 'Investment Memorandum', type: 'PDF', size: '3.1 MB' },
             { name: 'Oqood Registration', type: 'PDF', size: '0.8 MB' },
@@ -196,7 +172,6 @@ const PROPERTY_DETAILS = {
         title: 'New York Penthouse',
         tokenSymbol: 'NYPH',
         category: 'REAL ESTATE',
-        esgScore: 'A',
         roi: '15%',
         cagr: '18.50%',
         issuerName: 'NYC Realty',
@@ -252,17 +227,6 @@ const PROPERTY_DETAILS = {
             exitStrategy: 'Long-term Hold',
             distributionFrequency: 'Annual'
         },
-        esgDetails: {
-            energyRating: 'A+',
-            carbonFootprint: 'Low',
-            sustainabilityFeatures: [
-                'Triple-glazed Windows',
-                'High-efficiency HVAC',
-                'Green Roof',
-                'Waste Management System'
-            ],
-            certifications: ['LEED Platinum', 'Energy Star']
-        },
         documents: [
             { name: 'Investment Memorandum', type: 'PDF', size: '2.8 MB' },
             { name: 'Condo Declaration', type: 'PDF', size: '1.5 MB' },
@@ -281,7 +245,6 @@ const PROPERTY_DETAILS = {
         title: 'Development Plot',
         tokenSymbol: 'DEV-PLT',
         category: 'REAL ESTATE',
-        esgScore: 'N/A',
         roi: '20%',
         cagr: '25.00%',
         issuerName: 'Nakheel',
@@ -333,15 +296,6 @@ const PROPERTY_DETAILS = {
             holdingPeriod: '3 years',
             exitStrategy: 'Development & Sale',
             distributionFrequency: 'Exit Proceeds'
-        },
-        esgDetails: {
-            energyRating: 'N/A',
-            carbonFootprint: 'To Be Determined',
-            sustainabilityFeatures: [
-                'Sustainable Development Plan',
-                'Green Building Compliance'
-            ],
-            certifications: ['Dubai Municipality Approved']
         },
         documents: [
             { name: 'Title Deed', type: 'PDF', size: '0.9 MB' },
@@ -469,8 +423,8 @@ export default function PropertyDetailPage() {
                             <button
                                 onClick={() => setIsWishlisted(!isWishlisted)}
                                 className={`p-2.5 rounded-xl border transition-all ${isWishlisted
-                                        ? 'bg-red-50 border-red-200 text-red-500'
-                                        : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                    ? 'bg-red-50 border-red-200 text-red-500'
+                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
                                     }`}
                             >
                                 <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
@@ -493,6 +447,12 @@ export default function PropertyDetailPage() {
                                     setCurrentImageIndex(index);
                                     setShowGallery(true);
                                 }}
+                                stats={{
+                                    price: property.assetPrice,
+                                    strategy: property.investmentStrategy,
+                                    available: property.availableTokens.toLocaleString(),
+                                    status: property.completionStatus
+                                }}
                             />
                         </div>
 
@@ -500,10 +460,10 @@ export default function PropertyDetailPage() {
                         <div className="lg:col-span-5 flex flex-col h-full">
                             <div className="mb-6">
                                 <span className={`inline-flex px-3 py-1 rounded-full text-xs font-bold tracking-wider mb-4 ${property.status === 'open'
-                                        ? 'bg-green-100 text-green-700'
-                                        : property.status === 'sold-out'
-                                            ? 'bg-red-100 text-red-700'
-                                            : 'bg-blue-100 text-blue-700'
+                                    ? 'bg-green-100 text-green-700'
+                                    : property.status === 'sold-out'
+                                        ? 'bg-red-100 text-red-700'
+                                        : 'bg-blue-100 text-blue-700'
                                     }`}>
                                     {property.badge}
                                 </span>
@@ -561,37 +521,6 @@ export default function PropertyDetailPage() {
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-6 py-8">
-                {/* Secondary Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <InfoCard
-                        icon={DollarSign}
-                        label="Asset Price"
-                        value={property.assetPrice}
-                        subtext="Total Valuation"
-                        color="green"
-                    />
-                    <InfoCard
-                        icon={TrendingUp}
-                        label="Strategy"
-                        value={property.investmentStrategy}
-                        subtext="Investment Goal"
-                        color="blue"
-                    />
-                    <InfoCard
-                        icon={PieChart}
-                        label="Tokens Available"
-                        value={property.availableTokens.toLocaleString()}
-                        subtext={`of ${property.totalTokens.toLocaleString()}`}
-                        color="purple"
-                    />
-                    <InfoCard
-                        icon={Award}
-                        label="Completion"
-                        value={property.completionStatus}
-                        subtext="Current Phase"
-                        color="orange"
-                    />
-                </div>
 
                 {/* Main Content - Grid Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -616,6 +545,11 @@ export default function PropertyDetailPage() {
                             </div>
                         </div>
 
+                        {/* How It Works */}
+                        <div className="pt-4 mb-6">
+                            <HowItWorks />
+                        </div>
+
                         {/* Investment Calculator */}
                         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                             <InvestmentCalculator property={property} />
@@ -636,7 +570,7 @@ export default function PropertyDetailPage() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 <div className="text-center p-3 bg-gray-50 rounded-lg">
                                     <Globe size={18} className="mx-auto mb-1 text-blue-600" />
                                     <p className="text-xs text-gray-500">Country</p>
@@ -652,18 +586,9 @@ export default function PropertyDetailPage() {
                                     <p className="text-xs text-gray-500">District</p>
                                     <p className="font-semibold text-sm">{property.location}</p>
                                 </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                                    <Shield size={18} className="mx-auto mb-1 text-orange-600" />
-                                    <p className="text-xs text-gray-500">ESG Rank</p>
-                                    <p className="font-semibold text-sm">{property.esgScore}</p>
-                                </div>
                             </div>
                         </div>
 
-                        {/* How It Works */}
-                        <div className="pt-4">
-                            <HowItWorks />
-                        </div>
 
                         {/* Contact Expert Section */}
                         <ContactExpert />
@@ -674,9 +599,13 @@ export default function PropertyDetailPage() {
                         <div className="sticky top-24">
                             <InvestmentCard property={property} />
 
-                            {/* Similar Properties */}
-                            <div className="mt-8">
-                                <h3 className="text-lg font-bold text-[#0F172A] mb-4">Similar Opportunities</h3>
+                            {/* Premium Recommendation Feed */}
+                            <div className="mt-12">
+                                <div className="flex items-center justify-between mb-6 px-1">
+                                    <h3 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">Similar Assets</h3>
+                                    <div className="h-px flex-1 bg-slate-100 ml-4 mr-2" />
+                                    <Link to="/marketplace" className="text-[10px] font-black text-emerald-600 hover:text-emerald-700 uppercase tracking-widest transition-colors">See All</Link>
+                                </div>
                                 <div className="space-y-4">
                                     {property.similarProperties.map((similarId) => {
                                         const similarProp = PROPERTY_DETAILS[similarId];
@@ -685,23 +614,38 @@ export default function PropertyDetailPage() {
                                             <Link
                                                 key={similarId}
                                                 to={`/property/${similarId}`}
-                                                className="block bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all border border-gray-100 group"
+                                                className="group block bg-white rounded-[2rem] p-3 border border-slate-100 hover:border-emerald-100 hover:shadow-xl hover:shadow-emerald-500/5 transition-all duration-500"
                                             >
-                                                <div className="relative h-32 overflow-hidden">
-                                                    <img
-                                                        src={similarProp.images[0]}
-                                                        alt={similarProp.title}
-                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                    />
-                                                    <div className="absolute top-2 right-2 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold">
-                                                        {similarProp.badge}
+                                                <div className="flex gap-4 items-center">
+                                                    <div className="relative w-20 h-20 shrink-0 rounded-[1.5rem] overflow-hidden shadow-md">
+                                                        <img
+                                                            src={similarProp.images[0]}
+                                                            alt={similarProp.title}
+                                                            className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-1000"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                                                     </div>
-                                                </div>
-                                                <div className="p-4">
-                                                    <p className="font-bold text-[#0F172A] truncate text-sm mb-2">{similarProp.title}</p>
-                                                    <div className="flex items-center justify-between">
-                                                        <span className="text-xs text-gray-400 font-medium">{similarProp.propertyType}</span>
-                                                        <span className="text-sm font-black text-[#15a36e]">{similarProp.tokenPriceUSD}</span>
+                                                    <div className="flex-1 min-w-0 pr-2">
+                                                        <div className="flex items-center gap-1.5 mb-1.5">
+                                                            <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[8px] font-black rounded-full uppercase tracking-tighter">
+                                                                {similarProp.propertyType}
+                                                            </span>
+                                                            <span className="text-[8px] font-black text-emerald-600 uppercase tracking-tighter px-2">
+                                                                {similarProp.badge}
+                                                            </span>
+                                                        </div>
+                                                        <p className="font-black text-slate-900 truncate text-sm mb-1 group-hover:text-emerald-700 transition-colors">
+                                                            {similarProp.title}
+                                                        </p>
+                                                        <div className="flex items-center justify-between">
+                                                            <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1">
+                                                                <MapPin size={10} className="text-emerald-500" />
+                                                                {similarProp.city}
+                                                            </p>
+                                                            <p className="text-sm font-black text-slate-900 tracking-tight">
+                                                                {similarProp.tokenPriceUSD}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Link>
