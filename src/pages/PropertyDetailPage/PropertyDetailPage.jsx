@@ -7,7 +7,8 @@ import {
     ChevronLeft, Share2, Heart, ChevronRight,
     PieChart,
     Navigation, Globe, Award, Info,
-    FileText, Calendar, Shield
+    FileText, Calendar, Shield, Sparkles,
+    Sprout, ShieldCheck, Coins, Hammer
 } from 'lucide-react';
 import Button from '../../components/Button';
 import InvestmentCalculator from './components/InvestmentCalculator';
@@ -41,6 +42,7 @@ const PROPERTY_DETAILS = {
         launchDate: 'Coming soon',
         propertyType: 'Residential',
         investmentStrategy: 'Capital Growth',
+        strategyType: 'capital-growth',
         beds: 2,
         baths: 2,
         area: '1,200 sqft',
@@ -114,6 +116,7 @@ const PROPERTY_DETAILS = {
         progress: 75,
         propertyType: 'Residential',
         investmentStrategy: 'High-Yield',
+        strategyType: 'high-yield',
         beds: 5,
         baths: 6,
         area: '8,500 sqft',
@@ -191,6 +194,7 @@ const PROPERTY_DETAILS = {
         progress: 100,
         propertyType: 'Residential',
         investmentStrategy: 'Prime',
+        strategyType: 'prime',
         beds: 3,
         baths: 4,
         area: '4,200 sqft',
@@ -261,8 +265,9 @@ const PROPERTY_DETAILS = {
         image: '/assets/publicm/plot.jpeg',
         badge: 'NEW',
         launchDate: 'Coming soon',
-        propertyType: 'Land',
-        investmentStrategy: 'Fix & Flip',
+        propertyType: 'Plot',
+        investmentStrategy: 'Fix n\' Flip',
+        strategyType: 'fix-and-flip',
         beds: 0,
         baths: 0,
         area: '15,000 sqft',
@@ -326,7 +331,7 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
 
     return (
         <div className="bg-white rounded-xl p-4 flex items-start gap-3 shadow-sm border border-gray-100">
-            <div className={`p - 2 rounded - lg ${colorClasses[color]} `}>
+            <div className={`p-2 rounded-lg ${colorClasses[color]}`}>
                 <Icon size={20} />
             </div>
             <div>
@@ -338,7 +343,94 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
     );
 };
 
+// Investment Strategy Data Mapping
+const STRATEGY_DATA = {
+    'capital-growth': {
+        title: 'Capital growth',
+        description: 'High appreciation potential due to market trends, upcoming infrastructure, or prime locations.',
+        icon: Sprout,
+        colorClass: 'bg-emerald-50 border-emerald-100 text-emerald-900',
+        iconBgClass: 'bg-emerald-500',
+        highlights: [
+            { title: 'Booming neighborhood', text: 'Benefit from a growing community with developing infrastructure and increasing demand.' },
+            { title: 'High rental occupancy', text: 'Apartments in this building typically have a 95% occupancy rate.' }
+        ]
+    },
+    'prime': {
+        title: 'Prime',
+        description: 'A prime strategy built on resilient assets designed for steady income and durable capital growth.',
+        icon: ShieldCheck,
+        colorClass: 'bg-amber-50 border-amber-100 text-amber-900',
+        iconBgClass: 'bg-amber-600',
+        highlights: [
+            { title: 'Reputable developer', text: 'Built by one of Dubai\'s leading real estate developers with a stellar reputation.' },
+            { title: 'Established neighborhood', text: 'Benefit from a well developed community with mature infrastructure, offering reliability and convenience.' }
+        ]
+    },
+    'high-yield': {
+        title: 'High yield',
+        description: 'Properties that offer higher than average rental yields, designed to maximise rental income.',
+        icon: Coins,
+        colorClass: 'bg-blue-50 border-blue-100 text-blue-900',
+        iconBgClass: 'bg-blue-600',
+        highlights: [
+            { title: 'High-end amenities', text: 'Luxurious amenities enhance lifestyle and justify premium rents, attracting high-end tenants.' },
+            { title: 'Booming neighborhood', text: 'Benefit from a growing community with developing infrastructure and increasing demand.' }
+        ]
+    },
+    'fix-and-flip': {
+        title: 'Fix n’ Flip',
+        description: 'Purchase a market-undervalued property, renovate it, and quickly resell at a higher value.',
+        icon: Hammer,
+        colorClass: 'bg-purple-50 border-purple-100 text-purple-900',
+        iconBgClass: 'bg-purple-600',
+        highlights: [
+            { title: 'Central location', text: 'Located in the center of the region, with key commercial hubs within short walking distance.' },
+            { title: 'Reputable developer', text: 'Built by one of Dubai\'s leading real estate developers with a stellar reputation.' }
+        ]
+    }
+};
 
+const InvestmentStrategy = ({ type }) => {
+    const strategy = STRATEGY_DATA[type] || STRATEGY_DATA['capital-growth'];
+    const Icon = strategy.icon;
+
+    return (
+        <div className="pt-6 pb-6 pl-12 pr-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
+                <Sparkles size={20} className="text-emerald-600" />
+                Investment strategy
+            </h3>
+
+            <div className={`p-8 rounded-3xl border-2 ${strategy.colorClass} relative overflow-hidden`}>
+                <div className="flex justify-between items-start mb-6">
+                    <div className="max-w-xl">
+                        <h4 className="text-2xl font-bold mb-2">{strategy.title}</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">
+                            {strategy.description}
+                        </p>
+                    </div>
+                    <div className={`${strategy.iconBgClass} p-4 rounded-full text-white shadow-lg`}>
+                        <Icon size={32} />
+                    </div>
+                </div>
+
+                <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-white/50 space-y-6">
+                    {strategy.highlights.map((item, idx) => (
+                        <div key={idx} className={idx !== 0 ? "pt-6 border-t border-gray-100" : ""}>
+                            <h5 className="font-bold text-gray-900 mb-1">{item.title}</h5>
+                            <p className="text-sm text-gray-500 leading-relaxed">
+                                {item.text}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Main Component
 export default function PropertyDetailPage() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -499,11 +591,13 @@ export default function PropertyDetailPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content Area */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Property Description */}
-                        <div className="p-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4">Investment Overview</h3>
+                        <div className="pt-6 pb-6 pl-12 pr-6">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
+
+                        {/* Investment Strategy */}
+                        <InvestmentStrategy type={property.strategyType} />
 
                         {/* Investment Calculator */}
                         <div className="overflow-hidden">
@@ -519,10 +613,10 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Location Details */}
-                        <div className="p-6">
-                            <h2 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <div className="pt-6 pb-6 pl-12 pr-6">
+                            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
                                 <MapPin size={20} className="text-red-600" />
-                                Asset Location
+                                ASSET LOCATION
                             </h2>
 
                             <PropertyMap
@@ -539,7 +633,7 @@ export default function PropertyDetailPage() {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="lg:col-span-1 space-y-6">
+                    <div className="lg:col-span-1 space-y-6 pt-6 pb-6 pl-6 pr-12">
                         <div className="sticky top-24">
                             <InvestmentCard property={property} />
 

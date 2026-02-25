@@ -11,7 +11,7 @@ export default function ContactExpert() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-2xl p-8 md:p-10"
+                className="rounded-2xl pt-8 pb-8 pl-12 pr-10 md:pt-10 md:pb-10 md:pl-12 md:pr-12"
             >
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     {/* Expert Portrait */}
@@ -28,7 +28,7 @@ export default function ContactExpert() {
 
                     {/* Content */}
                     <div className="flex-1 text-center md:text-left">
-                        <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-3 tracking-tight">
+                        <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-3 tracking-tight uppercase">
                             Have more questions about this property?
                         </h2>
                         <p className="text-gray-500 mb-8 max-w-xl text-sm md:text-base leading-relaxed">

@@ -122,21 +122,21 @@ const StackedBarChart = ({ data }) => {
                             fill="#9CA3AF"
                             fontWeight="600"
                         >
-                            Y{d.year}
+                            {new Date().getFullYear() + d.year}
                         </text>
                     </g>
                 );
             })}
 
-            {/* Legend */}
+            {/* Legend - Left Aligned to Container (X=0) */}
             <g transform={`translate(0, ${padding.top - 30})`}>
-                <rect x="0" y="0" width="12" height="12" rx="3" fill="#10B981" />
+                <rect x="0" y="0" width="12" height="12" rx="6" fill="#10B981" />
                 <text x="18" y="10" fontSize="11" fill="#64748B" fontWeight="600">Rental Income</text>
 
-                <rect x="110" y="0" width="12" height="12" rx="3" fill="#1E293B" />
+                <rect x="110" y="0" width="12" height="12" rx="6" fill="#1E293B" />
                 <text x="128" y="10" fontSize="11" fill="#64748B" fontWeight="600">Capital Gains</text>
 
-                <rect x="220" y="0" width="12" height="12" rx="3" fill="#64748B" />
+                <rect x="220" y="0" width="12" height="12" rx="6" fill="#64748B" />
                 <text x="238" y="10" fontSize="11" fill="#64748B" fontWeight="600">Initial Investment</text>
             </g>
         </svg>
@@ -216,23 +216,22 @@ export default function InvestmentCalculator({ property }) {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="pt-6 pb-6 pl-12 pr-6 space-y-8">
             {/* Header */}
             <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 text-left">Investment Calculator</h2>
-                <p className="text-sm text-gray-500 text-left">Project your returns over time</p>
+                <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wider">INVESTMENT CALCULATOR</h2>
+                <p className="text-sm text-gray-500">Project your returns over time</p>
             </div>
 
             {/* Stacked Bar Chart - Stake Style */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-6 rounded-2xl border-0 shadow-0"
+                className="py-6 border-0"
             >
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-2">
-                        <TrendingUp size={20} className="text-green-600" />
-                        <h3 className="font-bold text-gray-900">Investment Projection</h3>
+                        <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wider">INVESTMENT PROJECTION</h3>
                     </div>
                 </div>
                 <div className="h-80">
@@ -307,8 +306,7 @@ export default function InvestmentCalculator({ property }) {
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <span className="text-emerald-600 font-bold">AED</span>
-                            Initial Investment
+                            Initial Investment (AED)
                         </label>
                         <div className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold">
                             {formatCurrency(investmentAmount)}
@@ -348,8 +346,7 @@ export default function InvestmentCalculator({ property }) {
                 {/* Holding Period Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <Calendar size={18} className="text-blue-600" />
+                        <label className="text-sm font-bold text-gray-700">
                             Holding Period
                         </label>
                         <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold">
@@ -390,8 +387,7 @@ export default function InvestmentCalculator({ property }) {
                 {/* Rental Yield Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <Percent size={18} className="text-emerald-600" />
+                        <label className="text-sm font-bold text-gray-700">
                             Rental Yield (ROI)
                         </label>
                         <div className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-bold">
@@ -416,8 +412,7 @@ export default function InvestmentCalculator({ property }) {
                 {/* Appreciation Slider (CAGR) */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <ArrowUpRight size={18} className="text-orange-500" />
+                        <label className="text-sm font-bold text-gray-700">
                             Annual Appreciation (CAGR)
                         </label>
                         <div className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-bold">
@@ -444,39 +439,39 @@ export default function InvestmentCalculator({ property }) {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-[#0F172A] to-slate-800 text-white p-6 rounded-2xl shadow-xl"
+                className="bg-gradient-to-r from-[#0F172A] to-slate-800 text-white p-5 rounded-2xl shadow-xl"
             >
                 <div className="flex items-start justify-between flex-wrap gap-4">
                     <div>
-                        <h3 className="text-lg font-bold mb-2">
+                        <h3 className="text-base font-bold mb-1">
                             Investment Summary
                         </h3>
-                        <p className="text-gray-300 text-sm mb-4">
-                            Based on an initial investment of <strong className="text-white">{formatCurrency(investmentAmount)}</strong> over <strong className="text-white">{holdingPeriod} years</strong>
+                        <p className="text-gray-300 text-xs mb-3">
+                            Based on <strong className="text-white">{formatCurrency(investmentAmount)}</strong> initial over <strong className="text-white">{holdingPeriod} years</strong>
                         </p>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             <div>
-                                <p className="text-xs text-gray-400">Tokens Purchased</p>
-                                <p className="text-lg font-bold">{tokensPurchased.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Tokens Purchased</p>
+                                <p className="text-sm font-bold">{tokensPurchased.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400">Final Property Value</p>
-                                <p className="text-lg font-bold">{formatCurrency(finalProjection.propertyValue)}</p>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Final Property Value</p>
+                                <p className="text-sm font-bold">{formatCurrency(finalProjection.propertyValue)}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400">Total Rental Income</p>
-                                <p className="text-lg font-bold text-green-400">{formatCurrency(finalProjection.rentalIncome)}</p>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Total Rental Income</p>
+                                <p className="text-sm font-bold text-green-400">{formatCurrency(finalProjection.rentalIncome)}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400">Total Returns</p>
-                                <p className="text-lg font-bold text-green-400">{formatCurrency(totalReturns)}</p>
+                                <p className="text-[10px] text-gray-400 uppercase tracking-wider">Total Returns</p>
+                                <p className="text-sm font-bold text-green-400">{formatCurrency(totalReturns)}</p>
                             </div>
                         </div>
                     </div>
                     <div className="text-right">
-                        <div className="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-xl">
-                            <p className="text-xs text-gray-300 mb-1">Projected Total Value</p>
-                            <p className="text-4xl font-bold text-green-400">{formatCurrency(finalProjection.totalValue)}</p>
+                        <div className="bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/5">
+                            <p className="text-[10px] text-gray-400 mb-0.5 uppercase tracking-wider">Projected Total Value</p>
+                            <p className="text-xl font-bold text-green-400 leading-none">{formatCurrency(finalProjection.totalValue)}</p>
                         </div>
                     </div>
                 </div>

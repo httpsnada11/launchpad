@@ -237,7 +237,7 @@ export default function HowItWorks() {
 
     return (
         <>
-            <div className="p-6 md:p-8">
+            <div className="pt-6 pb-6 pl-12 pr-6 md:pt-8 md:pb-8 md:pl-12 md:pr-8">
                 <div className="flex flex-col md:flex-row gap-8 items-stretch pt-4">
                     {/* Vertical Sidebar Title */}
                     <div className="hidden md:flex items-center justify-center px-4">
