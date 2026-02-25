@@ -265,8 +265,8 @@ export default function HowItWorks() {
                                 className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 shadow-sm ${item.showDocuments ? 'hover:ring-2 hover:ring-green-500' : ''}`}
                             >
                                 {/* Initial State (Vertical Bar Look) */}
-                                <div className="absolute inset-0 bg-[#e5e7eb] group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                                    <span className="text-2xl font-bold text-[#334155] rotate-[-90deg] whitespace-nowrap uppercase tracking-widest">
+                                <div className="absolute inset-0 bg-white group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                                    <span className="text-2xl font-bold text-[#0f172a] rotate-[-90deg] whitespace-nowrap uppercase tracking-widest">
                                         STEP : {item.step}
                                     </span>
                                 </div>

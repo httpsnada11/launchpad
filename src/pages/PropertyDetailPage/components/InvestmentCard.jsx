@@ -86,7 +86,7 @@ export default function InvestmentCard({ property }) {
 
             {/* 4. Projections Grid - Clean & Balanced */}
             <div className="px-7 mb-5">
-                <div className="bg-slate-50/50 rounded-2xl p-3 border border-slate-100">
+                <div className="bg-white rounded-2xl p-3 border border-slate-100 shadow-sm">
                     <div className="flex items-center gap-2 mb-3 border-b border-slate-200/50 pb-2">
                         <TrendingUp size={12} className="text-emerald-500" />
                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.1em]">Target Projections</span>
@@ -123,7 +123,7 @@ export default function InvestmentCard({ property }) {
                         type="number"
                         value={investmentAmount}
                         onChange={(e) => setInvestmentAmount(Math.max(0, parseInt(e.target.value) || 0))}
-                        className="w-full pl-14 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-lg font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:bg-white transition-all shadow-sm"
+                        className="w-full pl-14 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-lg font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm"
                         placeholder="0"
                     />
                 </div>
@@ -153,7 +153,7 @@ export default function InvestmentCard({ property }) {
             </div>
 
             {/* 6. Social Layer */}
-            <div className="px-7 py-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+            <div className="px-7 py-3 bg-white border-t border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">
                         {[1, 2, 3, 4].map(i => (

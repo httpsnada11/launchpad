@@ -349,7 +349,7 @@ const STRATEGY_DATA = {
         title: 'Capital growth',
         description: 'High appreciation potential due to market trends, upcoming infrastructure, or prime locations.',
         icon: Sprout,
-        colorClass: 'bg-emerald-50 border-emerald-100 text-emerald-900',
+        colorClass: 'border-emerald-100 text-emerald-900',
         iconBgClass: 'bg-emerald-500',
         highlights: [
             { title: 'Booming neighborhood', text: 'Benefit from a growing community with developing infrastructure and increasing demand.' },
@@ -360,8 +360,8 @@ const STRATEGY_DATA = {
         title: 'Prime',
         description: 'A prime strategy built on resilient assets designed for steady income and durable capital growth.',
         icon: ShieldCheck,
-        colorClass: 'bg-amber-50 border-amber-100 text-amber-900',
-        iconBgClass: 'bg-amber-600',
+        colorClass: 'border-emerald-100 text-emerald-900',
+        iconBgClass: 'bg-emerald-600',
         highlights: [
             { title: 'Reputable developer', text: 'Built by one of Dubai\'s leading real estate developers with a stellar reputation.' },
             { title: 'Established neighborhood', text: 'Benefit from a well developed community with mature infrastructure, offering reliability and convenience.' }
@@ -371,8 +371,8 @@ const STRATEGY_DATA = {
         title: 'High yield',
         description: 'Properties that offer higher than average rental yields, designed to maximise rental income.',
         icon: Coins,
-        colorClass: 'bg-blue-50 border-blue-100 text-blue-900',
-        iconBgClass: 'bg-blue-600',
+        colorClass: 'border-emerald-100 text-emerald-900',
+        iconBgClass: 'bg-emerald-600',
         highlights: [
             { title: 'High-end amenities', text: 'Luxurious amenities enhance lifestyle and justify premium rents, attracting high-end tenants.' },
             { title: 'Booming neighborhood', text: 'Benefit from a growing community with developing infrastructure and increasing demand.' }
@@ -382,8 +382,8 @@ const STRATEGY_DATA = {
         title: 'Fix n’ Flip',
         description: 'Purchase a market-undervalued property, renovate it, and quickly resell at a higher value.',
         icon: Hammer,
-        colorClass: 'bg-purple-50 border-purple-100 text-purple-900',
-        iconBgClass: 'bg-purple-600',
+        colorClass: 'border-emerald-100 text-emerald-900',
+        iconBgClass: 'bg-emerald-600',
         highlights: [
             { title: 'Central location', text: 'Located in the center of the region, with key commercial hubs within short walking distance.' },
             { title: 'Reputable developer', text: 'Built by one of Dubai\'s leading real estate developers with a stellar reputation.' }
@@ -401,7 +401,7 @@ const InvestmentStrategy = ({ type }) => {
                 Investment strategy
             </h3>
 
-            <div className={`p-8 rounded-3xl border-2 ${strategy.colorClass} relative overflow-hidden`}>
+            <div className={`p-8 rounded-3xl border-2 ${strategy.colorClass} bg-white relative overflow-hidden shadow-sm`}>
                 <div className="flex justify-between items-start mb-6">
                     <div className="max-w-xl">
                         <h4 className="text-2xl font-bold mb-2">{strategy.title}</h4>
@@ -484,7 +484,7 @@ export default function PropertyDetailPage() {
 
             {/* Redesigned Hero / Top Section */}
             <div className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
+                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10 pl-12 pr-12">
                     {/* Breadcrumbs / Back Link & Actions */}
                     <div className="flex items-center justify-between mb-8">
                         <Link
