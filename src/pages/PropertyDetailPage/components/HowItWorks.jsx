@@ -254,7 +254,7 @@ export default function HowItWorks() {
                     </div>
 
                     {/* Interactive Steps Grid/Flex */}
-                    <div className="flex-1 flex flex-col md:flex-row gap-3 min-h-[300px] max-w-2xl mx-auto">
+                    <div className="flex-1 flex flex-col md:flex-row gap-10 min-h-[300px] max-w-2xl mx-auto">
                         {steps.map((item, index) => (
                             <motion.div
                                 key={item.step}

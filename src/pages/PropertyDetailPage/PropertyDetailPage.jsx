@@ -444,12 +444,12 @@ export default function PropertyDetailPage() {
                         {/* Right Side: Primary Info & Engagement (lg: 5 cols) */}
                         <div className="lg:col-span-5 flex flex-col h-full">
                             <div className="mb-6">
-                                <span className={`inline - flex px - 3 py - 1 rounded - full text - xs font - bold tracking - wider mb - 4 ${property.status === 'open'
-                                    ? 'bg-green-100 text-green-700'
+                                <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest mb-4 w-fit ${property.status === 'open'
+                                    ? 'bg-emerald-100 text-emerald-700'
                                     : property.status === 'sold-out'
                                         ? 'bg-red-100 text-red-700'
                                         : 'bg-blue-100 text-blue-700'
-                                    } `}>
+                                    }`}>
                                     {property.badge}
                                 </span>
 
@@ -505,17 +505,17 @@ export default function PropertyDetailPage() {
                             <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
 
+                        {/* Investment Calculator */}
+                        <div className="overflow-hidden">
+                            <InvestmentCalculator property={property} />
+                        </div>
+
                         {/* Investment Timeline */}
                         <InvestmentTimeline timeline={property.timeline} />
 
                         {/* How It Works */}
                         <div className="pt-4 mb-6">
                             <HowItWorks />
-                        </div>
-
-                        {/* Investment Calculator */}
-                        <div className="overflow-hidden">
-                            <InvestmentCalculator property={property} />
                         </div>
 
                         {/* Location Details */}

@@ -6,7 +6,7 @@ const InvestmentTimeline = ({ timeline = [] }) => {
     if (!timeline || timeline.length === 0) return null;
 
     return (
-        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+        <div className="py-6">
             <h3 className="text-xl font-bold text-[#0F172A] mb-8 flex items-center gap-3">
                 <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
                     <Calendar size={22} />
@@ -25,32 +25,44 @@ const InvestmentTimeline = ({ timeline = [] }) => {
                             {/* Connecting Line */}
                             {!isLast && (
                                 <div
-                                    className={`absolute left-[11px] top-[24px] w-[2px] h-[calc(100%-16px)] ${isCompleted ? 'bg-[#10B981]' : 'bg-gray-100'
+                                    className={`absolute left-[6px] top-[22px] w-[2px] h-[calc(100%-12px)] transition-all duration-500 ${isCompleted
+                                        ? 'bg-gradient-to-b from-[#10B981] to-[#10B981]/30'
+                                        : 'bg-gradient-to-b from-gray-200 to-gray-50'
                                         }`}
                                 />
                             )}
 
                             {/* Status Dot */}
-                            <div className="relative z-10 flex-shrink-0 mt-1.5">
+                            <div className="relative z-10 flex-shrink-0 mt-[9px]">
                                 {isCompleted ? (
-                                    <div className="w-6 h-6 rounded-full bg-[#10B981] flex items-center justify-center">
-                                        <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                                    <div className="relative group">
+                                        <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#10B981] via-[#34D399] to-[#059669] flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.3)] border border-white/20">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white shadow-sm" />
+                                        </div>
+                                        {/* Subtle Outer Glow */}
+                                        <div className="absolute inset-0 rounded-full bg-[#10B981]/10 blur-sm -z-10" />
                                     </div>
                                 ) : isCurrent ? (
                                     <div className="relative">
-                                        <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                                            <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                                        {/* Layered Halos */}
+                                        <div className="absolute -inset-1 rounded-full bg-blue-400/10 blur-xl animate-pulse" />
+
+                                        <div className="relative w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#3B82F6] via-[#60A5FA] to-[#2563EB] flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.5)] border border-white/30">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_5px_rgba(255,255,255,0.8)]" />
                                         </div>
-                                        {/* Animated Halo/Pulse */}
+
+                                        {/* Animated Expanding Ring */}
                                         <motion.div
-                                            initial={{ scale: 1, opacity: 0.5 }}
-                                            animate={{ scale: 1.5, opacity: 0 }}
-                                            transition={{ repeat: Infinity, duration: 2 }}
-                                            className="absolute inset-0 rounded-full bg-blue-400"
+                                            initial={{ scale: 0.8, opacity: 0.6 }}
+                                            animate={{ scale: 3.5, opacity: 0 }}
+                                            transition={{ repeat: Infinity, duration: 2.5, ease: "easeOut" }}
+                                            className="absolute inset-0 rounded-full border border-blue-400/30"
                                         />
                                     </div>
                                 ) : (
-                                    <div className="w-6 h-6 rounded-full bg-gray-200" />
+                                    <div className="w-3.5 h-3.5 rounded-full bg-white border-2 border-gray-100 flex items-center justify-center shadow-inner">
+                                        <div className="w-1 h-1 rounded-full bg-gray-200" />
+                                    </div>
                                 )}
                             </div>
 

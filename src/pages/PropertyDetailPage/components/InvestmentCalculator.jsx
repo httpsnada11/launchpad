@@ -223,97 +223,27 @@ export default function InvestmentCalculator({ property }) {
                     <Calculator size={24} className="text-white" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Investment Calculator</h2>
+                    <h2 className="text-2xl font-bold text-gray-900">Investment Calculator (Updated)</h2>
                     <p className="text-sm text-gray-500">Project your returns over time</p>
                 </div>
             </div>
 
-            {/* Input Controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-                {/* Investment Amount Slider */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <span className="text-emerald-600 font-bold">AED</span>
-                            Initial Investment
-                        </label>
-                        <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold">
-                            {formatCurrency(investmentAmount)}
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1000"
-                        max="100000"
-                        step="1000"
-                        value={investmentAmount}
-                        onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500">
-                        <span>1,000 AED</span>
-                        <span>100,000 AED</span>
-                    </div>
-
-                    {/* Quick Amount Buttons */}
-                    <div className="flex gap-2 flex-wrap">
-                        {[5000, 10000, 25000, 50000].map(amount => (
-                            <button
-                                key={amount}
-                                onClick={() => setInvestmentAmount(amount)}
-                                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${investmentAmount === amount
-                                    ? 'bg-green-600 text-white shadow-lg shadow-green-200'
-                                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
-                                    }`}
-                            >
-                                {amount.toLocaleString()} AED
-                            </button>
-                        ))}
+            {/* Stacked Bar Chart - Stake Style */}
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-6 rounded-2xl border-0 shadow-0"
+            >
+                <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                        <TrendingUp size={20} className="text-green-600" />
+                        <h3 className="font-bold text-gray-900">Investment Projection</h3>
                     </div>
                 </div>
-
-                {/* Holding Period Slider */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            <Calendar size={18} className="text-blue-600" />
-                            Holding Period
-                        </label>
-                        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-bold">
-                            {holdingPeriod} Years
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1"
-                        max="10"
-                        step="1"
-                        value={holdingPeriod}
-                        onChange={(e) => setHoldingPeriod(Number(e.target.value))}
-                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500">
-                        <span>1 Year</span>
-                        <span>10 Years</span>
-                    </div>
-
-                    {/* Quick Period Buttons */}
-                    <div className="flex gap-2 flex-wrap">
-                        {[3, 5, 7, 10].map(years => (
-                            <button
-                                key={years}
-                                onClick={() => setHoldingPeriod(years)}
-                                className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${holdingPeriod === years
-                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
-                                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
-                                    }`}
-                            >
-                                {years} Years
-                            </button>
-                        ))}
-                    </div>
+                <div className="h-80">
+                    <StackedBarChart data={chartData} />
                 </div>
-            </div>
+            </motion.div>
 
             {/* Key Metrics Cards
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -376,22 +306,92 @@ export default function InvestmentCalculator({ property }) {
             </div>
             */}
 
-            {/* Stacked Bar Chart - Stake Style */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="p-6 rounded-2xl border-0 shadow-0"
-            >
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                        <TrendingUp size={20} className="text-green-600" />
-                        <h3 className="font-bold text-gray-900">Investment Projection</h3>
+            {/* Input Controls */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50/50 rounded-2xl border border-gray-100">
+                {/* Investment Amount Slider */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                            <span className="text-emerald-600 font-bold">AED</span>
+                            Initial Investment
+                        </label>
+                        <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold">
+                            {formatCurrency(investmentAmount)}
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min="1000"
+                        max="100000"
+                        step="1000"
+                        value={investmentAmount}
+                        onChange={(e) => setInvestmentAmount(Number(e.target.value))}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+                    />
+                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
+                        <span>1,000 AED</span>
+                        <span>100,000 AED</span>
+                    </div>
+
+                    {/* Quick Amount Buttons */}
+                    <div className="flex gap-2 flex-wrap">
+                        {[5000, 10000, 25000, 50000].map(amount => (
+                            <button
+                                key={amount}
+                                onClick={() => setInvestmentAmount(amount)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${investmentAmount === amount
+                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200'
+                                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                    }`}
+                            >
+                                {amount.toLocaleString()}
+                            </button>
+                        ))}
                     </div>
                 </div>
-                <div className="h-80">
-                    <StackedBarChart data={chartData} />
+
+                {/* Holding Period Slider */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                            <Calendar size={18} className="text-blue-600" />
+                            Holding Period
+                        </label>
+                        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-bold">
+                            {holdingPeriod} Years
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        step="1"
+                        value={holdingPeriod}
+                        onChange={(e) => setHoldingPeriod(Number(e.target.value))}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                    />
+                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
+                        <span>1 Year</span>
+                        <span>10 Years</span>
+                    </div>
+
+                    {/* Quick Period Buttons */}
+                    <div className="flex gap-2 flex-wrap">
+                        {[3, 5, 7, 10].map(years => (
+                            <button
+                                key={years}
+                                onClick={() => setHoldingPeriod(years)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${holdingPeriod === years
+                                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
+                                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                    }`}
+                            >
+                                {years} Years
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </motion.div>
+            </div>
 
             {/* Summary Card */}
             <motion.div
