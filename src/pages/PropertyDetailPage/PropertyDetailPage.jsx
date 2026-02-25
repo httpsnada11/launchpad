@@ -16,6 +16,8 @@ import InvestmentCard from './components/InvestmentCard';
 import PropertyDetailsModal from './components/PropertyDetailsModal';
 import ContactExpert from './components/ContactExpert';
 import PropertyGallery from './components/PropertyGallery';
+import InvestmentTimeline from './components/InvestmentTimeline';
+import PropertyMap from './components/PropertyMap';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -336,24 +338,6 @@ const InfoCard = ({ icon: Icon, label, value, subtext, color = 'blue' }) => {
     );
 };
 
-// Timeline Item Component
-const TimelineItem = ({ item, isLast }) => (
-    <div className="flex gap-4">
-        <div className="flex flex-col items-center">
-            <div className={`w - 3 h - 3 rounded - full ${item.status === 'completed'
-                ? 'bg-green-500'
-                : item.status === 'current'
-                    ? 'bg-blue-500 ring-4 ring-blue-100'
-                    : 'bg-gray-300'
-                } `} />
-            {!isLast && <div className={`w - 0.5 flex - 1 my - 2 ${item.status === 'completed' ? 'bg-green-500' : 'bg-gray-200'} `} />}
-        </div>
-        <div className="pb-8">
-            <p className="font-semibold text-gray-900">{item.event}</p>
-            <p className="text-sm text-gray-500">{item.date}</p>
-        </div>
-    </div>
-);
 
 export default function PropertyDetailPage() {
     const { id } = useParams();
@@ -522,17 +506,7 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Investment Timeline */}
-                        <div className="p-6">
-                            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
-                                <Calendar size={20} className="text-blue-600" />
-                                Investment Timeline
-                            </h3>
-                            <div className="pl-2">
-                                {property.timeline.map((item, idx) => (
-                                    <TimelineItem key={idx} item={item} isLast={idx === property.timeline.length - 1} />
-                                ))}
-                            </div>
-                        </div>
+                        <InvestmentTimeline timeline={property.timeline} />
 
                         {/* How It Works */}
                         <div className="pt-4 mb-6">
@@ -551,31 +525,12 @@ export default function PropertyDetailPage() {
                                 Asset Location
                             </h2>
 
-                            <div className="bg-gray-100 rounded-xl h-48 flex items-center justify-center mb-6 overflow-hidden relative">
-                                <div className="absolute inset-0 bg-[#0F172A]/5 animate-pulse" />
-                                <div className="relative text-center text-gray-400 z-10">
-                                    <Navigation size={32} className="mx-auto mb-2 opacity-50" />
-                                    <p className="text-sm font-medium italic">Interactive Geolocation Integration</p>
-                                </div>
-                            </div>
+                            <PropertyMap
+                                address={property.fullAddress}
+                                coordinates={property.coordinates}
+                                city={property.city}
+                            />
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                                    <Globe size={18} className="mx-auto mb-1 text-blue-600" />
-                                    <p className="text-xs text-gray-500">Country</p>
-                                    <p className="font-semibold text-sm">{property.country}</p>
-                                </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                                    <MapPin size={18} className="mx-auto mb-1 text-green-600" />
-                                    <p className="text-xs text-gray-500">City</p>
-                                    <p className="font-semibold text-sm">{property.city}</p>
-                                </div>
-                                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                                    <Navigation size={18} className="mx-auto mb-1 text-purple-600" />
-                                    <p className="text-xs text-gray-500">District</p>
-                                    <p className="font-semibold text-sm">{property.location}</p>
-                                </div>
-                            </div>
                         </div>
 
 
