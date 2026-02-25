@@ -599,9 +599,9 @@ export default function PropertyDetailPage() {
                                             {/* Top Left: Listing Price */}
                                             <div className="pr-4">
                                                 <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
-                                                <div className="flex items-baseline gap-1.5">
-                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
-                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                <div className="flex items-baseline gap-1">
+                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
                                                 </div>
                                             </div>
 
@@ -614,9 +614,9 @@ export default function PropertyDetailPage() {
                                                         <span>+6.25%</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-baseline gap-1.5">
-                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
-                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                <div className="flex items-baseline gap-1">
+                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
                                                 </div>
                                             </div>
 
@@ -624,26 +624,18 @@ export default function PropertyDetailPage() {
                                             <div className="pr-4">
                                                 <div className="flex items-center gap-1.5 mb-2">
                                                     <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Price per token</p>
-                                                    <Info size={12} className="text-gray-300" />
                                                 </div>
-                                                <div className="flex items-baseline gap-1.5">
-                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
-                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                <div className="flex items-baseline gap-1">
+                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
                                                 </div>
                                             </div>
 
                                             {/* Bottom Right: Total Tokens */}
                                             <div className="pl-6">
                                                 <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Total amount of tokens</p>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#6366F1] via-[#8B5CF6] to-[#EC4899] p-[1.5px] flex items-center justify-center">
-                                                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                                                            <div className="w-[80%] h-[80%] rounded-full bg-gradient-to-br from-[#6366F1] via-[#8B5CF6] to-[#EC4899] flex items-center justify-center">
-                                                                <PieChart size={12} className="text-white" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.totalTokens.toLocaleString()}</span>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.totalTokens.toLocaleString()}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -729,11 +721,6 @@ export default function PropertyDetailPage() {
                     <div className="lg:col-span-1 space-y-6 pt-6 pb-6 pl-4 pr-12">
                         <div className="sticky top-24 space-y-8">
                             <InvestmentCard property={property} />
-
-                            <div className="pt-4">
-                                <h3 className="text-lg font-bold text-gray-900 mb-6 uppercase tracking-wider pl-2 border-l-4 border-[#0F172A]">Tokenization Details</h3>
-                                <TokenDetails property={property} />
-                            </div>
                         </div>
                     </div>
                 </div>
