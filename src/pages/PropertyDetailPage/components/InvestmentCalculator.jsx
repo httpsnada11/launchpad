@@ -301,7 +301,7 @@ export default function InvestmentCalculator({ property }) {
             */}
 
             {/* Input Controls */}
-            <div className="grid grid-cols-1 gap-10 py-8 border-t border-gray-100 max-w-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 py-8 border-t border-gray-100">
                 {/* Investment Amount Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">

@@ -397,8 +397,7 @@ const InvestmentStrategy = ({ type }) => {
 
     return (
         <div className="pt-6 pb-6 pl-12 pr-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
-                <Sparkles size={20} className="text-emerald-600" />
+            <h3 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
                 Investment strategy
             </h3>
 
