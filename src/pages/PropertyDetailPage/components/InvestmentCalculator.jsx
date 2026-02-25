@@ -9,7 +9,7 @@ import {
 const StackedBarChart = ({ data }) => {
     const height = 320;
     const width = 650;
-    const padding = { top: 50, right: 40, bottom: 60, left: 70 };
+    const padding = { top: 50, right: 20, bottom: 60, left: 45 };
     const chartHeight = height - padding.top - padding.bottom;
     const chartWidth = width - padding.left - padding.right;
 
@@ -23,21 +23,6 @@ const StackedBarChart = ({ data }) => {
 
     return (
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-            <defs>
-                {/* Colors for each segment */}
-                <linearGradient id="grad-investment" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#6B7280" />
-                    <stop offset="100%" stopColor="#4B5563" />
-                </linearGradient>
-                <linearGradient id="grad-gains" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#0F172A" />
-                    <stop offset="100%" stopColor="#1E293B" />
-                </linearGradient>
-                <linearGradient id="grad-rental" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#10B981" />
-                    <stop offset="100%" stopColor="#059669" />
-                </linearGradient>
-            </defs>
 
             {/* Grid lines */}
             {[0, 1, 2, 3, 4].map(i => {
@@ -72,54 +57,58 @@ const StackedBarChart = ({ data }) => {
             {data.map((d, i) => {
                 const x = padding.left + i * (barWidth + gap) + gap / 2;
 
-                // Calculate segment heights
-                const investmentHeight = yScale(d.investment);
-                const gainsHeight = yScale(d.propertyValue) - yScale(d.investment);
-                const rentalHeight = yScale(d.totalValue) - yScale(d.propertyValue);
+                // Calculate heights based on absolute values
+                // Values are: investment, gains (propertyValue - investment), rental (totalValue - propertyValue)
+                const invScale = (d.investment / maxValue) * chartHeight;
+                const gainsScale = ((d.propertyValue - d.investment) / maxValue) * chartHeight;
+                const rentalScale = ((d.totalValue - d.propertyValue) / maxValue) * chartHeight;
+
+                const r = 4; // Corner radius
 
                 return (
                     <g key={i}>
-                        {/* Bottom Segment - Initial Investment */}
-                        <rect
-                            x={x}
-                            y={padding.top + chartHeight - investmentHeight}
-                            width={barWidth}
-                            height={investmentHeight}
-                            fill="url(#grad-investment)"
-                            rx="4"
+                        {/* Bottom Segment - Initial Investment (Round bottom only) */}
+                        <path
+                            d={`M ${x},${padding.top + chartHeight - invScale} 
+                               L ${x + barWidth},${padding.top + chartHeight - invScale} 
+                               L ${x + barWidth},${padding.top + chartHeight - r} 
+                               Q ${x + barWidth},${padding.top + chartHeight} ${x + barWidth - r},${padding.top + chartHeight} 
+                               L ${x + r},${padding.top + chartHeight} 
+                               Q ${x},${padding.top + chartHeight} ${x},${padding.top + chartHeight - r} Z`}
+                            fill="#64748B"
                             className="transition-all duration-300 hover:opacity-80"
                         />
 
-                        {/* Middle Segment - Capital Gains */}
+                        {/* Middle Segment - Capital Gains (No rounding) */}
                         <rect
                             x={x}
-                            y={padding.top + chartHeight - investmentHeight - gainsHeight}
+                            y={padding.top + chartHeight - invScale - gainsScale}
                             width={barWidth}
-                            height={gainsHeight}
-                            fill="url(#grad-gains)"
-                            rx="4"
+                            height={gainsScale}
+                            fill="#1E293B"
                             className="transition-all duration-300 hover:opacity-80"
                         />
 
-                        {/* Top Segment - Rental Income */}
-                        <rect
-                            x={x}
-                            y={padding.top + chartHeight - investmentHeight - gainsHeight - rentalHeight}
-                            width={barWidth}
-                            height={rentalHeight}
-                            fill="url(#grad-rental)"
-                            rx="4"
+                        {/* Top Segment - Rental Income (Round top only) */}
+                        <path
+                            d={`M ${x},${padding.top + chartHeight - invScale - gainsScale} 
+                               L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale} 
+                               L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} 
+                               Q ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x + barWidth - r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
+                               L ${x + r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
+                               Q ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} Z`}
+                            fill="#10B981"
                             className="transition-all duration-300 hover:opacity-80"
                         />
 
                         {/* Total Value Label on top of bar */}
                         <text
                             x={x + barWidth / 2}
-                            y={padding.top + chartHeight - investmentHeight - gainsHeight - rentalHeight - 8}
+                            y={padding.top + chartHeight - invScale - gainsScale - rentalScale - 10}
                             textAnchor="middle"
-                            fontSize="10"
+                            fontSize="11"
                             fill="#10B981"
-                            fontWeight="700"
+                            fontWeight="800"
                         >
                             {d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
                         </text>
@@ -127,10 +116,10 @@ const StackedBarChart = ({ data }) => {
                         {/* Year Label */}
                         <text
                             x={x + barWidth / 2}
-                            y={height - padding.bottom + 20}
+                            y={height - padding.bottom + 25}
                             textAnchor="middle"
-                            fontSize="12"
-                            fill="#6B7280"
+                            fontSize="11"
+                            fill="#9CA3AF"
                             fontWeight="600"
                         >
                             Y{d.year}
@@ -140,15 +129,15 @@ const StackedBarChart = ({ data }) => {
             })}
 
             {/* Legend */}
-            <g transform={`translate(${padding.left}, ${padding.top - 30})`}>
-                <rect x="0" y="0" width="14" height="14" rx="3" fill="url(#grad-rental)" />
-                <text x="20" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Rental Income</text>
+            <g transform={`translate(0, ${padding.top - 30})`}>
+                <rect x="0" y="0" width="12" height="12" rx="3" fill="#10B981" />
+                <text x="18" y="10" fontSize="11" fill="#64748B" fontWeight="600">Rental Income</text>
 
-                <rect x="110" y="0" width="14" height="14" rx="3" fill="url(#grad-gains)" />
-                <text x="130" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Capital Gains</text>
+                <rect x="110" y="0" width="12" height="12" rx="3" fill="#1E293B" />
+                <text x="128" y="10" fontSize="11" fill="#64748B" fontWeight="600">Capital Gains</text>
 
-                <rect x="230" y="0" width="14" height="14" rx="3" fill="url(#grad-investment)" />
-                <text x="250" y="11" fontSize="11" fill="#6B7280" fontWeight="500">Initial Investment</text>
+                <rect x="220" y="0" width="12" height="12" rx="3" fill="#64748B" />
+                <text x="238" y="10" fontSize="11" fill="#64748B" fontWeight="600">Initial Investment</text>
             </g>
         </svg>
     );
@@ -158,11 +147,11 @@ const StackedBarChart = ({ data }) => {
 export default function InvestmentCalculator({ property }) {
     const [investmentAmount, setInvestmentAmount] = useState(10000);
     const [holdingPeriod, setHoldingPeriod] = useState(5);
+    const [rentalYield, setRentalYield] = useState(parseFloat(property.financials?.projectedRentalYield) || 4.5);
+    const [appreciation, setAppreciation] = useState(parseFloat(property.financials?.annualAppreciation) || 6.2);
 
     // Parse property financial data
     const tokenPrice = parseFloat(property.tokenPriceAED?.replace(/[, AED]/g, '')) || 165;
-    const rentalYield = parseFloat(property.financials?.projectedRentalYield) || 4.5;
-    const appreciation = parseFloat(property.financials?.annualAppreciation) || 6.2;
 
     // Calculate tokens purchased
     const tokensPurchased = investmentAmount / tokenPrice;
@@ -170,21 +159,32 @@ export default function InvestmentCalculator({ property }) {
     // Calculate projections
     const projections = useMemo(() => {
         const data = [];
-        let propertyValue = investmentAmount;
-        let totalRentalIncome = 0;
+        let currentPropertyValue = investmentAmount;
+        let accumulatedRentalIncome = 0;
 
-        for (let year = 0; year <= holdingPeriod; year++) {
-            const yearlyRental = propertyValue * (rentalYield / 100);
-            totalRentalIncome += yearlyRental;
+        // Year 0: Baseline (Initial Investment)
+        data.push({
+            year: 0,
+            propertyValue: Math.round(currentPropertyValue),
+            rentalIncome: 0,
+            totalValue: Math.round(currentPropertyValue)
+        });
+
+        // Year 1 to N
+        for (let year = 1; year <= holdingPeriod; year++) {
+            // Rent is calculated based on VALUE at start of the year
+            const yearlyRental = currentPropertyValue * (rentalYield / 100);
+            accumulatedRentalIncome += yearlyRental;
+
+            // Property appreciates at end of year
+            currentPropertyValue *= (1 + appreciation / 100);
 
             data.push({
                 year,
-                propertyValue: Math.round(propertyValue),
-                rentalIncome: Math.round(totalRentalIncome),
-                totalValue: Math.round(propertyValue + totalRentalIncome)
+                propertyValue: Math.round(currentPropertyValue),
+                rentalIncome: Math.round(accumulatedRentalIncome),
+                totalValue: Math.round(currentPropertyValue + accumulatedRentalIncome)
             });
-
-            propertyValue *= (1 + appreciation / 100);
         }
 
         return data;
@@ -218,21 +218,16 @@ export default function InvestmentCalculator({ property }) {
     return (
         <div className="space-y-8">
             {/* Header */}
-            <div className="flex items-center gap-3 mb-6">
-                <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl">
-                    <Calculator size={24} className="text-white" />
-                </div>
-                <div>
-                    <h2 className="text-2xl font-bold text-gray-900">Investment Calculator (Updated)</h2>
-                    <p className="text-sm text-gray-500">Project your returns over time</p>
-                </div>
+            <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 text-left">Investment Calculator</h2>
+                <p className="text-sm text-gray-500 text-left">Project your returns over time</p>
             </div>
 
             {/* Stacked Bar Chart - Stake Style */}
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="p-6 rounded-2xl border-0 shadow-0"
+                className="py-6 rounded-2xl border-0 shadow-0"
             >
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
@@ -307,7 +302,7 @@ export default function InvestmentCalculator({ property }) {
             */}
 
             {/* Input Controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50/50 rounded-2xl border border-gray-100">
+            <div className="grid grid-cols-1 gap-10 py-8 border-t border-gray-100 max-w-2xl">
                 {/* Investment Amount Slider */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -315,7 +310,7 @@ export default function InvestmentCalculator({ property }) {
                             <span className="text-emerald-600 font-bold">AED</span>
                             Initial Investment
                         </label>
-                        <div className="bg-green-100 text-green-700 px-4 py-2 rounded-lg font-bold">
+                        <div className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold">
                             {formatCurrency(investmentAmount)}
                         </div>
                     </div>
@@ -326,7 +321,7 @@ export default function InvestmentCalculator({ property }) {
                         step="1000"
                         value={investmentAmount}
                         onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
                     />
                     <div className="flex justify-between text-[10px] text-gray-400 font-medium">
                         <span>1,000 AED</span>
@@ -339,7 +334,7 @@ export default function InvestmentCalculator({ property }) {
                             <button
                                 key={amount}
                                 onClick={() => setInvestmentAmount(amount)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${investmentAmount === amount
+                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${investmentAmount === amount
                                     ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200'
                                     : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                                     }`}
@@ -357,7 +352,7 @@ export default function InvestmentCalculator({ property }) {
                             <Calendar size={18} className="text-blue-600" />
                             Holding Period
                         </label>
-                        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-bold">
+                        <div className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold">
                             {holdingPeriod} Years
                         </div>
                     </div>
@@ -368,7 +363,7 @@ export default function InvestmentCalculator({ property }) {
                         step="1"
                         value={holdingPeriod}
                         onChange={(e) => setHoldingPeriod(Number(e.target.value))}
-                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-blue-600"
                     />
                     <div className="flex justify-between text-[10px] text-gray-400 font-medium">
                         <span>1 Year</span>
@@ -381,7 +376,7 @@ export default function InvestmentCalculator({ property }) {
                             <button
                                 key={years}
                                 onClick={() => setHoldingPeriod(years)}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${holdingPeriod === years
+                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${holdingPeriod === years
                                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-200'
                                     : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                                     }`}
@@ -389,6 +384,58 @@ export default function InvestmentCalculator({ property }) {
                                 {years} Years
                             </button>
                         ))}
+                    </div>
+                </div>
+
+                {/* Rental Yield Slider */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                            <Percent size={18} className="text-emerald-600" />
+                            Rental Yield (ROI)
+                        </label>
+                        <div className="bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full font-bold">
+                            {rentalYield}%
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min="1"
+                        max="20"
+                        step="0.1"
+                        value={rentalYield}
+                        onChange={(e) => setRentalYield(Number(e.target.value))}
+                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
+                    />
+                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
+                        <span>1%</span>
+                        <span>20%</span>
+                    </div>
+                </div>
+
+                {/* Appreciation Slider (CAGR) */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
+                            <ArrowUpRight size={18} className="text-orange-500" />
+                            Annual Appreciation (CAGR)
+                        </label>
+                        <div className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-bold">
+                            {appreciation}%
+                        </div>
+                    </div>
+                    <input
+                        type="range"
+                        min="1"
+                        max="25"
+                        step="0.1"
+                        value={appreciation}
+                        onChange={(e) => setAppreciation(Number(e.target.value))}
+                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-orange-500"
+                    />
+                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
+                        <span>1%</span>
+                        <span>25%</span>
                     </div>
                 </div>
             </div>
@@ -401,8 +448,7 @@ export default function InvestmentCalculator({ property }) {
             >
                 <div className="flex items-start justify-between flex-wrap gap-4">
                     <div>
-                        <h3 className="text-lg font-bold mb-2 flex items-center gap-2">
-                            <Zap size={20} className="text-yellow-400" />
+                        <h3 className="text-lg font-bold mb-2">
                             Investment Summary
                         </h3>
                         <p className="text-gray-300 text-sm mb-4">

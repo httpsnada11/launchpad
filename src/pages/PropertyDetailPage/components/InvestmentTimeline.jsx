@@ -1,5 +1,4 @@
 import React from 'react';
-import { Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const InvestmentTimeline = ({ timeline = [] }) => {
@@ -7,10 +6,7 @@ const InvestmentTimeline = ({ timeline = [] }) => {
 
     return (
         <div className="py-6">
-            <h3 className="text-xl font-bold text-[#0F172A] mb-8 flex items-center gap-3">
-                <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
-                    <Calendar size={22} />
-                </div>
+            <h3 className="text-xl font-bold text-[#0F172A] mb-8">
                 Investment Timeline
             </h3>
 
