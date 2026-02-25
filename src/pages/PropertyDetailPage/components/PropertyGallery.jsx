@@ -33,13 +33,11 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
                 />
             </AnimatePresence>
 
-            {/* Glassy Stat Pills - Micro UI for Maximum Visibility */}
+            {/* Glassy Stat Pills - Strategy and Status only */}
             {stats && (
                 <div className="absolute bottom-5 left-5 right-5 flex flex-nowrap gap-1.5 z-10 overflow-x-auto no-scrollbar py-1 select-none">
                     <div className="flex gap-1.5 pr-36"> {/* Reserved space for View All button */}
-                        <StatPill icon={DollarSign} label="Price" value={stats.price} />
                         <StatPill icon={TrendingUp} label="Strategy" value={stats.strategy} />
-                        <StatPill icon={PieChart} label="Available" value={stats.available} />
                         <StatPill icon={Award} label="Status" value={stats.status} />
                     </div>
                 </div>

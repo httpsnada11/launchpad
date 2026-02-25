@@ -262,7 +262,7 @@ export default function HowItWorks() {
                                 whileHover={{ flex: window.innerWidth < 768 ? 1 : 3 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 onClick={() => item.showDocuments && setShowDocuments(true)}
-                                className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 shadow-sm min-h-[80px] md:min-h-0 ${item.showDocuments ? 'hover:ring-2 hover:ring-green-500' : ''}`}
+                                className="group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 shadow-sm min-h-[80px] md:min-h-0 hover:ring-2 hover:ring-green-500"
                             >
                                 {/* Initial State (Vertical Bar Look) */}
                                 <div className="absolute inset-0 bg-white group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">

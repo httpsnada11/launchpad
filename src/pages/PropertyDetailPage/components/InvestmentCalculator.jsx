@@ -68,50 +68,66 @@ const StackedBarChart = ({ data }) => {
                 return (
                     <g key={i}>
                         {/* Bottom Segment - Initial Investment (Round bottom only) */}
-                        <path
-                            d={`M ${x},${padding.top + chartHeight - invScale} 
-                               L ${x + barWidth},${padding.top + chartHeight - invScale} 
-                               L ${x + barWidth},${padding.top + chartHeight - r} 
-                               Q ${x + barWidth},${padding.top + chartHeight} ${x + barWidth - r},${padding.top + chartHeight} 
-                               L ${x + r},${padding.top + chartHeight} 
-                               Q ${x},${padding.top + chartHeight} ${x},${padding.top + chartHeight - r} Z`}
+                        <motion.path
+                            initial={false}
+                            animate={{
+                                d: `M ${x},${padding.top + chartHeight - invScale} 
+                                   L ${x + barWidth},${padding.top + chartHeight - invScale} 
+                                   L ${x + barWidth},${padding.top + chartHeight - r} 
+                                   Q ${x + barWidth},${padding.top + chartHeight} ${x + barWidth - r},${padding.top + chartHeight} 
+                                   L ${x + r},${padding.top + chartHeight} 
+                                   Q ${x},${padding.top + chartHeight} ${x},${padding.top + chartHeight - r} Z`
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             fill="#64748B"
-                            className="transition-all duration-300 hover:opacity-80"
+                            className="transition-opacity duration-300 hover:opacity-80"
                         />
 
                         {/* Middle Segment - Capital Gains (No rounding) */}
-                        <rect
+                        <motion.rect
+                            initial={false}
+                            animate={{
+                                y: padding.top + chartHeight - invScale - gainsScale,
+                                height: gainsScale
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             x={x}
-                            y={padding.top + chartHeight - invScale - gainsScale}
                             width={barWidth}
-                            height={gainsScale}
                             fill="#1E293B"
-                            className="transition-all duration-300 hover:opacity-80"
+                            className="transition-opacity duration-300 hover:opacity-80"
                         />
 
                         {/* Top Segment - Rental Income (Round top only) */}
-                        <path
-                            d={`M ${x},${padding.top + chartHeight - invScale - gainsScale} 
-                               L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale} 
-                               L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} 
-                               Q ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x + barWidth - r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
-                               L ${x + r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
-                               Q ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} Z`}
+                        <motion.path
+                            initial={false}
+                            animate={{
+                                d: `M ${x},${padding.top + chartHeight - invScale - gainsScale} 
+                                   L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale} 
+                                   L ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} 
+                                   Q ${x + barWidth},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x + barWidth - r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
+                                   L ${x + r},${padding.top + chartHeight - invScale - gainsScale - rentalScale} 
+                                   Q ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale} ${x},${padding.top + chartHeight - invScale - gainsScale - rentalScale + r} Z`
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             fill="#10B981"
-                            className="transition-all duration-300 hover:opacity-80"
+                            className="transition-opacity duration-300 hover:opacity-80"
                         />
 
                         {/* Total Value Label on top of bar */}
-                        <text
+                        <motion.text
+                            initial={false}
+                            animate={{
+                                y: padding.top + chartHeight - invScale - gainsScale - rentalScale - 10
+                            }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             x={x + barWidth / 2}
-                            y={padding.top + chartHeight - invScale - gainsScale - rentalScale - 10}
                             textAnchor="middle"
                             fontSize="11"
                             fill="#10B981"
                             fontWeight="800"
                         >
                             {d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
-                        </text>
+                        </motion.text>
 
                         {/* Year Label */}
                         <text
@@ -232,7 +248,7 @@ export default function InvestmentCalculator({ property }) {
                             <div className="w-2.5 h-2.5 rounded-full bg-[#64748B] flex-shrink-0" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Investment</p>
-                                <p className="text-base font-bold text-gray-900 leading-tight">Ð {investmentAmount.toLocaleString()}</p>
+                                <p className="text-base font-bold text-gray-900 leading-tight">AED {investmentAmount.toLocaleString()}</p>
                             </div>
                         </div>
 

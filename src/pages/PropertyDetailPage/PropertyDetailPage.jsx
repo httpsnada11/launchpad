@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -19,6 +19,9 @@ import ContactExpert from './components/ContactExpert';
 import PropertyGallery from './components/PropertyGallery';
 import InvestmentTimeline from './components/InvestmentTimeline';
 import PropertyMap from './components/PropertyMap';
+import TokenDetails from './components/TokenDetails';
+import PaymentPlans from './components/PaymentPlans';
+import ExpectedProcess from './components/ExpectedProcess';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -157,7 +160,16 @@ const PROPERTY_DETAILS = {
             totalReturn: '15.3%',
             holdingPeriod: '7 years',
             exitStrategy: 'Capital Appreciation',
-            distributionFrequency: 'Quarterly'
+            distributionFrequency: 'Quarterly',
+            marketValue: 'AED 12.6M',
+            originalTokenValue: '2,650 AED',
+            tokensSold: 14200,
+            maxTokensToSell: 500000,
+            paymentPlan: [
+                { step: 1, percentage: 10, label: "Booking Deposit", date: "Immediate", active: true },
+                { step: 2, percentage: 40, label: "During Construction", date: "Within 24 Months", active: false },
+                { step: 3, percentage: 50, label: "On Completion", date: "Q4 2025", active: false }
+            ]
         },
         documents: [
             { name: 'Investment Memorandum', type: 'PDF', size: '3.1 MB' },
@@ -303,7 +315,13 @@ const PROPERTY_DETAILS = {
             totalReturn: '25.0%',
             holdingPeriod: '3 years',
             exitStrategy: 'Development & Sale',
-            distributionFrequency: 'Exit Proceeds'
+            distributionFrequency: 'Exit Proceeds',
+            paymentPlan: [
+                { step: 1, percentage: 10, label: "Booking Deposit", date: "Immediate", active: true },
+                { step: 2, percentage: 30, label: "During Construction", date: "Q3 2025", active: false },
+                { step: 3, percentage: 40, label: "Handover", date: "Q4 2026", active: false },
+                { step: 4, percentage: 20, label: "Final Payment", date: "Q1 2027", active: false }
+            ]
         },
         documents: [
             { name: 'Title Deed', type: 'PDF', size: '0.9 MB' },
@@ -414,15 +432,20 @@ const InvestmentStrategy = ({ type }) => {
                     </div>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-white/50 space-y-6">
-                    {strategy.highlights.map((item, idx) => (
-                        <div key={idx} className={idx !== 0 ? "pt-6 border-t border-gray-100" : ""}>
-                            <h5 className="font-bold text-gray-900 mb-1">{item.title}</h5>
-                            <p className="text-sm text-gray-500 leading-relaxed">
-                                {item.text}
-                            </p>
-                        </div>
-                    ))}
+                <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-white/50">
+                    <div className="flex flex-wrap items-start gap-6">
+                        {strategy.highlights.map((item, idx) => (
+                            <React.Fragment key={idx}>
+                                {idx > 0 && <span className="text-gray-300 self-stretch text-4xl leading-none">|</span>}
+                                <div className="flex-1 min-w-[200px]">
+                                    <h5 className="font-bold text-gray-900 mb-1">{item.title}</h5>
+                                    <p className="text-sm text-gray-500 leading-relaxed">
+                                        {item.text}
+                                    </p>
+                                </div>
+                            </React.Fragment>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
@@ -439,12 +462,25 @@ export default function PropertyDetailPage() {
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
+    const paymentPlansRef = useRef(null);
+    const expectedProcessRef = useRef(null);
+
     useEffect(() => {
         const propertyId = parseInt(id);
         const foundProperty = PROPERTY_DETAILS[propertyId];
         if (foundProperty) {
             setProperty(foundProperty);
+            console.log('Property loaded:', foundProperty.title, 'Completion Status:', foundProperty.completionStatus);
+            // Scroll to Payment Plans and Expected Process for Off-Plan properties
+            if (foundProperty.completionStatus === 'Off-Plan') {
+                setTimeout(() => {
+                    if (paymentPlansRef.current) {
+                        paymentPlansRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 500);
+            }
         } else {
+            console.log('Property not found for ID:', propertyId);
             navigate('/marketplace');
         }
     }, [id, navigate]);
@@ -524,9 +560,7 @@ export default function PropertyDetailPage() {
                                     setShowGallery(true);
                                 }}
                                 stats={{
-                                    price: property.assetPrice,
                                     strategy: property.investmentStrategy,
-                                    available: property.availableTokens.toLocaleString(),
                                     status: property.completionStatus
                                 }}
                             />
@@ -554,17 +588,65 @@ export default function PropertyDetailPage() {
                                 </div>
 
                                 <div className="space-y-6">
-                                    <div className="p-6 bg-gray-50 rounded-2xl border border-gray-100 shadow-sm">
-                                        <div className="grid grid-cols-2 gap-6">
-                                            <div>
-                                                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Token Price</p>
-                                                <p className="text-2xl font-black text-[#0F172A]">{property.tokenPriceAED}</p>
-                                                <p className="text-sm text-gray-400 font-medium">{property.tokenPriceETH}</p>
+                                    <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
+                                        {/* Grid Dividers */}
+                                        <div className="absolute inset-0 pointer-events-none">
+                                            {/* Vertical dashed divider */}
+                                            <div className="absolute left-1/2 top-4 bottom-4 w-px border-l border-gray-100 border-dashed -translate-x-1/2" />
+                                            {/* Horizontal solid divider */}
+                                            <div className="absolute left-4 right-4 top-1/2 h-px bg-gray-50 -translate-y-1/2" />
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-y-10 relative z-10">
+                                            {/* Top Left: Listing Price */}
+                                            <div className="pr-4">
+                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
+                                                <div className="flex items-baseline gap-1.5">
+                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
+                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Target ROI</p>
-                                                <p className="text-2xl font-black text-[#15a36e]">{property.roi}</p>
-                                                <p className="text-sm text-gray-400 font-medium">Est. CAGR: {property.cagr}</p>
+
+                                            {/* Top Right: Market Value */}
+                                            <div className="pl-6">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Market value</p>
+                                                    <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[9px]">
+                                                        <TrendingUp size={10} strokeWidth={3} />
+                                                        <span>+6.25%</span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-baseline gap-1.5">
+                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
+                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom Left: Price per Token */}
+                                            <div className="pr-4">
+                                                <div className="flex items-center gap-1.5 mb-2">
+                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Price per token</p>
+                                                    <Info size={12} className="text-gray-300" />
+                                                </div>
+                                                <div className="flex items-baseline gap-1.5">
+                                                    <span className="text-gray-300 text-lg font-medium">AED</span>
+                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom Right: Total Tokens */}
+                                            <div className="pl-6">
+                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Total amount of tokens</p>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#6366F1] via-[#8B5CF6] to-[#EC4899] p-[1.5px] flex items-center justify-center">
+                                                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                                            <div className="w-[80%] h-[80%] rounded-full bg-gradient-to-br from-[#6366F1] via-[#8B5CF6] to-[#EC4899] flex items-center justify-center">
+                                                                <PieChart size={12} className="text-white" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.totalTokens.toLocaleString()}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -603,11 +685,33 @@ export default function PropertyDetailPage() {
                             <InvestmentCalculator property={property} />
                         </div>
 
+                        {/* Payment Plans - Only for Off-Plan properties */}
+                        {property.completionStatus === 'Off-Plan' ? (
+                            <div ref={paymentPlansRef} className="pt-8">
+                                <PaymentPlans property={property} />
+                            </div>
+                        ) : (
+                            <div className="pt-8 pb-8 text-center text-gray-400 text-sm">
+                                Payment Plans: Only available for Off-Plan properties (Current: {property.completionStatus})
+                            </div>
+                        )}
+
                         {/* Investment Timeline */}
                         <InvestmentTimeline timeline={property.timeline} />
 
+                        {/* Expected Process - Only for Off-Plan properties */}
+                        {property.completionStatus === 'Off-Plan' ? (
+                            <div ref={expectedProcessRef} className="pt-8">
+                                <ExpectedProcess />
+                            </div>
+                        ) : (
+                            <div className="pt-8 pb-8 text-center text-gray-400 text-sm">
+                                Expected Process: Only available for Off-Plan properties (Current: {property.completionStatus})
+                            </div>
+                        )}
+
                         {/* How It Works */}
-                        <div className="pt-4 mb-6">
+                        <div className="pt-8 mb-6">
                             <HowItWorks />
                         </div>
 
@@ -632,10 +736,14 @@ export default function PropertyDetailPage() {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="lg:col-span-1 space-y-6 pt-6 pb-6 pl-6 pr-12">
-                        <div className="sticky top-24">
+                    <div className="lg:col-span-1 space-y-6 pt-6 pb-6 pl-4 pr-12">
+                        <div className="sticky top-24 space-y-8">
                             <InvestmentCard property={property} />
 
+                            <div className="pt-4">
+                                <h3 className="text-lg font-bold text-gray-900 mb-6 uppercase tracking-wider pl-2 border-l-4 border-[#0F172A]">Tokenization Details</h3>
+                                <TokenDetails property={property} />
+                            </div>
                         </div>
                     </div>
                 </div>
