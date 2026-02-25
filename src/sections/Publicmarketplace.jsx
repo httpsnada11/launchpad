@@ -2828,7 +2828,7 @@ export default function Publicmarketplace() {
 
                                         <Link
                                             to={`/property/${item.id}`}
-                                            className="inline-flex items-center gap-3 px-6 py-2.5 bg-[#10B981] hover:bg-[#059669] text-white font-black uppercase text-[12px] tracking-widest rounded-full transition-all duration-300 shadow-lg shadow-emerald-500/10 group/btn mt-2"
+                                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white font-black uppercase text-[9px] tracking-widest rounded-full transition-all duration-300 shadow-lg shadow-emerald-500/10 group/btn mt-2"
                                         >
                                             <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center -ml-2 group-hover/btn:translate-x-1 transition-transform">
                                                 <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

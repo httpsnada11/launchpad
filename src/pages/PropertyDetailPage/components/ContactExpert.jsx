@@ -11,7 +11,7 @@ export default function ContactExpert() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="rounded-2xl pt-8 pb-8 pl-12 pr-10 md:pt-10 md:pb-10 md:pl-12 md:pr-12"
+                className="rounded-2xl pt-8 pb-8 md:pt-10 md:pb-10"
             >
                 <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     {/* Expert Portrait */}

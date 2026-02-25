@@ -396,7 +396,7 @@ const InvestmentStrategy = ({ type }) => {
     const Icon = strategy.icon;
 
     return (
-        <div className="pt-6 pb-6 pl-12 pr-6">
+        <div className="pt-6 pb-6">
             <h3 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
                 Investment strategy
             </h3>
@@ -484,7 +484,7 @@ export default function PropertyDetailPage() {
 
             {/* Redesigned Hero / Top Section */}
             <div className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10 pl-12 pr-12">
+                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
                     {/* Breadcrumbs / Back Link & Actions */}
                     <div className="flex items-center justify-between mb-8">
                         <Link
@@ -498,7 +498,7 @@ export default function PropertyDetailPage() {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setIsWishlisted(!isWishlisted)}
-                                className={`p - 2.5 rounded - xl border transition - all ${isWishlisted
+                                className={`p-2 sm:p-2.5 rounded-xl border transition-all ${isWishlisted
                                     ? 'bg-red-50 border-red-200 text-red-500'
                                     : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
                                     } `}
@@ -507,7 +507,7 @@ export default function PropertyDetailPage() {
                             </button>
                             <button
                                 onClick={handleShare}
-                                className="p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:bg-gray-50 transition-all"
+                                className="p-2 sm:p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:bg-gray-50 transition-all"
                             >
                                 <Share2 size={20} />
                             </button>
@@ -544,7 +544,7 @@ export default function PropertyDetailPage() {
                                     {property.badge}
                                 </span>
 
-                                <h1 className="text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
+                                <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
                                     {property.title}
                                 </h1>
 
@@ -590,7 +590,7 @@ export default function PropertyDetailPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content Area */}
                     <div className="lg:col-span-2 space-y-6">
-                        <div className="pt-6 pb-6 pl-12 pr-6">
+                        <div className="pt-6 pb-6">
                             <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
                             <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
@@ -612,7 +612,7 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Location Details */}
-                        <div className="pt-6 pb-6 pl-12 pr-6">
+                        <div className="pt-6 pb-6">
                             <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
                                 <MapPin size={20} className="text-red-600" />
                                 ASSET LOCATION

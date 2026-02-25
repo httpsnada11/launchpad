@@ -237,18 +237,18 @@ export default function HowItWorks() {
 
     return (
         <>
-            <div className="pt-6 pb-6 pl-12 pr-6 md:pt-8 md:pb-8 md:pl-12 md:pr-8">
+            <div className="pt-6 pb-6 md:pt-8 md:pb-8">
                 <div className="flex flex-col md:flex-row gap-8 items-stretch pt-4">
                     {/* Vertical Sidebar Title */}
                     <div className="hidden md:flex items-center justify-center px-4">
-                        <h2 className="text-3xl font-bold text-[#334155] rotate-180 [writing-mode:vertical-lr] whitespace-nowrap uppercase tracking-[0.2em] opacity-80">
+                        <h2 className="text-3xl font-bold text-black rotate-180 [writing-mode:vertical-lr] whitespace-nowrap uppercase tracking-[0.2em] opacity-80">
                             How it works
                         </h2>
                     </div>
 
                     {/* Mobile Title */}
                     <div className="md:hidden mb-6">
-                        <h2 className="text-2xl font-bold text-[#334155] uppercase tracking-widest text-center">
+                        <h2 className="text-2xl font-bold text-black uppercase tracking-widest text-center">
                             How it works
                         </h2>
                     </div>
@@ -259,14 +259,14 @@ export default function HowItWorks() {
                             <motion.div
                                 key={item.step}
                                 initial={{ flex: 1 }}
-                                whileHover={{ flex: 3 }}
+                                whileHover={{ flex: window.innerWidth < 768 ? 1 : 3 }}
                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 onClick={() => item.showDocuments && setShowDocuments(true)}
-                                className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 shadow-sm ${item.showDocuments ? 'hover:ring-2 hover:ring-green-500' : ''}`}
+                                className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 shadow-sm min-h-[80px] md:min-h-0 ${item.showDocuments ? 'hover:ring-2 hover:ring-green-500' : ''}`}
                             >
                                 {/* Initial State (Vertical Bar Look) */}
                                 <div className="absolute inset-0 bg-white group-hover:opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                                    <span className="text-2xl font-bold text-[#0f172a] rotate-[-90deg] whitespace-nowrap uppercase tracking-widest">
+                                    <span className="text-2xl font-bold text-black md:rotate-[-90deg] whitespace-nowrap uppercase tracking-widest text-center px-4">
                                         STEP : {item.step}
                                     </span>
                                 </div>
@@ -280,7 +280,7 @@ export default function HowItWorks() {
                                     </div>
 
                                     <div className="mb-auto">
-                                        <h3 className="text-2xl font-bold text-[#334155] leading-tight mb-4">
+                                        <h3 className="text-2xl font-bold text-black leading-tight mb-4">
                                             {item.title}
                                         </h3>
                                     </div>

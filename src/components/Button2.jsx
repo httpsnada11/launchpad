@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ChevronRight } from 'lucide-react';
 
 const Button2 = ({
     text = "Learn More",
@@ -12,7 +13,7 @@ const Button2 = ({
 }) => {
     const content = (
         <button
-            className={`group relative flex items-center min-w-[14rem] h-[3.2rem] cursor-pointer outline-none border-none bg-transparent p-0 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+            className={`group relative flex items-center min-w-[12rem] sm:min-w-[14rem] h-[3.2rem] cursor-pointer outline-none border-none bg-transparent p-0 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
             onClick={onClick}
             disabled={disabled}
             type={type}
@@ -27,14 +28,13 @@ const Button2 = ({
                             <Icon size={18} />
                         </span>
                     ) : (
-                        <span className="relative w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-[0.45s] flex items-center justify-center">
-                            <span className="w-5 h-[2px] bg-white absolute group-hover:hidden"></span>
-                            <span className="w-2.5 h-2.5 border-t-2 border-r-2 border-white rotate-45 absolute left-1"></span>
+                        <span className="text-white group-hover:translate-x-1 transition-transform duration-[0.45s] flex items-center justify-center">
+                            <ChevronRight size={20} strokeWidth={3} />
                         </span>
                     )}
                 </span>
             </span>
-            <span className="relative z-10 block w-full text-center pr-4 pl-[3.5rem] group-hover:pl-4 text-[#0F172A] font-black uppercase text-[13px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)">
+            <span className="relative z-10 block w-full text-center pr-4 pl-[3.5rem] group-hover:pl-8 sm:group-hover:pl-12 text-[#0F172A] font-black uppercase text-[11px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)">
                 {text}
             </span>
         </button>

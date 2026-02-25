@@ -205,7 +205,7 @@ export default function InvestmentCalculator({ property }) {
     };
 
     return (
-        <div className="pt-6 pb-6 pl-12 pr-12 space-y-8">
+        <div className="pt-6 pb-6 space-y-8">
             {/* Header */}
             <div className="mb-6">
                 <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wider">INVESTMENT CALCULATOR</h2>
@@ -225,21 +225,14 @@ export default function InvestmentCalculator({ property }) {
                 </div>
 
                 <div className="flex flex-col gap-8">
-                    {/* Chart - Full Width */}
-                    <div className="w-full">
-                        <div className="h-80 w-full">
-                            <StackedBarChart data={chartData} />
-                        </div>
-                    </div>
-
-                    {/* Metrics Row - Below Chart */}
-                    <div className="flex flex-wrap items-center gap-x-12 gap-y-6 pt-6 border-t border-gray-50">
+                    {/* Metrics Row - Above Chart */}
+                    <div className="flex flex-wrap items-center gap-x-6 sm:gap-x-12 gap-y-6">
                         {/* Investment */}
                         <div className="flex items-center gap-3">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#64748B] flex-shrink-0" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Investment</p>
-                                <p className="text-xl font-bold text-gray-900 leading-tight">Ð {investmentAmount.toLocaleString()}</p>
+                                <p className="text-base font-bold text-gray-900 leading-tight">Ð {investmentAmount.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -248,7 +241,7 @@ export default function InvestmentCalculator({ property }) {
                             <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] flex-shrink-0" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Total rental income</p>
-                                <p className="text-xl font-bold text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
+                                <p className="text-base font-bold text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -257,8 +250,15 @@ export default function InvestmentCalculator({ property }) {
                             <div className="w-2.5 h-2.5 rounded-full bg-[#1E293B] flex-shrink-0" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Value appreciation</p>
-                                <p className="text-xl font-bold text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
+                                <p className="text-base font-bold text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
                             </div>
+                        </div>
+                    </div>
+
+                    {/* Chart - Full Width */}
+                    <div className="w-full">
+                        <div className="h-64 sm:h-80 w-full">
+                            <StackedBarChart data={chartData} />
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ const InvestmentTimeline = ({ timeline = [] }) => {
     if (!timeline || timeline.length === 0) return null;
 
     return (
-        <div className="pt-6 pb-6 pl-12 pr-6 space-y-8">
+        <div className="pt-6 pb-6 space-y-8">
             <h3 className="text-xl font-bold text-gray-900 uppercase tracking-wider">
                 INVESTMENT TIMELINE
             </h3>
