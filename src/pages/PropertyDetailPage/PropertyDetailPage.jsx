@@ -470,7 +470,6 @@ export default function PropertyDetailPage() {
         const foundProperty = PROPERTY_DETAILS[propertyId];
         if (foundProperty) {
             setProperty(foundProperty);
-            console.log('Property loaded:', foundProperty.title, 'Completion Status:', foundProperty.completionStatus);
             // Scroll to Payment Plans and Expected Process for Off-Plan properties
             if (foundProperty.completionStatus === 'Off-Plan') {
                 setTimeout(() => {
@@ -480,7 +479,6 @@ export default function PropertyDetailPage() {
                 }, 500);
             }
         } else {
-            console.log('Property not found for ID:', propertyId);
             navigate('/marketplace');
         }
     }, [id, navigate]);
@@ -686,13 +684,9 @@ export default function PropertyDetailPage() {
                         </div>
 
                         {/* Payment Plans - Only for Off-Plan properties */}
-                        {property.completionStatus === 'Off-Plan' ? (
+                        {property.completionStatus === 'Off-Plan' && (
                             <div ref={paymentPlansRef} className="pt-8">
                                 <PaymentPlans property={property} />
-                            </div>
-                        ) : (
-                            <div className="pt-8 pb-8 text-center text-gray-400 text-sm">
-                                Payment Plans: Only available for Off-Plan properties (Current: {property.completionStatus})
                             </div>
                         )}
 
@@ -700,13 +694,9 @@ export default function PropertyDetailPage() {
                         <InvestmentTimeline timeline={property.timeline} />
 
                         {/* Expected Process - Only for Off-Plan properties */}
-                        {property.completionStatus === 'Off-Plan' ? (
+                        {property.completionStatus === 'Off-Plan' && (
                             <div ref={expectedProcessRef} className="pt-8">
                                 <ExpectedProcess />
-                            </div>
-                        ) : (
-                            <div className="pt-8 pb-8 text-center text-gray-400 text-sm">
-                                Expected Process: Only available for Off-Plan properties (Current: {property.completionStatus})
                             </div>
                         )}
 

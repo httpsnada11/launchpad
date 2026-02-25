@@ -234,12 +234,6 @@ export default function InvestmentCalculator({ property }) {
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-6 border-0"
             >
-                <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wider">INVESTMENT PROJECTION</h3>
-                    </div>
-                </div>
-
                 <div className="flex flex-col gap-8">
                     {/* Metrics Row - Above Chart */}
                     <div className="flex flex-wrap items-center gap-x-6 sm:gap-x-12 gap-y-6">
