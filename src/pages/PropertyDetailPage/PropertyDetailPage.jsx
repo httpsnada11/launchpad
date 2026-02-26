@@ -20,6 +20,7 @@ import PropertyMap from './components/PropertyMap';
 import TokenDetails from './components/TokenDetails';
 import PaymentPlans from './components/PaymentPlans';
 import ExpectedProcess from './components/ExpectedProcess';
+import PropertyDocuments from './components/PropertyDocuments';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -783,6 +784,7 @@ export default function PropertyDetailPage() {
                         />
                     </div>
 
+                    <PropertyDocuments documents={property.documents} />
                     <ContactExpert />
                 </div>
             </div>

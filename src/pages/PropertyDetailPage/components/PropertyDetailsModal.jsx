@@ -130,7 +130,6 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
         { id: 'features', icon: Star, label: 'Features' },
         { id: 'gallery', icon: Image, label: 'Gallery' },
         { id: 'floorplans', icon: FileText, label: 'Floor Plans' },
-        { id: 'documents', icon: Key, label: 'Documents' },
     ];
 
     const openFullScreenGallery = (index) => {
@@ -331,17 +330,6 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                         )}
 
 
-                        {/* Documents Tab */}
-                        {activeTab === 'documents' && property.documents && (
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-4">Documents</h3>
-                                <div className="space-y-3">
-                                    {property.documents.map((doc, idx) => (
-                                        <DocumentRow key={idx} doc={doc} />
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </div>
                 </motion.div>
 
