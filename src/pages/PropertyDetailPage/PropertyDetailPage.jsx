@@ -466,6 +466,7 @@ export default function PropertyDetailPage() {
 
     const investmentOverviewRef = useRef(null);
     const expectedProcessRef = useRef(null);
+    const paymentPlansRef = useRef(null);
 
     useEffect(() => {
         const propertyId = parseInt(id);
@@ -508,7 +509,6 @@ export default function PropertyDetailPage() {
             </div>
         );
     }
-
     return (
         <div className="min-h-screen bg-white">
             {/* Property Details Modal */}
@@ -551,7 +551,7 @@ export default function PropertyDetailPage() {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                        {/* Left Side: Gallery (lg: 7 cols) */}
+                        {/* Left Side: Gallery */}
                         <div className="lg:col-span-12">
                             <PropertyGallery
                                 images={property.images}
@@ -566,9 +566,9 @@ export default function PropertyDetailPage() {
                             />
                         </div>
 
-                        {/* Property Info Section - Below Gallery */}
+                        {/* Property Info Section */}
                         <div className="lg:col-span-12 max-w-5xl mx-auto mt-4">
-                            <div className="flex flex-col h-full">
+                            <div className="flex flex-col h-full w-full">
                                 <div className="mb-6">
                                     <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest mb-4 w-fit ${property.status === 'open'
                                         ? 'bg-emerald-100 text-emerald-700'
@@ -607,11 +607,13 @@ export default function PropertyDetailPage() {
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* Investment Overview Description */}
                                 </div>
 
-                                {/* Helper to parse AED strings */}
+                                <div className="mb-8 pb-6 border-b border-gray-100">
+                                    <p className="text-gray-600 text-base leading-relaxed">{property.description}</p>
+                                </div>
+
+                                {/* Dynamic Financials logic */}
                                 {(() => {
                                     const parseAED = (str) => parseFloat(str?.replace(/[^0-9.]/g, '') || 0);
                                     const tokenPrice = parseAED(property.tokenPriceAED);
@@ -624,7 +626,6 @@ export default function PropertyDetailPage() {
                                         <div className="space-y-6">
                                             <div className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm relative w-full">
                                                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 lg:gap-x-12 relative z-10">
-                                                    {/* Listing Price */}
                                                     <div>
                                                         <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Listing price</p>
                                                         <div className="flex items-baseline gap-1">
@@ -633,7 +634,6 @@ export default function PropertyDetailPage() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Market Value */}
                                                     <div>
                                                         <div className="flex items-center gap-2 mb-2">
                                                             <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Market value</p>
@@ -648,7 +648,6 @@ export default function PropertyDetailPage() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Price per Token */}
                                                     <div>
                                                         <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Price per token</p>
                                                         <div className="flex items-baseline gap-1">
@@ -657,7 +656,6 @@ export default function PropertyDetailPage() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Token Availability */}
                                                     <div>
                                                         <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Token availability</p>
                                                         <div className="flex items-baseline gap-1.5">
@@ -669,17 +667,14 @@ export default function PropertyDetailPage() {
                                                 </div>
                                             </div>
 
-                                            {/* New Compact Token Sales Bar */}
                                             <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full overflow-hidden">
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
-                                                            <div className="w-2.5 h-2.5 bg-blue-600 rounded-sm opacity-80"></div>
-                                                        </div>
-                                                        <span className="text-sm md:text-base font-semibold text-gray-900 uppercase">
-                                                            Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
-                                                        </span>
+                                                <div className="flex items-center gap-2 mb-4">
+                                                    <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
+                                                        <div className="w-2.5 h-2.5 bg-blue-600 rounded-sm opacity-80"></div>
                                                     </div>
+                                                    <span className="text-sm md:text-base font-semibold text-gray-900 uppercase">
+                                                        Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
+                                                    </span>
                                                 </div>
 
                                                 <div className="h-2.5 bg-gray-100 rounded-full mb-5 overflow-hidden w-full">
@@ -689,24 +684,20 @@ export default function PropertyDetailPage() {
                                                     />
                                                 </div>
 
-                                                <div className="flex justify-between sm:justify-start items-center gap-2 w-full sm:w-auto">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2">
                                                     <div className="flex items-center gap-2">
-                                                        <Percent className="w-4 h-4 text-blue-600 flex-shrink-0" strokeWidth={3} />
+                                                        <Percent className="w-4 h-4 text-blue-600" strokeWidth={3} />
                                                         <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Available Value:</span>
+                                                        <span className="text-xs text-gray-400 font-semibold">AED</span>
+                                                        <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
+                                                            {availableValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                                                        </span>
                                                     </div>
-                                                </div>
-
-                                                <div className="flex items-center gap-1.5">
-                                                    <span className="text-xs text-gray-400 font-semibold">AED</span>
-                                                    <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
-                                                        {availableValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                                                    </span>
                                                 </div>
                                             </div>
 
-                                            {/* New Compact Token Performance */}
                                             <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full">
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-3 sm:mb-4">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-4">
                                                     <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Current token market value</span>
                                                     <div className="flex items-center gap-1.5">
                                                         <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
@@ -715,7 +706,7 @@ export default function PropertyDetailPage() {
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-3 sm:mb-4">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-4">
                                                     <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Appreciation</span>
                                                     <div className="flex items-center gap-1 text-[#10B981]">
                                                         <TrendingUp className="w-4 h-4 stroke-[2]" />
@@ -741,19 +732,15 @@ export default function PropertyDetailPage() {
                 </div>
             </div>
 
-            {/* Main Content */}
+            {/* Main Content Area */}
             <div className="max-w-7xl mx-auto px-6 py-8">
-                {/* Main Content Area */}
                 <div className="max-w-5xl mx-auto space-y-6">
-                    {/* Investment Strategy */}
                     <InvestmentStrategy type={property.strategyType} />
 
-                    {/* Horizontal Investment Card */}
                     <div className="py-6">
                         <InvestmentCard property={property} />
                     </div>
 
-                    {/* Investment Calculator */}
                     <div className="overflow-hidden">
                         <InvestmentCalculator
                             property={property}
@@ -761,14 +748,12 @@ export default function PropertyDetailPage() {
                         />
                     </div>
 
-                    {/* Payment Plans - Only for Off-Plan properties */}
                     {property.completionStatus === 'Off-Plan' && (
                         <div ref={paymentPlansRef} className="pt-8">
                             <PaymentPlans property={property} />
                         </div>
                     )}
 
-                    {/* Investment Timeline */}
                     <InvestmentTimeline
                         timeline={property.timeline}
                         action={
@@ -780,32 +765,24 @@ export default function PropertyDetailPage() {
                         }
                     />
 
-                    {/* Expected Process - Only for Off-Plan properties */}
                     {property.completionStatus === 'Off-Plan' && (
                         <div ref={expectedProcessRef} className="pt-8">
                             <ExpectedProcess />
                         </div>
                     )}
 
-                    {/* Removed static HowItWorks from here and moved to contextual modal */}
-
-                    {/* Location Details */}
                     <div className="pt-6 pb-6">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
                             <MapPin size={20} className="text-red-600" />
                             ASSET LOCATION
                         </h2>
-
                         <PropertyMap
                             address={property.fullAddress}
                             coordinates={property.coordinates}
                             city={property.city}
                         />
-
                     </div>
 
-
-                    {/* Contact Expert Section */}
                     <ContactExpert />
                 </div>
             </div>
@@ -841,6 +818,5 @@ export default function PropertyDetailPage() {
                 )}
             </AnimatePresence>
         </div>
-        </div >
     );
 }
