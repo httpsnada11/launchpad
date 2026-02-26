@@ -607,52 +607,50 @@ export default function PropertyDetailPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative w-full">
-                                            <div className="grid grid-cols-2 gap-y-10 relative z-10">
-                                                {/* Top Left: Listing Price */}
-                                                <div className="pr-4">
+                                        <div className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm relative w-full">
+                                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 lg:gap-x-12 relative z-10">
+                                                {/* Listing Price */}
+                                                <div>
                                                     <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
-                                                {/* Top Right: Market Value */}
-                                                <div className="pl-6">
-                                                    <div className="flex items-center justify-between mb-2">
+                                                {/* Market Value */}
+                                                <div>
+                                                    <div className="flex items-center gap-2 mb-2">
                                                         <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Market value</p>
-                                                        <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[9px]">
-                                                            <TrendingUp size={10} strokeWidth={3} />
+                                                        <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[10px]">
+                                                            <TrendingUp size={12} strokeWidth={3} />
                                                             <span>+6.25%</span>
                                                         </div>
                                                     </div>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
-                                                {/* Bottom Left: Price per Token */}
-                                                <div className="pr-4">
-                                                    <div className="flex items-center gap-1.5 mb-2">
-                                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Price per token</p>
-                                                    </div>
+                                                {/* Price per Token */}
+                                                <div>
+                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Price per token</p>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
                                                     </div>
                                                 </div>
 
-                                                {/* Bottom Right: Token Availability */}
-                                                <div className="pl-6">
+                                                {/* Token Availability */}
+                                                <div>
                                                     <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Token availability</p>
                                                     <div className="flex flex-col gap-0.5">
                                                         <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.availableTokens.toLocaleString()}</span>
+                                                            <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.availableTokens.toLocaleString()}</span>
                                                             <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">AVAILABLE</span>
                                                         </div>
-                                                        <div className="flex items-center gap-1.5">
+                                                        <div className="flex items-center mt-0.5">
                                                             <span className="text-gray-300 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">OUT OF {property.totalTokens.toLocaleString()}</span>
                                                         </div>
                                                     </div>
