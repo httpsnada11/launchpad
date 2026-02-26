@@ -508,7 +508,7 @@ export default function PropertyDetailPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-white">
             {/* Property Details Modal */}
             <PropertyDetailsModal
                 property={property}
@@ -550,7 +550,7 @@ export default function PropertyDetailPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                         {/* Left Side: Gallery (lg: 7 cols) */}
-                        <div className="lg:col-span-7">
+                        <div className="lg:col-span-12">
                             <PropertyGallery
                                 images={property.images}
                                 onOpenFullScreen={(index) => {
@@ -564,89 +564,109 @@ export default function PropertyDetailPage() {
                             />
                         </div>
 
-                        {/* Right Side: Primary Info & Engagement (lg: 5 cols) */}
-                        <div className="lg:col-span-5 flex flex-col h-full">
-                            <div className="mb-6">
-                                <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest mb-4 w-fit ${property.status === 'open'
-                                    ? 'bg-emerald-100 text-emerald-700'
-                                    : property.status === 'sold-out'
-                                        ? 'bg-red-100 text-red-700'
-                                        : 'bg-blue-100 text-blue-700'
-                                    }`}>
-                                    {property.badge}
-                                </span>
+                        {/* Property Info Section - Below Gallery */}
+                        <div className="lg:col-span-12 max-w-5xl mt-4">
+                            <div className="flex flex-col h-full">
+                                <div className="mb-6">
+                                    <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest mb-4 w-fit ${property.status === 'open'
+                                        ? 'bg-emerald-100 text-emerald-700'
+                                        : property.status === 'sold-out'
+                                            ? 'bg-red-100 text-red-700'
+                                            : 'bg-blue-100 text-blue-700'
+                                        }`}>
+                                        {property.badge}
+                                    </span>
 
-                                <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
-                                    {property.title}
-                                </h1>
+                                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
+                                        {property.title}
+                                    </h1>
 
-                                <div className="flex items-center gap-2 text-gray-500 mb-6 font-medium">
-                                    <MapPin size={18} className="text-[#15a36e]" />
-                                    <span className="text-base">{property.location}, {property.city}</span>
-                                </div>
-
-                                <div className="space-y-6">
-                                    <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden">
-                                        {/* Grid Dividers */}
-                                        <div className="absolute inset-0 pointer-events-none">
-                                            {/* Vertical dashed divider */}
-                                            <div className="absolute left-1/2 top-4 bottom-4 w-px border-l border-gray-100 border-dashed -translate-x-1/2" />
-                                            {/* Horizontal solid divider */}
-                                            <div className="absolute left-4 right-4 top-1/2 h-px bg-gray-50 -translate-y-1/2" />
+                                    <div className="flex flex-wrap items-center gap-y-2 text-gray-500 mb-6 font-medium">
+                                        <div className="flex items-center gap-2 pr-4">
+                                            <MapPin size={18} className="text-[#15a36e]" />
+                                            <span className="text-base">{property.location}, {property.city}</span>
                                         </div>
-
-                                        <div className="grid grid-cols-2 gap-y-10 relative z-10">
-                                            {/* Top Left: Listing Price */}
-                                            <div className="pr-4">
-                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
-                                                </div>
+                                        <div className="hidden sm:block h-4 w-px bg-gray-300 mr-4" />
+                                        <div className="flex items-center gap-4 text-sm sm:text-base">
+                                            <span>{property.propertyType || 'Apartment'}</span>
+                                            <div className="h-4 w-px bg-gray-300" />
+                                            <div className="flex items-center gap-1.5">
+                                                <Bed size={18} className="text-gray-400" />
+                                                <span>{property.beds}</span>
                                             </div>
-
-                                            {/* Top Right: Market Value */}
-                                            <div className="pl-6">
-                                                <div className="flex items-center justify-between mb-2">
-                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Market value</p>
-                                                    <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[9px]">
-                                                        <TrendingUp size={10} strokeWidth={3} />
-                                                        <span>+6.25%</span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
-                                                </div>
+                                            <div className="flex items-center gap-1.5">
+                                                <Bath size={18} className="text-gray-400" />
+                                                <span>{property.baths}</span>
                                             </div>
-
-                                            {/* Bottom Left: Price per Token */}
-                                            <div className="pr-4">
-                                                <div className="flex items-center gap-1.5 mb-2">
-                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Price per token</p>
-                                                </div>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
-                                                </div>
-                                            </div>
-
-                                            {/* Bottom Right: Total Tokens */}
-                                            <div className="pl-6">
-                                                <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Total amount of tokens</p>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.totalTokens.toLocaleString()}</span>
-                                                </div>
+                                            <div className="h-4 w-px bg-gray-300" />
+                                            <div className="flex items-center gap-1.5">
+                                                <Ruler size={18} className="text-gray-400" />
+                                                <span>{property.area}</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="rounded-2xl p-6 text-white">
-                                        <Button
-                                            text="About this property"
-                                            onClick={() => setShowDetailsModal(true)}
-                                            className="w-full"
-                                        />
+                                    <div className="space-y-6">
+                                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden max-w-4xl">
+                                            {/* Grid Dividers */}
+                                            <div className="absolute inset-0 pointer-events-none">
+                                                {/* Vertical dashed divider */}
+                                                <div className="absolute left-1/2 top-4 bottom-4 w-px border-l border-gray-100 border-dashed -translate-x-1/2" />
+                                                {/* Horizontal solid divider */}
+                                                <div className="absolute left-4 right-4 top-1/2 h-px bg-gray-50 -translate-y-1/2" />
+                                            </div>
+
+                                            <div className="grid grid-cols-2 gap-y-10 relative z-10">
+                                                {/* Top Left: Listing Price */}
+                                                <div className="pr-4">
+                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
+                                                    <div className="flex items-baseline gap-1">
+                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Top Right: Market Value */}
+                                                <div className="pl-6">
+                                                    <div className="flex items-center justify-between mb-2">
+                                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Market value</p>
+                                                        <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[9px]">
+                                                            <TrendingUp size={10} strokeWidth={3} />
+                                                            <span>+6.25%</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex items-baseline gap-1">
+                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Bottom Left: Price per Token */}
+                                                <div className="pr-4">
+                                                    <div className="flex items-center gap-1.5 mb-2">
+                                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Price per token</p>
+                                                    </div>
+                                                    <div className="flex items-baseline gap-1">
+                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
+                                                        <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Bottom Right: Token Availability */}
+                                                <div className="pl-6">
+                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Token availability</p>
+                                                    <div className="flex flex-col gap-0.5">
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <span className="text-[#0F172A] text-xl font-bold tracking-tight">{property.availableTokens.toLocaleString()}</span>
+                                                            <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">AVAILABLE</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span className="text-gray-300 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">OUT OF {property.totalTokens.toLocaleString()}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -657,72 +677,73 @@ export default function PropertyDetailPage() {
 
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-6 py-8">
-
-                {/* Main Content - Grid Layout */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Main Content Area */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <div className="pt-6 pb-6">
-                            <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
-                        </div>
-
-                        {/* Investment Strategy */}
-                        <InvestmentStrategy type={property.strategyType} />
-
-                        {/* Investment Calculator */}
-                        <div className="overflow-hidden">
-                            <InvestmentCalculator property={property} />
-                        </div>
-
-                        {/* Payment Plans - Only for Off-Plan properties */}
-                        {property.completionStatus === 'Off-Plan' && (
-                            <div ref={paymentPlansRef} className="pt-8">
-                                <PaymentPlans property={property} />
-                            </div>
-                        )}
-
-                        {/* Investment Timeline */}
-                        <InvestmentTimeline timeline={property.timeline} />
-
-                        {/* Expected Process - Only for Off-Plan properties */}
-                        {property.completionStatus === 'Off-Plan' && (
-                            <div ref={expectedProcessRef} className="pt-8">
-                                <ExpectedProcess />
-                            </div>
-                        )}
-
-                        {/* How It Works */}
-                        <div className="pt-8 mb-6">
-                            <HowItWorks />
-                        </div>
-
-                        {/* Location Details */}
-                        <div className="pt-6 pb-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
-                                <MapPin size={20} className="text-red-600" />
-                                ASSET LOCATION
-                            </h2>
-
-                            <PropertyMap
-                                address={property.fullAddress}
-                                coordinates={property.coordinates}
-                                city={property.city}
-                            />
-
-                        </div>
-
-
-                        {/* Contact Expert Section */}
-                        <ContactExpert />
+                {/* Main Content Area */}
+                <div className="max-w-5xl mx-auto space-y-6">
+                    <div className="pt-6 pb-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
+                        <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                     </div>
 
-                    {/* Sidebar */}
-                    <div className="lg:col-span-1 space-y-6 pt-6 pb-6 pl-4 pr-12">
-                        <div className="sticky top-24 space-y-8">
-                            <InvestmentCard property={property} />
-                        </div>
+                    {/* Investment Strategy */}
+                    <InvestmentStrategy type={property.strategyType} />
+
+                    {/* Horizontal Investment Card */}
+                    <div className="py-6">
+                        <InvestmentCard property={property} />
                     </div>
+
+                    {/* Investment Calculator */}
+                    <div className="overflow-hidden">
+                        <InvestmentCalculator property={property} />
+                    </div>
+
+                    {/* Payment Plans - Only for Off-Plan properties */}
+                    {property.completionStatus === 'Off-Plan' && (
+                        <div ref={paymentPlansRef} className="pt-8">
+                            <PaymentPlans property={property} />
+                        </div>
+                    )}
+
+                    {/* Investment Timeline */}
+                    <InvestmentTimeline timeline={property.timeline} />
+
+                    {/* Expected Process - Only for Off-Plan properties */}
+                    {property.completionStatus === 'Off-Plan' && (
+                        <div ref={expectedProcessRef} className="pt-8">
+                            <ExpectedProcess />
+                        </div>
+                    )}
+
+                    <div className="pt-8 mb-6">
+                        <HowItWorks />
+                    </div>
+
+                    <div className="rounded-2xl py-6 text-white">
+                        <Button
+                            text="About this property"
+                            onClick={() => setShowDetailsModal(true)}
+                            className="w-fit px-12"
+                        />
+                    </div>
+
+                    {/* Location Details */}
+                    <div className="pt-6 pb-6">
+                        <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
+                            <MapPin size={20} className="text-red-600" />
+                            ASSET LOCATION
+                        </h2>
+
+                        <PropertyMap
+                            address={property.fullAddress}
+                            coordinates={property.coordinates}
+                            city={property.city}
+                        />
+
+                    </div>
+
+
+                    {/* Contact Expert Section */}
+                    <ContactExpert />
                 </div>
             </div>
         </div>
