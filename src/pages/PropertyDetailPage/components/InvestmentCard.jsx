@@ -30,7 +30,7 @@ export default function InvestmentCard({ property }) {
     };
 
     return (
-        <div className="bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-200/40 overflow-hidden transition-all duration-500 hover:shadow-emerald-100/30">
+        <div className="bg-black border border-white/10 rounded-[2rem] shadow-2xl shadow-emerald-900/10 overflow-hidden transition-all duration-500">
             <div className="flex flex-col lg:flex-row h-full">
                 {/* 1. Preview Image - Left Side */}
                 <div className="lg:w-1/3 relative h-48 lg:h-auto min-h-[200px] group overflow-hidden">
@@ -48,19 +48,19 @@ export default function InvestmentCard({ property }) {
                 <div className="lg:w-2/3 flex flex-col">
                     <div className="flex flex-col md:flex-row flex-1">
                         {/* Middle: Metrics & Projections */}
-                        <div className="flex-1 p-6 border-b lg:border-b-0 lg:border-r border-slate-100">
+                        <div className="flex-1 p-6 border-b lg:border-b-0 lg:border-r border-white/10">
                             <div className="flex justify-between items-end mb-6">
                                 <div className="space-y-1">
-                                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Asset Valuation</p>
-                                    <p className="text-2xl font-semibold text-gray-900 tracking-tighter leading-none">{property.assetPrice}</p>
+                                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.15em]">Asset Valuation</p>
+                                    <p className="text-2xl font-bold text-white tracking-tighter leading-none">{property.assetPrice}</p>
                                 </div>
                                 <div className="text-right space-y-1">
-                                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Equity Issued</p>
-                                    <p className="text-lg font-semibold text-gray-900 leading-none">{fundedPercentage}%</p>
+                                    <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-[0.15em]">Equity Issued</p>
+                                    <p className="text-lg font-bold text-white leading-none">{fundedPercentage}%</p>
                                 </div>
                             </div>
 
-                            <div className="relative h-2 w-full bg-slate-100 rounded-full overflow-hidden mb-6">
+                            <div className="relative h-2 w-full bg-white/10 rounded-full overflow-hidden mb-6">
                                 <motion.div
                                     initial={{ width: 0 }}
                                     animate={{ width: `${fundedPercentage}%` }}
@@ -72,29 +72,29 @@ export default function InvestmentCard({ property }) {
                             {/* Financial Stats Grid */}
                             <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-2">
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Min Investment</span>
-                                    <span className="text-sm font-semibold text-gray-900 leading-none">{property.minInvestment}</span>
+                                    <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1">Min Investment</span>
+                                    <span className="text-sm font-bold text-white leading-none">{property.minInvestment}</span>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Rental Yield</span>
-                                    <span className="text-sm font-semibold text-[#10B981] leading-none">{property.financials?.projectedRentalYield || '4.5%'} / yr</span>
+                                    <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1">Rental Yield</span>
+                                    <span className="text-sm font-bold text-[#10B981] leading-none">{property.financials?.projectedRentalYield || '4.5%'} / yr</span>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Holding Period</span>
-                                    <span className="text-sm font-semibold text-gray-900 leading-none">{property.financials?.holdingPeriod || '5 years'}</span>
+                                    <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1">Holding Period</span>
+                                    <span className="text-sm font-bold text-white leading-none">{property.financials?.holdingPeriod || '5 years'}</span>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Total Return</span>
-                                    <span className="text-sm font-semibold text-blue-600 leading-none">{property.financials?.totalReturn || '10.7%'}</span>
+                                    <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-widest mb-1">Total Return</span>
+                                    <span className="text-sm font-bold text-emerald-400 leading-none">{property.financials?.totalReturn || '10.7%'}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Right: Investment Area */}
                         <div className="flex-1 p-6 flex flex-col justify-center">
-                            <div className="flex items-center justify-between mb-3">
-                                <h4 className="text-[10px] text-gray-400 font-semibold uppercase tracking-[0.15em]">Investment Principal</h4>
-                                <span className="text-[9px] font-semibold text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">Min {property.minInvestment?.replace('AED ', '')} AED</span>
+                            <div className="flex items-center justify-between mb-4">
+                                <h4 className="text-[10px] text-gray-500 font-semibold uppercase tracking-[0.15em]">Investment Principal</h4>
+                                <span className="text-[9px] font-bold text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">Min {property.minInvestment?.replace('AED ', '')} AED</span>
                             </div>
 
                             <div className="group relative mb-4">
@@ -115,9 +115,9 @@ export default function InvestmentCard({ property }) {
                                     <button
                                         key={amount}
                                         onClick={() => setInvestmentAmount(amount)}
-                                        className={`flex-1 py-2 rounded-xl text-[10px] font-semibold transition-all border ${investmentAmount === amount
-                                            ? 'bg-[#0F172A] border-[#0F172A] text-white shadow-lg'
-                                            : 'bg-white border-slate-200 text-slate-500 hover:border-emerald-200 hover:text-emerald-600'
+                                        className={`flex-1 py-3 rounded-2xl text-[10px] font-bold transition-all border ${investmentAmount === amount
+                                            ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+                                            : 'bg-white/5 border-white/10 text-gray-400 hover:border-emerald-500/50 hover:text-emerald-400'
                                             }`}
                                     >
                                         +{amount.toLocaleString()}
@@ -130,25 +130,26 @@ export default function InvestmentCard({ property }) {
                                 icon={isAdded ? Check : ShoppingCart}
                                 onClick={handleAddToCart}
                                 disabled={isAdded || investmentAmount <= 0}
-                                className="w-full h-12"
+                                variant="dark"
+                                className="w-full h-14"
                             />
                         </div>
                     </div>
 
                     {/* Bottom: Social Layer */}
-                    <div className="px-6 py-3 bg-slate-50/30 border-t border-slate-100 flex items-center justify-between">
+                    <div className="px-6 py-4 bg-white/5 border-t border-white/10 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                             <div className="flex -space-x-2">
                                 {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-black bg-slate-800 overflow-hidden shadow-lg">
                                         <img src={`https://ui-avatars.com/api/?name=User+${i}&background=random&size=32`} alt="Active" />
                                     </div>
                                 ))}
                             </div>
-                            <span className="text-[11px] font-semibold text-gray-500">Live Activity</span>
+                            <span className="text-xs font-bold text-gray-400 tracking-wide">Live Activity</span>
                         </div>
-                        <div className="flex items-center gap-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
-                            <Eye size={14} className="text-emerald-500" />
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-400 uppercase tracking-widest bg-emerald-400/5 px-3 py-1.5 rounded-lg border border-emerald-400/10">
+                            <Eye size={14} className="animate-pulse" />
                             <span>{viewCount.toLocaleString()} Browsing</span>
                         </div>
                     </div>

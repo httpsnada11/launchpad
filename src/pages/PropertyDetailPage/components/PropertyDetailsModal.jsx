@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     X, ChevronRight, Image, FileText, Key, Star, Shield, Zap, Info,
     CheckCircle2, Leaf, MapPin, Ruler, Bed, Bath, Calendar,
-    Maximize2, ChevronLeft, Download, Home, TrendingUp
+    Maximize2, ChevronLeft, Download, Home, TrendingUp, Building
 } from 'lucide-react';
 
 // Tab Button Component
@@ -128,6 +128,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
     const tabs = [
         { id: 'overview', icon: Info, label: 'Overview' },
         { id: 'features', icon: Star, label: 'Features' },
+        { id: 'developer', icon: Building, label: 'Developer' },
         { id: 'gallery', icon: Image, label: 'Gallery' },
         { id: 'floorplans', icon: FileText, label: 'Floor Plans' },
     ];
@@ -281,6 +282,58 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                         </div>
                                     </div>
                                 )}
+                            </div>
+                        )}
+
+                        {/* Developer Tab */}
+                        {activeTab === 'developer' && property.developerDetails && (
+                            <div className="space-y-6">
+                                <h3 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider text-sm flex items-center gap-2">
+                                    <Building size={20} className="text-blue-600" />
+                                    Property Developer
+                                </h3>
+                                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
+                                    <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
+                                        <div className="w-32 h-32 rounded-3xl overflow-hidden bg-white border border-gray-200 p-4 flex items-center justify-center shadow-md shrink-0">
+                                            <img
+                                                src={property.developerDetails.logo}
+                                                alt={property.developerDetails.name}
+                                                className="max-w-full max-h-full object-contain"
+                                            />
+                                        </div>
+                                        <div className="text-center md:text-left">
+                                            <h4 className="text-3xl font-bold text-gray-900 mb-2">{property.developerDetails.name}</h4>
+                                            <div className="flex items-center justify-center md:justify-start gap-2 text-blue-600">
+                                                <div className="bg-blue-600 p-1 rounded-full">
+                                                    <Shield size={14} className="text-white" />
+                                                </div>
+                                                <span className="text-sm font-bold uppercase tracking-widest">Verified Developer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <h5 className="font-bold text-gray-900 text-lg">About the Developer</h5>
+                                        <p className="text-gray-600 leading-relaxed text-base italic">
+                                            "{property.developerDetails.description}"
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-10 pt-8 border-t border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                            <div className="text-2xl font-bold text-gray-900">15+</div>
+                                            <div className="text-xs text-gray-500 uppercase font-bold mt-1">Years Experience</div>
+                                        </div>
+                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                            <div className="text-2xl font-bold text-gray-900">50+</div>
+                                            <div className="text-xs text-gray-500 uppercase font-bold mt-1">Projects Delivered</div>
+                                        </div>
+                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                            <div className="text-2xl font-bold text-gray-900">Premium</div>
+                                            <div className="text-xs text-gray-500 uppercase font-bold mt-1">Portfolio Tier</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )}
 

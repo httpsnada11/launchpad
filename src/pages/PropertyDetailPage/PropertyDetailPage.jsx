@@ -111,7 +111,12 @@ const PROPERTY_DETAILS = {
                 title: 'Strategic Urban Infrastructure',
                 description: 'Proximity to major transport links, elite schools, and cultural landmarks boosts long-term asset value and liquidity.'
             }
-        ]
+        ],
+        developerDetails: {
+            name: 'London Estates',
+            logo: 'https://ui-avatars.com/api/?name=London+Estates&background=0D8ABC&color=fff',
+            description: 'London Estates is a boutique real estate firm specializing in prime residential properties across Central London. With over 20 years of experience, they have established a reputation for identifying high-potential assets and delivering exceptional value through strategic acquisitions and meticulous property management.'
+        }
     },
     2: {
         id: 2,
@@ -225,7 +230,12 @@ const PROPERTY_DETAILS = {
                 title: 'Prestigious Business Bay Address',
                 description: 'Located in the heart of Business Bay with direct canal views and minutes from Downtown Dubai and DIFC, boosting long-term investment value.'
             }
-        ]
+        ],
+        developerDetails: {
+            name: 'Emaar Properties',
+            logo: 'https://ui-avatars.com/api/?name=Emaar&background=3B82F6&color=fff',
+            description: 'One of the world\'s most valuable and admired real estate development companies, Emaar Properties has reshaped Dubai\'s skyline. Known for the Burj Khalifa and Dubai Mall, Emaar consistently delivers world-class residential, commercial, and hospitality assets that define modern luxury and urban excellence.'
+        }
     },
     3: {
         id: 3,
@@ -314,7 +324,12 @@ const PROPERTY_DETAILS = {
                 title: 'Institutional Grade Quality',
                 description: 'Built to the highest standards with premium finishes and exclusive amenities, attracting global institutional investors.'
             }
-        ]
+        ],
+        developerDetails: {
+            name: 'NYC Realty',
+            logo: 'https://ui-avatars.com/api/?name=NYC&background=6366F1&color=fff',
+            description: 'NYC Realty is a leading developer of luxury tall buildings in New York City. They are renowned for their commitment to architectural innovation and sustainable design, creating iconic residences that offer unparalleled views and lifestyle experiences in the world\'s most vibrant city.'
+        }
     },
     4: {
         id: 4,
@@ -405,7 +420,12 @@ const PROPERTY_DETAILS = {
                 title: 'Entry-Level Investment Opportunity',
                 description: 'Lower plot entry costs relative to surrounding areas offer higher potential margins for developers and fix-and-flip investors.'
             }
-        ]
+        ],
+        developerDetails: {
+            name: 'Nakheel',
+            logo: 'https://ui-avatars.com/api/?name=Nakheel&background=10B981&color=fff',
+            description: 'Nakheel is a world-leading master developer whose innovative, landmark projects form an iconic portfolio of master communities and residential, retail, hospitality and leisure developments that are pivotal to realizing Dubai\'s vision. Nakheel\'s waterfront projects, including the world-famous Palm Jumeirah, have added more than 300 kilometers to Dubai\'s original coastline.'
+        }
     }
 };
 
@@ -660,6 +680,11 @@ export default function PropertyDetailPage() {
                                         </div>
                                         <div className="hidden sm:block h-4 w-px bg-gray-300 mr-4" />
                                         <div className="flex items-center gap-4 text-sm sm:text-base">
+                                            <div className="flex items-center gap-1.5">
+                                                <Building size={16} className="text-[#15a36e]" />
+                                                <span className="font-semibold text-gray-700">{property.developerDetails?.name || property.issuerName}</span>
+                                            </div>
+                                            <div className="h-4 w-px bg-gray-300" />
                                             <span>{property.propertyType || 'Apartment'}</span>
                                             <div className="h-4 w-px bg-gray-300" />
                                             <div className="flex items-center gap-1.5">

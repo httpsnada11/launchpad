@@ -17,9 +17,7 @@ const WhyInvest = ({ highlights }) => {
                 {/* Text Content */}
                 <div className="flex-1 p-8 md:p-14 z-10">
                     <div className="flex items-center gap-5 mb-12">
-                        <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-emerald-900 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-900/40">
-                            <Building2 size={28} className="text-white" />
-                        </div>
+
                         <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                             Why invest in this property?
                         </h2>

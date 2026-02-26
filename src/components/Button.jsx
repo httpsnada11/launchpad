@@ -9,7 +9,8 @@ const Button = ({
     className = "",
     icon: Icon,
     disabled = false,
-    type = "button"
+    type = "button",
+    variant = "light" // "light" or "dark"
 }) => {
     const content = (
         <button
@@ -19,7 +20,7 @@ const Button = ({
             type={type}
         >
             <span
-                className="absolute left-0 block w-[3.2rem] h-[3.2rem] bg-[#0F172A] rounded-full transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1) group-hover:w-full group-hover:bg-emerald-500"
+                className={`absolute left-0 block w-[3.2rem] h-[3.2rem] ${variant === 'dark' ? 'bg-white/10' : 'bg-[#0F172A]'} rounded-full transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1) group-hover:w-full group-hover:bg-emerald-500`}
                 aria-hidden="true"
             >
                 <span className="absolute left-0 w-[3.2rem] h-[3.2rem] flex items-center justify-center transition-all duration-[0.45s]">
@@ -34,7 +35,7 @@ const Button = ({
                     )}
                 </span>
             </span>
-            <span className="relative z-10 block w-full text-left pr-4 pl-[3.8rem] group-hover:pl-10 sm:group-hover:pl-14 text-[#0F172A] font-black uppercase text-[11px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)">
+            <span className={`relative z-10 block w-full text-left pr-4 pl-[3.8rem] group-hover:pl-10 sm:group-hover:pl-14 ${variant === 'dark' ? 'text-white' : 'text-[#0F172A]'} font-black uppercase text-[11px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)`}>
                 {text}
             </span>
         </button>
