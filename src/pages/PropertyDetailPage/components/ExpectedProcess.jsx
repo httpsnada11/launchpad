@@ -39,7 +39,7 @@ export default function ExpectedProcess() {
         {
             step: 3,
             title: "Monthly rental payments sent",
-            description: "Every first working day of the month, you will receive your share of the property rent directly into your Public Marketplace wallet."
+            description: "Every first working day of the month, you will receive your share of the property rent directly into your Copym wallet."
         }
     ];
 

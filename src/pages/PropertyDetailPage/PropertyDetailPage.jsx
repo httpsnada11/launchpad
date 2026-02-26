@@ -100,16 +100,20 @@ const PROPERTY_DETAILS = {
         similarProperties: [2, 3],
         investmentHighlights: [
             {
-                title: 'High Capital Growth Potential',
-                description: 'Located in Kensington, one of London\'s most resilient and sought-after residential markets with strong historical price appreciation.'
+                title: 'Prime Kensington Location',
+                description: 'Situated in one of London\'s most resilient and prestigious residential markets with strong historical price appreciation.'
             },
             {
-                title: 'Premium Rental Demand',
-                description: 'Strong demand from high-net-worth professionals and international students ensures consistent occupancy and premium rental yields.'
+                title: 'Elite Rental Demand',
+                description: 'High demand from corporate professionals and international students ensures consistent occupancy and premium yields.'
             },
             {
-                title: 'Strategic Urban Infrastructure',
-                description: 'Proximity to major transport links, elite schools, and cultural landmarks boosts long-term asset value and liquidity.'
+                title: 'Resilient Capital Growth',
+                description: 'London\'s luxury real estate has historically outperformed other asset classes during global economic shifts.'
+            },
+            {
+                title: 'World-Class Amenities',
+                description: 'Proximity to Royal Parks, elite schools, and Michelin-starred dining boosts long-term asset desirability.'
             }
         ],
         developerDetails: {
@@ -207,28 +211,20 @@ const PROPERTY_DETAILS = {
         similarProperties: [1, 4],
         investmentHighlights: [
             {
-                title: 'Luxury Waterfront Living',
-                description: 'Prive by Damac is a twin-tower luxury development in Business Bay offering fully serviced apartments with stunning views and five-star hotel-style amenities.'
+                title: 'Exclusive Golf Course Views',
+                description: 'Unparalleled panoramic views of the Montgomerie Golf Club, significantly increasing the property\'s resale appeal and value.'
             },
             {
-                title: 'Rare Full Lake View',
-                description: 'The subject 2-bedroom unit on the 10th floor is one of the few in the tower featuring a full lake view, enhancing its appeal for both rental and resale.'
+                title: 'Ultra-Luxury Specifications',
+                description: 'Features bespoke Italian finishes, a private home cinema, and state-of-the-art smart home automation for a premium lifestyle.'
             },
             {
-                title: 'Strong Rental Potential',
-                description: 'Projected gross rental income of AED 175,000 annually, with a first-year net yield of up to 5.17%, ensuring reliable income generation.'
+                title: 'High Net Rental Yields',
+                description: 'Dubai\'s tax-free rental income environment offers some of the highest net yields globally for luxury residential assets.'
             },
             {
-                title: 'High ROI Opportunity',
-                description: 'Estimated annualized ROI of up to 14.77% over a 5-year period, combining rental income and capital appreciation.'
-            },
-            {
-                title: 'Below Market Purchase',
-                description: 'Acquired at AED 2,400,000—secured significantly below the DLD smart valuation of AED 2,890,000—offering an immediate 16.96% discount or a 20.42% unrealized gain.'
-            },
-            {
-                title: 'Prestigious Business Bay Address',
-                description: 'Located in the heart of Business Bay with direct canal views and minutes from Downtown Dubai and DIFC, boosting long-term investment value.'
+                title: 'Absolute Supply Scarcity',
+                description: 'Emirates Hills is a fully mature, "closed" community with extremely limited new inventory, driving long-term value preservation.'
             }
         ],
         developerDetails: {
@@ -313,16 +309,20 @@ const PROPERTY_DETAILS = {
         similarProperties: [1, 2],
         investmentHighlights: [
             {
-                title: 'World-Class Connectivity',
-                description: 'Unmatched access to global business hubs, high-end shopping, and the cultural heart of Manhattan.'
+                title: 'Iconic Skyline Views',
+                description: 'Floor-to-ceiling windows offering breathtaking 360-degree views of Central Park and the world-famous Manhattan skyline.'
             },
             {
-                title: 'Asset Scarcity',
-                description: 'Limited availability of ultra-luxury penthouses in prime New York locations ensures long-term wealth preservation.'
+                title: 'Institutional Grade Asset',
+                description: 'Built by world-renowned architects with museum-quality finishes, attracting global ultra-high-net-worth and institutional investors.'
             },
             {
-                title: 'Institutional Grade Quality',
-                description: 'Built to the highest standards with premium finishes and exclusive amenities, attracting global institutional investors.'
+                title: 'Manhattan Market Resilience',
+                description: 'Prime New York real estate serves as a premier global "safe haven" asset for long-term wealth preservation and growth.'
+            },
+            {
+                title: 'Exclusive Lifestyle Services',
+                description: 'Includes 24/7 white-glove concierge, private elevator access, and a comprehensive suite of five-star wellness amenities.'
             }
         ],
         developerDetails: {
@@ -395,6 +395,24 @@ const PROPERTY_DETAILS = {
                 { step: 4, percentage: 20, label: "Final Payment", date: "Q1 2027", active: false }
             ]
         },
+        investmentHighlights: [
+            {
+                title: 'Strategic Growth District',
+                description: 'JVC is one of Dubai\'s fastest-growing residential hubs with massive infrastructure and community expansion planned.'
+            },
+            {
+                title: 'High ROI Potential',
+                description: 'Approved for G+4 mixed-use construction, offering rapid capital recycling through a strategic "build-to-sell" development model.'
+            },
+            {
+                title: 'Immediate Capital Gain',
+                description: 'Acquired at a significant discount to current market valuation in a high-demand corridor with rising absorption rates.'
+            },
+            {
+                title: 'Infrastructure Readiness',
+                description: 'Corner plot with direct road access and all utilities connected, significantly minimizing pre-development lead times.'
+            }
+        ],
         documents: [
             { name: 'Title Deed', type: 'PDF', size: '0.9 MB' },
             { name: 'NOC from Authorities', type: 'PDF', size: '0.5 MB' },
@@ -407,20 +425,6 @@ const PROPERTY_DETAILS = {
             { date: 'Q3 2025', event: 'Development start', status: 'upcoming' }
         ],
         similarProperties: [2],
-        investmentHighlights: [
-            {
-                title: 'Strategic Development Zone',
-                description: 'JVC is one of Dubai\'s fastest-growing residential hubs with a high volume of new construction and infrastructure investment.'
-            },
-            {
-                title: 'Favorable Zoning Regulations',
-                description: 'Approved for mixed-use G+4 development, providing flexibility for diverse residential and commercial project planning.'
-            },
-            {
-                title: 'Entry-Level Investment Opportunity',
-                description: 'Lower plot entry costs relative to surrounding areas offer higher potential margins for developers and fix-and-flip investors.'
-            }
-        ],
         developerDetails: {
             name: 'Nakheel',
             logo: 'https://ui-avatars.com/api/?name=Nakheel&background=10B981&color=fff',
@@ -510,27 +514,24 @@ const InvestmentStrategy = ({ type }) => {
                 Investment strategy
             </h3>
 
-            <div className={`p-8 rounded-3xl border-2 ${strategy.colorClass} bg-white relative overflow-hidden shadow-sm`}>
-                <div className="flex justify-between items-start mb-6">
+            <div className={`p-8 rounded-[2rem] border border-white/10 bg-black relative overflow-hidden shadow-2xl shadow-emerald-900/10`}>
+                <div className="flex justify-between items-start mb-8">
                     <div className="max-w-xl">
-                        <h4 className="text-2xl font-bold mb-2">{strategy.title}</h4>
-                        <p className="text-gray-600 text-sm leading-relaxed">
+                        <h4 className="text-2xl font-bold mb-2 text-white">{strategy.title}</h4>
+                        <p className="text-gray-400 text-sm leading-relaxed">
                             {strategy.description}
                         </p>
                     </div>
-                    <div className={`${strategy.iconBgClass} p-4 rounded-full text-white shadow-lg`}>
-                        <Icon size={32} />
-                    </div>
                 </div>
 
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border border-white/50">
+                <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
                     <div className="flex flex-wrap items-start gap-6">
                         {strategy.highlights.map((item, idx) => (
                             <React.Fragment key={idx}>
-                                {idx > 0 && <span className="text-gray-300 self-stretch text-4xl leading-none">|</span>}
+                                {idx > 0 && <span className="text-white/20 self-stretch text-4xl leading-none font-thin text-center flex items-center">|</span>}
                                 <div className="flex-1 min-w-[200px]">
-                                    <h5 className="font-bold text-gray-900 mb-1">{item.title}</h5>
-                                    <p className="text-sm text-gray-500 leading-relaxed">
+                                    <h5 className="font-bold text-white mb-1 uppercase text-xs tracking-widest">{item.title}</h5>
+                                    <p className="text-sm text-gray-400 leading-relaxed">
                                         {item.text}
                                     </p>
                                 </div>
@@ -719,100 +720,102 @@ export default function PropertyDetailPage() {
 
                                     return (
                                         <div className="space-y-6">
-                                            <div className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm relative w-full">
+                                            <div className="bg-black rounded-3xl p-6 lg:p-8 border border-white/10 shadow-2xl shadow-emerald-900/10 relative w-full overflow-hidden">
                                                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 lg:gap-x-12 relative z-10">
                                                     <div>
-                                                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Listing price</p>
-                                                        <div className="flex items-baseline gap-1">
-                                                            <span className="text-gray-300 text-xs font-semibold">AED</span>
-                                                            <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Listing price</p>
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
+                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.assetPrice.replace('AED ', '')}</span>
                                                         </div>
                                                     </div>
 
                                                     <div>
-                                                        <div className="flex items-center gap-2 mb-2">
-                                                            <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Market value</p>
-                                                            <div className="flex items-center gap-0.5 text-[#10B981] font-semibold text-[10px]">
-                                                                <TrendingUp size={12} strokeWidth={2} />
+                                                        <div className="flex items-center gap-2 mb-3">
+                                                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Market value</p>
+                                                            <div className="flex items-center gap-1 text-emerald-400 font-bold text-[10px] bg-emerald-400/10 px-1.5 py-0.5 rounded">
+                                                                <TrendingUp size={12} strokeWidth={3} />
                                                                 <span>+{annualAppreciation}%</span>
                                                             </div>
                                                         </div>
-                                                        <div className="flex items-baseline gap-1">
-                                                            <span className="text-gray-300 text-xs font-semibold">AED</span>
-                                                            <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Price per token</p>
-                                                        <div className="flex items-baseline gap-1">
-                                                            <span className="text-gray-300 text-xs font-semibold">AED</span>
-                                                            <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Token availability</p>
                                                         <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.availableTokens.toLocaleString()}</span>
-                                                            <span className="text-gray-300 text-lg font-semibold">/</span>
-                                                            <span className="text-gray-400 text-sm font-medium">{property.totalTokens.toLocaleString()}</span>
+                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
+                                                            <span className="text-white text-3xl font-bold tracking-tighter">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Price per token</p>
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
+                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div>
+                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Token availability</p>
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.availableTokens.toLocaleString()}</span>
+                                                            <span className="text-gray-600 text-lg font-bold">/</span>
+                                                            <span className="text-gray-500 text-sm font-bold">{property.totalTokens.toLocaleString()}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full overflow-hidden">
-                                                <div className="flex items-center gap-2 mb-4">
-                                                    <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center">
-                                                        <div className="w-2.5 h-2.5 bg-blue-600 rounded-sm opacity-80"></div>
+                                            <div className="bg-black rounded-3xl p-5 md:p-6 border border-white/10 shadow-2xl shadow-emerald-900/10 w-full overflow-hidden mb-6">
+                                                <div className="flex items-center gap-3 mb-5">
+                                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                                        <PieChart size={14} className="text-emerald-400" />
                                                     </div>
-                                                    <span className="text-sm md:text-base font-semibold text-gray-900 uppercase">
+                                                    <span className="text-sm md:text-base font-bold text-white uppercase tracking-tight">
                                                         Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
                                                     </span>
                                                 </div>
 
-                                                <div className="h-2.5 bg-gray-100 rounded-full mb-5 overflow-hidden w-full">
+                                                <div className="h-2 bg-white/10 rounded-full mb-6 overflow-hidden w-full relative">
                                                     <div
-                                                        className="h-full bg-blue-600 rounded-full transition-all duration-500"
+                                                        className="h-full bg-emerald-500 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                                                         style={{ width: `${(1 - (property.availableTokens / property.totalTokens)) * 100}%` }}
                                                     />
                                                 </div>
 
-                                                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2">
-                                                    <div className="flex items-center gap-2">
-                                                        <Percent className="w-4 h-4 text-blue-600" strokeWidth={3} />
-                                                        <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Available Value:</span>
-                                                        <span className="text-xs text-gray-400 font-semibold">AED</span>
-                                                        <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
-                                                            {availableValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                                                        </span>
+                                                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                                                    <div className="flex items-center gap-3">
+                                                        <Percent className="w-4 h-4 text-emerald-400" strokeWidth={3} />
+                                                        <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Available Value:</span>
+                                                        <div className="flex items-baseline gap-1.5">
+                                                            <span className="text-[10px] text-gray-600 font-bold uppercase">AED</span>
+                                                            <span className="text-base md:text-lg font-bold text-white tracking-tight">
+                                                                {availableValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full">
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-4">
-                                                    <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Current token market value</span>
-                                                    <div className="flex items-center gap-1.5">
-                                                        <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
-                                                        <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
+                                            <div className="bg-black rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl shadow-emerald-900/10 w-full">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-5 py-2 border-b border-white/5">
+                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Current token market value</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[10px] md:text-xs text-gray-600 font-bold">AED</span>
+                                                        <span className="text-base md:text-lg font-bold text-white tracking-tight">
                                                             {currentTokenMarketValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-4">
-                                                    <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Appreciation</span>
-                                                    <div className="flex items-center gap-1 text-[#10B981]">
-                                                        <TrendingUp className="w-4 h-4 stroke-[2]" />
-                                                        <span className="text-sm md:text-base font-semibold tracking-tight">+{annualAppreciation}%</span>
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-5 py-2 border-b border-white/5">
+                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Appreciation</span>
+                                                    <div className="flex items-center gap-2 text-emerald-400">
+                                                        <TrendingUp className="w-4 h-4 stroke-[3]" />
+                                                        <span className="text-base md:text-lg font-bold tracking-tight">+{annualAppreciation}%</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0">
-                                                    <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Original token market value</span>
-                                                    <div className="flex items-center gap-1.5">
-                                                        <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
-                                                        <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 py-2">
+                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Original token market value</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[10px] md:text-xs text-gray-600 font-bold">AED</span>
+                                                        <span className="text-base md:text-lg font-bold text-white tracking-tight">
                                                             {tokenPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                         </span>
                                                     </div>
