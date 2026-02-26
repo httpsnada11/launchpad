@@ -8,7 +8,7 @@ import {
     PieChart,
     Navigation, Globe, Award, Info,
     FileText, Calendar, Shield, Sparkles,
-    Sprout, ShieldCheck, Coins, Hammer
+    Sprout, ShieldCheck, Coins, Hammer, Percent
 } from 'lucide-react';
 import Button from '../../components/Button';
 import InvestmentCalculator from './components/InvestmentCalculator';
@@ -517,7 +517,7 @@ export default function PropertyDetailPage() {
             />
 
             {/* Redesigned Hero / Top Section */}
-            <div className="bg-white border-b border-gray-100">
+            <div className="bg-white">
                 <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
                     {/* Breadcrumbs / Back Link & Actions */}
                     <div className="flex items-center justify-between mb-8">
@@ -607,15 +607,7 @@ export default function PropertyDetailPage() {
                                     </div>
 
                                     <div className="space-y-6">
-                                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative overflow-hidden max-w-4xl">
-                                            {/* Grid Dividers */}
-                                            <div className="absolute inset-0 pointer-events-none">
-                                                {/* Vertical dashed divider */}
-                                                <div className="absolute left-1/2 top-4 bottom-4 w-px border-l border-gray-100 border-dashed -translate-x-1/2" />
-                                                {/* Horizontal solid divider */}
-                                                <div className="absolute left-4 right-4 top-1/2 h-px bg-gray-50 -translate-y-1/2" />
-                                            </div>
-
+                                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm relative w-full">
                                             <div className="grid grid-cols-2 gap-y-10 relative z-10">
                                                 {/* Top Left: Listing Price */}
                                                 <div className="pr-4">
@@ -664,6 +656,93 @@ export default function PropertyDetailPage() {
                                                             <span className="text-gray-300 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">OUT OF {property.totalTokens.toLocaleString()}</span>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* New Compact Token Sales Bar */}
+                                        <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                                            <div className="flex justify-between items-center mb-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center">
+                                                        <div className="grid grid-cols-2 gap-[1px]">
+                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                        </div>
+                                                    </div>
+                                                    <span className="text-sm font-semibold text-gray-900">
+                                                        {property.financials?.tokensSold ? property.financials.tokensSold.toLocaleString() : '0'} tokens sold
+                                                    </span>
+                                                </div>
+                                                <span className="text-xs text-gray-500 font-medium tracking-wide">
+                                                    Out of {property.totalTokens.toLocaleString()}
+                                                </span>
+                                            </div>
+
+                                            <div className="h-2 bg-gray-100 rounded-full mb-4 overflow-hidden">
+                                                <div
+                                                    className="h-full bg-gray-400 rounded-full"
+                                                    style={{ width: `${((property.financials?.tokensSold || 0) / property.totalTokens) * 100}%` }}
+                                                />
+                                            </div>
+
+                                            <div className="bg-[#f0f9ff] rounded-lg p-3 flex justify-between items-center border border-blue-50">
+                                                <div className="flex items-center gap-2">
+                                                    <Percent className="w-4 h-4 text-blue-600" />
+                                                    <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">Available tokens:</span>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex items-center gap-1">
+                                                        <span className="text-xs text-gray-500 font-medium">AED</span>
+                                                        <span className="text-sm font-bold text-gray-900">
+                                                            {((property.availableTokens) * parseFloat(property.tokenPriceAED.replace(/,/g, ''))).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                        </span>
+                                                    </div>
+                                                    <div className="w-px h-3 bg-gray-300" />
+                                                    <div className="flex items-center gap-1.5">
+                                                        <div className="w-3.5 h-3.5 rounded-full bg-blue-100 flex items-center justify-center">
+                                                            <div className="grid grid-cols-2 gap-[1px]">
+                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
+                                                            </div>
+                                                        </div>
+                                                        <span className="text-sm font-bold text-gray-900">
+                                                            {property.availableTokens.toLocaleString()}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* New Compact Token Performance */}
+                                        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+                                            <div className="flex justify-between items-center mb-3">
+                                                <span className="text-sm text-gray-500 font-medium">Current token market value</span>
+                                                <div className="flex items-center gap-1">
+                                                    <span className="text-xs text-gray-400 font-bold">AED</span>
+                                                    <span className="text-sm font-bold text-gray-900">
+                                                        {property.financials?.originalTokenValue ? (parseFloat(property.financials.originalTokenValue.replace(/,/g, '')) * 1.0625).toFixed(2) : (parseFloat(property.tokenPriceAED.replace(/,/g, '')) * 1.0625).toFixed(2)}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between items-center mb-3">
+                                                <span className="text-sm text-gray-500 font-medium">Appreciation</span>
+                                                <div className="flex items-center gap-1 textEmerald-500">
+                                                    <TrendingUp className="w-3.5 h-3.5 stroke-[3]" />
+                                                    <span className="text-sm font-bold">+6.25%</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-sm text-gray-500 font-medium">Original token market value</span>
+                                                <div className="flex items-center gap-1">
+                                                    <span className="text-xs text-gray-400 font-bold">AED</span>
+                                                    <span className="text-sm font-bold text-gray-900">
+                                                        {property.financials?.originalTokenValue ? parseFloat(property.financials.originalTokenValue.replace(/,/g, '')).toFixed(2) : parseFloat(property.tokenPriceAED.replace(/,/g, '')).toFixed(2)}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -718,7 +797,7 @@ export default function PropertyDetailPage() {
                         <HowItWorks />
                     </div>
 
-                    <div className="rounded-2xl py-6 text-white">
+                    <div className="rounded-2xl py-6 text-white flex justify-center">
                         <Button
                             text="About this property"
                             onClick={() => setShowDetailsModal(true)}
