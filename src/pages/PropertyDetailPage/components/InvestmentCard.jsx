@@ -5,18 +5,17 @@ import Button from '../../../components/Button';
 
 
 export default function InvestmentCard({ property }) {
-    const [investmentAmount, setInvestmentAmount] = useState(2000);
+    // Initialize with min investment from property data
+    const initialAmount = parseInt(property.minInvestment?.replace(/[^0-9]/g, '')) || 1800;
+    const [investmentAmount, setInvestmentAmount] = useState(initialAmount);
     const [isAdded, setIsAdded] = useState(false);
 
     // ALL data from property - NO hardcoded wireframe numbers
     const availableTokens = property.availableTokens || 100000;
     const fundedPercentage = property.tokenPercentage || 0;
-    const projectedRentalYield = parseFloat(property.financials?.projectedRentalYield) || 0;
-    const annualAppreciation = parseFloat(property.financials?.annualAppreciation) || 0;
 
-    // Calculate returns from property data
-    const fiveYearReturn = ((Math.pow(1 + (projectedRentalYield + annualAppreciation) / 100, 5) - 1) * 100).toFixed(2);
-    const yearlyReturn = (projectedRentalYield + annualAppreciation).toFixed(2);
+    // Extract number from minInvestment string (e.g., "AED 1,800" -> 1800)
+    const minInvestmentValue = parseInt(property.minInvestment?.replace(/[^0-9]/g, '')) || 1800;
 
     // Dynamic counts (replace with real API data later)
     const investorCount = Math.floor(Math.random() * 500) + 100;
@@ -51,12 +50,12 @@ export default function InvestmentCard({ property }) {
                         <div className="flex-1 p-6 border-b lg:border-b-0 lg:border-r border-slate-100">
                             <div className="flex justify-between items-end mb-6">
                                 <div className="space-y-1">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Asset Valuation</p>
-                                    <p className="text-2xl font-bold text-slate-900 tracking-tighter leading-none">{property.assetPrice}</p>
+                                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Asset Valuation</p>
+                                    <p className="text-2xl font-semibold text-gray-900 tracking-tighter leading-none">{property.assetPrice}</p>
                                 </div>
                                 <div className="text-right space-y-1">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">Equity Issued</p>
-                                    <p className="text-lg font-bold text-slate-900 leading-none">{fundedPercentage}%</p>
+                                    <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-[0.15em]">Equity Issued</p>
+                                    <p className="text-lg font-semibold text-gray-900 leading-none">{fundedPercentage}%</p>
                                 </div>
                             </div>
 
@@ -69,24 +68,23 @@ export default function InvestmentCard({ property }) {
                                 />
                             </div>
 
-                            <div className="bg-slate-50/50 rounded-2xl p-4 border border-slate-100">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <TrendingUp size={14} className="text-emerald-500" />
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.1em]">Target Projections</span>
+                            {/* Financial Stats Grid */}
+                            <div className="grid grid-cols-2 gap-x-8 gap-y-6 pt-2">
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Min Investment</span>
+                                    <span className="text-sm font-semibold text-gray-900 leading-none">{property.minInvestment}</span>
                                 </div>
-                                <div className="grid grid-cols-3 gap-4">
-                                    <div className="text-center">
-                                        <p className="text-[9px] text-slate-400 font-semibold uppercase mb-1">5Y Return</p>
-                                        <p className="text-sm font-bold text-slate-900">{fiveYearReturn}%</p>
-                                    </div>
-                                    <div className="text-center border-x border-slate-200/50">
-                                        <p className="text-[9px] text-slate-400 font-semibold uppercase mb-1">Annual</p>
-                                        <p className="text-sm font-bold text-slate-900">{yearlyReturn}%</p>
-                                    </div>
-                                    <div className="text-center">
-                                        <p className="text-[9px] text-slate-400 font-semibold uppercase mb-1">Rental</p>
-                                        <p className="text-sm font-bold text-emerald-600">{projectedRentalYield}%</p>
-                                    </div>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Rental Yield</span>
+                                    <span className="text-sm font-semibold text-[#10B981] leading-none">{property.financials?.projectedRentalYield || '4.5%'} / yr</span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Holding Period</span>
+                                    <span className="text-sm font-semibold text-gray-900 leading-none">{property.financials?.holdingPeriod || '5 years'}</span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Total Return</span>
+                                    <span className="text-sm font-semibold text-blue-600 leading-none">{property.financials?.totalReturn || '10.7%'}</span>
                                 </div>
                             </div>
                         </div>
@@ -94,19 +92,19 @@ export default function InvestmentCard({ property }) {
                         {/* Right: Investment Area */}
                         <div className="flex-1 p-6 flex flex-col justify-center">
                             <div className="flex items-center justify-between mb-3">
-                                <h4 className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.15em]">Investment Principal</h4>
-                                <span className="text-[9px] font-semibold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">Min 1,800 AED</span>
+                                <h4 className="text-[10px] text-gray-400 font-semibold uppercase tracking-[0.15em]">Investment Principal</h4>
+                                <span className="text-[9px] font-semibold text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full border border-gray-100">Min {property.minInvestment?.replace('AED ', '')} AED</span>
                             </div>
 
                             <div className="group relative mb-4">
                                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                                    <span className="text-slate-400 font-bold text-base group-focus-within:text-emerald-500 transition-colors uppercase">AED</span>
+                                    <span className="text-gray-400 font-semibold text-base group-focus-within:text-emerald-500 transition-colors uppercase">AED</span>
                                 </div>
                                 <input
                                     type="number"
                                     value={investmentAmount}
                                     onChange={(e) => setInvestmentAmount(Math.max(0, parseInt(e.target.value) || 0))}
-                                    className="w-full pl-16 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-xl font-bold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm"
+                                    className="w-full pl-16 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-xl font-semibold text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all shadow-sm"
                                     placeholder="0"
                                 />
                             </div>
@@ -116,7 +114,7 @@ export default function InvestmentCard({ property }) {
                                     <button
                                         key={amount}
                                         onClick={() => setInvestmentAmount(amount)}
-                                        className={`flex-1 py-2 rounded-xl text-[10px] font-bold transition-all border ${investmentAmount === amount
+                                        className={`flex-1 py-2 rounded-xl text-[10px] font-semibold transition-all border ${investmentAmount === amount
                                             ? 'bg-[#0F172A] border-[#0F172A] text-white shadow-lg'
                                             : 'bg-white border-slate-200 text-slate-500 hover:border-emerald-200 hover:text-emerald-600'
                                             }`}
@@ -146,9 +144,9 @@ export default function InvestmentCard({ property }) {
                                     </div>
                                 ))}
                             </div>
-                            <span className="text-[11px] font-semibold text-slate-500">Live Activity</span>
+                            <span className="text-[11px] font-semibold text-gray-500">Live Activity</span>
                         </div>
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                        <div className="flex items-center gap-1.5 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
                             <Eye size={14} className="text-emerald-500" />
                             <span>{viewCount.toLocaleString()} Browsing</span>
                         </div>

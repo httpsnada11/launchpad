@@ -10,9 +10,9 @@ import {
 const MetricBox = ({ label, value, icon: Icon, trend, isCurrency = true }) => (
     <div className="bg-white border border-slate-100 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow">
         <div className="flex justify-between items-start mb-2">
-            <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+            <span className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-widest">{label}</span>
             {trend && (
-                <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-500">
+                <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-500">
                     <ArrowUpRight size={12} />
                     {trend}
                 </div>
@@ -20,7 +20,7 @@ const MetricBox = ({ label, value, icon: Icon, trend, isCurrency = true }) => (
         </div>
         <div className="space-y-0.5">
             <p className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight leading-none uppercase">
-                {isCurrency && <span className="text-slate-400 mr-1.5 font-bold">AED</span>}
+                {isCurrency && <span className="text-slate-400 mr-1.5 font-semibold">AED</span>}
                 {value}
             </p>
         </div>
@@ -75,11 +75,11 @@ export default function TokenDetails({ property }) {
                             <div className="w-5 h-5 rounded-full bg-[#0F172A] flex items-center justify-center p-1">
                                 <PieChart size={12} className="text-white" />
                             </div>
-                            <span className="text-sm font-bold text-slate-900 tracking-tight">
+                            <span className="text-sm font-semibold text-slate-900 tracking-tight">
                                 {tokensSold.toLocaleString()} tokens sold
                             </span>
                         </div>
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
                             Out of {maxTokensSold.toLocaleString()}
                         </span>
                     </div>
@@ -101,19 +101,19 @@ export default function TokenDetails({ property }) {
                             <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-600 shadow-sm">
                                 <Wallet size={20} />
                             </div>
-                            <span className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Available tokens:</span>
+                            <span className="text-sm sm:text-base font-semibold text-slate-900 tracking-tight">Available tokens:</span>
                         </div>
                         <div className="flex items-center gap-4 flex-wrap">
                             <div className="flex items-center gap-2">
-                                <span className="text-slate-400 text-sm font-bold tracking-widest uppercase">AED</span>
-                                <span className="text-sm sm:text-base font-black text-slate-900">{availableTotalValue.toLocaleString()}</span>
+                                <span className="text-slate-400 text-sm font-semibold tracking-widest uppercase">AED</span>
+                                <span className="text-sm sm:text-base font-bold text-slate-900">{availableTotalValue.toLocaleString()}</span>
                             </div>
                             <div className="w-[1px] h-4 bg-slate-200 hidden sm:block" />
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center p-0.5">
                                     <PieChart size={10} className="text-white" />
                                 </div>
-                                <span className="text-sm sm:text-base font-black text-slate-900">{(maxTokensSold - tokensSold).toLocaleString()}</span>
+                                <span className="text-sm sm:text-base font-bold text-slate-900">{(maxTokensSold - tokensSold).toLocaleString()}</span>
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ export default function TokenDetails({ property }) {
                         <span className="text-xs sm:text-sm font-semibold text-slate-500">Appreciation</span>
                         <div className="flex items-center gap-1.5 text-emerald-500">
                             <ArrowUpRight size={14} />
-                            <span className="text-sm sm:text-base font-black leading-none">{property.roi}</span>
+                            <span className="text-sm sm:text-base font-bold leading-none">{property.roi}</span>
                         </div>
                     </div>
                     <div className="flex justify-between items-center py-1 border-b border-slate-50 pb-4">
@@ -148,9 +148,9 @@ export default function TokenDetails({ property }) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-slate-400">
                         <Info size={14} />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">How tokens are calculated</span>
+                        <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider">How tokens are calculated</span>
                     </div>
-                    <button className="text-[10px] sm:text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors underline decoration-emerald-200 underline-offset-4 uppercase tracking-widest">
+                    <button className="text-[10px] sm:text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors underline decoration-emerald-200 underline-offset-4 uppercase tracking-widest">
                         Learn more
                     </button>
                 </div>

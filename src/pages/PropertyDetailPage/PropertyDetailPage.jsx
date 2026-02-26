@@ -37,12 +37,13 @@ const PROPERTY_DETAILS = {
         tokenPriceAED: '165 AED',
         availableTokens: 100000,
         totalTokens: 1000000,
+        minInvestment: 'AED 1,650',
         status: 'coming-soon',
         image: '/assets/publicm/villa.jpeg',
         badge: 'COMING SOON',
         launchDate: 'Coming soon',
         propertyType: 'Residential',
-        investmentStrategy: 'Capital Growth',
+        investmentStrategy: 'Capital growth',
         strategyType: 'capital-growth',
         beds: 2,
         baths: 2,
@@ -89,10 +90,10 @@ const PROPERTY_DETAILS = {
             { name: 'Floor Plans', type: 'PDF', size: '1.8 MB' }
         ],
         timeline: [
-            { date: 'Q1 2024', event: 'Acquisition Complete', status: 'completed' },
-            { date: 'Q2 2024', event: 'Renovation Started', status: 'completed' },
-            { date: 'Q4 2024', event: 'Token Launch', status: 'current' },
-            { date: 'Q1 2025', event: 'First Distribution', status: 'upcoming' }
+            { date: 'Q1 2024', event: 'Acquisition complete', status: 'completed' },
+            { date: 'Q2 2024', event: 'Renovation started', status: 'completed' },
+            { date: 'Q4 2024', event: 'Token launch', status: 'current' },
+            { date: 'Q1 2025', event: 'First distribution', status: 'upcoming' }
         ],
         similarProperties: [2, 3]
     },
@@ -110,13 +111,14 @@ const PROPERTY_DETAILS = {
         tokenPriceAED: '2,750 AED',
         availableTokens: 500000,
         totalTokens: 2000000,
+        minInvestment: 'AED 1,800',
         status: 'open',
         image: '/assets/publicm/vilaa2.jpeg',
         badge: 'OPEN',
         launchDate: 'Live Now',
         progress: 75,
         propertyType: 'Residential',
-        investmentStrategy: 'High-Yield',
+        investmentStrategy: 'High-yield',
         strategyType: 'high-yield',
         beds: 5,
         baths: 6,
@@ -156,7 +158,7 @@ const PROPERTY_DETAILS = {
             projectedRentalYield: '6.8%',
             annualAppreciation: '8.5%',
             totalReturn: '15.3%',
-            holdingPeriod: '7 years',
+            holdingPeriod: '5 years',
             exitStrategy: 'Capital Appreciation',
             distributionFrequency: 'Quarterly',
             marketValue: 'AED 12.6M',
@@ -176,9 +178,9 @@ const PROPERTY_DETAILS = {
             { name: 'Payment Plan', type: 'PDF', size: '1.2 MB' }
         ],
         timeline: [
-            { date: 'Q1 2024', event: 'Land Acquisition', status: 'completed' },
-            { date: 'Q3 2024', event: 'Construction Started', status: 'completed' },
-            { date: 'Q4 2024', event: 'Token Launch', status: 'current' },
+            { date: 'Q1 2024', event: 'Land acquisition', status: 'completed' },
+            { date: 'Q3 2024', event: 'Construction started', status: 'completed' },
+            { date: 'Q4 2024', event: 'Token launch', status: 'current' },
             { date: 'Q4 2025', event: 'Handover', status: 'upcoming' }
         ],
         similarProperties: [1, 4]
@@ -197,6 +199,7 @@ const PROPERTY_DETAILS = {
         tokenPriceAED: '16,500 AED',
         availableTokens: 0,
         totalTokens: 1000000,
+        minInvestment: 'AED 16,500',
         status: 'sold-out',
         image: '/assets/publicm/penthouse.jpeg',
         badge: 'SOLD OUT',
@@ -240,7 +243,7 @@ const PROPERTY_DETAILS = {
             projectedRentalYield: '3.2%',
             annualAppreciation: '9.8%',
             totalReturn: '13.0%',
-            holdingPeriod: '10 years',
+            holdingPeriod: '5 years',
             exitStrategy: 'Long-term Hold',
             distributionFrequency: 'Annual'
         },
@@ -251,9 +254,9 @@ const PROPERTY_DETAILS = {
         ],
         timeline: [
             { date: 'Q2 2023', event: 'Acquisition', status: 'completed' },
-            { date: 'Q4 2023', event: 'Token Launch', status: 'completed' },
-            { date: 'Q1 2024', event: 'Sold Out', status: 'completed' },
-            { date: 'Q4 2024', event: 'First Distribution', status: 'completed' }
+            { date: 'Q4 2023', event: 'Token launch', status: 'completed' },
+            { date: 'Q1 2024', event: 'Sold out', status: 'completed' },
+            { date: 'Q4 2024', event: 'First distribution', status: 'completed' }
         ],
         similarProperties: [1, 2]
     },
@@ -276,7 +279,7 @@ const PROPERTY_DETAILS = {
         badge: 'NEW',
         launchDate: 'Coming soon',
         propertyType: 'Plot',
-        investmentStrategy: 'Fix n\' Flip',
+        investmentStrategy: 'Fix n\' flip',
         strategyType: 'fix-and-flip',
         beds: 0,
         baths: 0,
@@ -327,10 +330,10 @@ const PROPERTY_DETAILS = {
             { name: 'Development Guidelines', type: 'PDF', size: '2.3 MB' }
         ],
         timeline: [
-            { date: 'Q1 2024', event: 'Land Acquisition', status: 'completed' },
-            { date: 'Q2 2024', event: 'Approvals Obtained', status: 'completed' },
-            { date: 'Q1 2025', event: 'Token Launch', status: 'upcoming' },
-            { date: 'Q3 2025', event: 'Development Start', status: 'upcoming' }
+            { date: 'Q1 2024', event: 'Land acquisition', status: 'completed' },
+            { date: 'Q2 2024', event: 'Approvals obtained', status: 'completed' },
+            { date: 'Q1 2025', event: 'Token launch', status: 'upcoming' },
+            { date: 'Q3 2025', event: 'Development start', status: 'upcoming' }
         ],
         similarProperties: [2]
     }
@@ -412,8 +415,8 @@ const InvestmentStrategy = ({ type }) => {
     const Icon = strategy.icon;
 
     return (
-        <div className="pt-6 pb-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
+        <div className="pb-6">
+            <h3 className="text-xl font-bold text-gray-900 mb-6 tracking-wider">
                 Investment strategy
             </h3>
 
@@ -605,28 +608,11 @@ export default function PropertyDetailPage() {
                                         </div>
                                     </div>
 
-                                    {/* Quick Stats Bar */}
-                                    <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mb-4 pb-4 border-b border-gray-100">
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Min Investment</span>
-                                            <span className="text-sm font-bold text-gray-900 leading-none">AED 1,650</span>
-                                        </div>
-                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Rental Yield</span>
-                                            <span className="text-sm font-bold text-[#10B981] leading-none">{property.financials?.projectedRentalYield || '4.5%'} / yr</span>
-                                        </div>
-                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Holding Period</span>
-                                            <span className="text-sm font-bold text-gray-900 leading-none">{property.financials?.holdingPeriod || '5 years'}</span>
-                                        </div>
-                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Total Return</span>
-                                            <span className="text-sm font-bold text-blue-600 leading-none">{property.financials?.totalReturn || '10.7%'}</span>
-                                        </div>
+                                    {/* Investment Overview Description */}
+                                    <div className="mb-8 pb-6 border-b border-gray-100">
+                                        <p className="text-gray-600 text-base leading-relaxed">{property.description}</p>
                                     </div>
+
 
                                     <div className="space-y-6">
                                         <div className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm relative w-full">
@@ -635,8 +621,8 @@ export default function PropertyDetailPage() {
                                                 <div>
                                                     <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Listing price</p>
                                                     <div className="flex items-baseline gap-1">
-                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                        <span className="text-gray-300 text-xs font-semibold">AED</span>
+                                                        <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
@@ -644,14 +630,14 @@ export default function PropertyDetailPage() {
                                                 <div>
                                                     <div className="flex items-center gap-2 mb-2">
                                                         <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Market value</p>
-                                                        <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[10px]">
-                                                            <TrendingUp size={12} strokeWidth={3} />
+                                                        <div className="flex items-center gap-0.5 text-[#10B981] font-semibold text-[10px]">
+                                                            <TrendingUp size={12} strokeWidth={2} />
                                                             <span>+6.25%</span>
                                                         </div>
                                                     </div>
                                                     <div className="flex items-baseline gap-1">
-                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                        <span className="text-gray-300 text-xs font-semibold">AED</span>
+                                                        <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
@@ -659,8 +645,8 @@ export default function PropertyDetailPage() {
                                                 <div>
                                                     <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Price per token</p>
                                                     <div className="flex items-baseline gap-1">
-                                                        <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                        <span className="text-gray-300 text-xs font-semibold">AED</span>
+                                                        <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
                                                     </div>
                                                 </div>
 
@@ -668,9 +654,9 @@ export default function PropertyDetailPage() {
                                                 <div>
                                                     <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Token availability</p>
                                                     <div className="flex items-baseline gap-1.5">
-                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.availableTokens.toLocaleString()}</span>
-                                                        <span className="text-gray-300 text-lg font-bold">/</span>
-                                                        <span className="text-gray-400 text-sm font-semibold">{property.totalTokens.toLocaleString()}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-semibold tracking-tight">{property.availableTokens.toLocaleString()}</span>
+                                                        <span className="text-gray-300 text-lg font-semibold">/</span>
+                                                        <span className="text-gray-400 text-sm font-medium">{property.totalTokens.toLocaleString()}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -683,7 +669,7 @@ export default function PropertyDetailPage() {
                                                     <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
                                                         <div className="w-2.5 h-2.5 bg-blue-600 rounded-sm opacity-80"></div>
                                                     </div>
-                                                    <span className="text-sm md:text-base font-bold text-gray-900 uppercase">
+                                                    <span className="text-sm md:text-base font-semibold text-gray-900 uppercase">
                                                         Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
                                                     </span>
                                                 </div>
@@ -705,7 +691,7 @@ export default function PropertyDetailPage() {
 
                                             <div className="flex items-center gap-1.5">
                                                 <span className="text-xs text-gray-400 font-semibold">AED</span>
-                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
                                                     {((property.availableTokens) * parseFloat(property.tokenPriceAED.replace(/,/g, ''))).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                                                 </span>
                                             </div>
@@ -718,7 +704,7 @@ export default function PropertyDetailPage() {
                                             <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Current token market value</span>
                                             <div className="flex items-center gap-1.5">
                                                 <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
-                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
                                                     {property.financials?.originalTokenValue ? (parseFloat(property.financials.originalTokenValue.replace(/,/g, '')) * 1.0625).toFixed(2) : (parseFloat(property.tokenPriceAED.replace(/,/g, '')) * 1.0625).toFixed(2)}
                                                 </span>
                                             </div>
@@ -726,15 +712,15 @@ export default function PropertyDetailPage() {
                                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-3 sm:mb-4">
                                             <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Appreciation</span>
                                             <div className="flex items-center gap-1 text-[#10B981]">
-                                                <TrendingUp className="w-4 h-4 stroke-[3]" />
-                                                <span className="text-sm md:text-base font-bold tracking-tight">+6.25%</span>
+                                                <TrendingUp className="w-4 h-4 stroke-[2]" />
+                                                <span className="text-sm md:text-base font-semibold tracking-tight">+6.25%</span>
                                             </div>
                                         </div>
                                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0">
                                             <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Original token market value</span>
                                             <div className="flex items-center gap-1.5">
                                                 <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
-                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                <span className="text-sm md:text-base font-semibold text-gray-900 tracking-tight">
                                                     {property.financials?.originalTokenValue ? parseFloat(property.financials.originalTokenValue.replace(/,/g, '')).toFixed(2) : parseFloat(property.tokenPriceAED.replace(/,/g, '')).toFixed(2)}
                                                 </span>
                                             </div>
@@ -750,11 +736,6 @@ export default function PropertyDetailPage() {
                 <div className="max-w-7xl mx-auto px-6 py-8">
                     {/* Main Content Area */}
                     <div className="max-w-5xl space-y-6">
-                        <div className="pt-6 pb-6">
-                            <h3 className="text-xl font-semibold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
-                            <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
-                        </div>
-
                         {/* Investment Strategy */}
                         <InvestmentStrategy type={property.strategyType} />
 

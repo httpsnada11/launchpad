@@ -124,7 +124,7 @@ const StackedBarChart = ({ data }) => {
                             textAnchor="middle"
                             fontSize="11"
                             fill="#10B981"
-                            fontWeight="800"
+                            fontWeight="700"
                         >
                             {d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
                         </motion.text>
@@ -136,7 +136,7 @@ const StackedBarChart = ({ data }) => {
                             textAnchor="middle"
                             fontSize="11"
                             fill="#9CA3AF"
-                            fontWeight="600"
+                            fontWeight="500"
                         >
                             {new Date().getFullYear() + d.year}
                         </text>
@@ -225,12 +225,12 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wider">INVESTMENT CALCULATOR</h2>
+                    <h2 className="text-xl font-semibold text-gray-900 tracking-wider">Investment calculator</h2>
                     <p className="text-sm text-gray-500">Project your returns over time</p>
                 </div>
                 <button
                     onClick={onShowHowItWorks}
-                    className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-bold text-sm transition-colors group"
+                    className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors group"
                 >
                     <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
                         <HelpCircle size={16} />
@@ -259,8 +259,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#64748B] flex-shrink-0 mt-1" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Investment</p>
-                                <p className="text-lg font-black text-gray-900 leading-tight">AED {investmentAmount.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Investment</p>
+                                <p className="text-lg font-bold text-gray-900 leading-tight">AED {investmentAmount.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -268,8 +268,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] flex-shrink-0 mt-1" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Total rental income</p>
-                                <p className="text-lg font-black text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Total rental income</p>
+                                <p className="text-lg font-bold text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -277,8 +277,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-3">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#1E293B] flex-shrink-0 mt-1" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Value appreciation</p>
-                                <p className="text-lg font-black text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Value appreciation</p>
+                                <p className="text-lg font-bold text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
                             </div>
                         </div>
                     </div>

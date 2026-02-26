@@ -6,8 +6,8 @@ const InvestmentTimeline = ({ timeline = [] }) => {
 
     return (
         <div className="pt-6 pb-6 space-y-8">
-            <h3 className="text-xl font-bold text-gray-900 uppercase tracking-wider">
-                INVESTMENT TIMELINE
+            <h3 className="text-xl font-bold text-gray-900 tracking-wider">
+                Investment timeline
             </h3>
 
             <div className="relative pl-2">
@@ -64,7 +64,7 @@ const InvestmentTimeline = ({ timeline = [] }) => {
 
                             {/* Content */}
                             <div className="flex flex-col">
-                                <h4 className={`text-lg font-bold leading-tight uppercase tracking-wide ${isCompleted || isCurrent ? 'text-[#0F172A]' : 'text-gray-400'
+                                <h4 className={`text-lg font-bold leading-tight tracking-wide ${isCompleted || isCurrent ? 'text-[#0F172A]' : 'text-gray-400'
                                     }`}>
                                     {item.event}
                                 </h4>

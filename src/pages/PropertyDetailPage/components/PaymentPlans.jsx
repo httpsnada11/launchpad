@@ -8,14 +8,14 @@ const PlanCard = ({ step, percentage, label, date, active }) => (
         : 'bg-white border-slate-100 text-slate-900 hover:border-emerald-200 shadow-sm'
         }`}>
         <div className="flex justify-between items-start mb-4">
-            <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${active ? 'text-emerald-400' : 'text-slate-400'}`}>
+            <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? 'text-emerald-400' : 'text-slate-400'}`}>
                 Installment {step}
             </span>
             {active && <CheckCircle size={16} className="text-emerald-400" />}
         </div>
         <div className="space-y-1">
-            <p className="text-3xl font-black tracking-tight">{percentage}%</p>
-            <p className={`text-sm font-bold ${active ? 'text-slate-300' : 'text-slate-600'}`}>{label}</p>
+            <p className="text-3xl font-bold tracking-tight">{percentage}%</p>
+            <p className={`text-sm font-semibold ${active ? 'text-slate-300' : 'text-slate-600'}`}>{label}</p>
         </div>
         <div className={`mt-6 pt-4 border-t ${active ? 'border-slate-800' : 'border-slate-50'} flex items-center gap-2`}>
             <Calendar size={14} className={active ? 'text-emerald-400' : 'text-slate-400'} />
@@ -38,7 +38,7 @@ export default function PaymentPlans({ property }) {
                     <Wallet size={20} />
                 </div>
                 <div>
-                    <h3 className="text-xl font-bold text-gray-900 uppercase tracking-wider">Payment Milestone Plan</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 uppercase tracking-wider">Payment Milestone Plan</h3>
                     <p className="text-xs text-gray-500 font-medium">Structured fulfillment schedule for this asset</p>
                 </div>
             </div>
