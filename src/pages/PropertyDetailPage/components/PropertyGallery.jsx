@@ -18,7 +18,7 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
     };
 
     return (
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 group shadow-lg border border-gray-100">
+        <div className="relative aspect-[16/7] rounded-2xl overflow-hidden bg-gray-100 group shadow-lg border border-gray-100">
             <AnimatePresence mode="wait">
                 <motion.img
                     key={currentIndex}

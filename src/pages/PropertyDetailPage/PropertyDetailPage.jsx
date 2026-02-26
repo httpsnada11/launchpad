@@ -678,7 +678,7 @@ export default function PropertyDetailPage() {
             {/* Main Content */}
             <div className="max-w-7xl mx-auto px-6 py-8">
                 {/* Main Content Area */}
-                <div className="max-w-5xl mx-auto space-y-6">
+                <div className="max-w-5xl space-y-6">
                     <div className="pt-6 pb-6">
                         <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
                         <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
