@@ -11,8 +11,9 @@ export default function InvestmentCard({ property }) {
     const [isAdded, setIsAdded] = useState(false);
 
     // ALL data from property - NO hardcoded wireframe numbers
-    const availableTokens = property.availableTokens || 100000;
-    const fundedPercentage = property.tokenPercentage || 0;
+    const availableTokens = property.availableTokens || 0;
+    const totalTokens = property.totalTokens || 1;
+    const fundedPercentage = Math.round((1 - (availableTokens / totalTokens)) * 100);
 
     // Extract number from minInvestment string (e.g., "AED 1,800" -> 1800)
     const minInvestmentValue = parseInt(property.minInvestment?.replace(/[^0-9]/g, '')) || 1800;

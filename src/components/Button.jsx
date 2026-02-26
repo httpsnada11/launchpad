@@ -34,7 +34,7 @@ const Button = ({
                     )}
                 </span>
             </span>
-            <span className="relative z-10 block w-full text-center pr-4 pl-[3.5rem] group-hover:pl-8 sm:group-hover:pl-12 text-[#0F172A] font-black uppercase text-[11px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)">
+            <span className="relative z-10 block w-full text-left pr-4 pl-[3.8rem] group-hover:pl-10 sm:group-hover:pl-14 text-[#0F172A] font-black uppercase text-[11px] tracking-wider group-hover:text-white transition-all duration-[0.45s] cubic-bezier(0.65,0,0.076,1)">
                 {text}
             </span>
         </button>
