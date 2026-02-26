@@ -2,14 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-    MapPin, DollarSign, TrendingUp,
-    Home, Building, Ruler, Bed, Bath,
-    ChevronLeft, Share2, Heart, ChevronRight,
-    PieChart,
-    Navigation, Globe, Award, Info,
-    FileText, Calendar, Shield, Sparkles,
-    Sprout, ShieldCheck, Coins, Hammer, Percent
+    MapPin, DollarSign, TrendingUp, Home, Building, Ruler, Bed, Bath,
+    ChevronLeft, Share2, Heart, ChevronRight, PieChart,
+    Navigation, Globe, Award, Info, FileText, Calendar, Shield, Sparkles,
+    Sprout, ShieldCheck, Coins, Hammer, Percent, X
 } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 import Button from '../../components/Button';
 import InvestmentCalculator from './components/InvestmentCalculator';
 import HowItWorks from './components/HowItWorks';
@@ -461,8 +459,9 @@ export default function PropertyDetailPage() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [showHowItWorks, setShowHowItWorks] = useState(false);
 
-    const paymentPlansRef = useRef(null);
+    const investmentOverviewRef = useRef(null);
     const expectedProcessRef = useRef(null);
 
     useEffect(() => {
@@ -568,7 +567,7 @@ export default function PropertyDetailPage() {
                         <div className="lg:col-span-12 max-w-5xl mt-4">
                             <div className="flex flex-col h-full">
                                 <div className="mb-6">
-                                    <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold tracking-widest mb-4 w-fit ${property.status === 'open'
+                                    <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest mb-4 w-fit ${property.status === 'open'
                                         ? 'bg-emerald-100 text-emerald-700'
                                         : property.status === 'sold-out'
                                             ? 'bg-red-100 text-red-700'
@@ -577,7 +576,7 @@ export default function PropertyDetailPage() {
                                         {property.badge}
                                     </span>
 
-                                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
+                                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
                                         {property.title}
                                     </h1>
 
@@ -606,22 +605,45 @@ export default function PropertyDetailPage() {
                                         </div>
                                     </div>
 
+                                    {/* Quick Stats Bar */}
+                                    <div className="flex flex-wrap items-center gap-x-8 gap-y-4 mb-4 pb-4 border-b border-gray-100">
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Min Investment</span>
+                                            <span className="text-sm font-bold text-gray-900 leading-none">AED 1,650</span>
+                                        </div>
+                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Rental Yield</span>
+                                            <span className="text-sm font-bold text-[#10B981] leading-none">{property.financials?.projectedRentalYield || '4.5%'} / yr</span>
+                                        </div>
+                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Holding Period</span>
+                                            <span className="text-sm font-bold text-gray-900 leading-none">{property.financials?.holdingPeriod || '5 years'}</span>
+                                        </div>
+                                        <div className="w-px h-8 bg-gray-100 hidden sm:block" />
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-1">Total Return</span>
+                                            <span className="text-sm font-bold text-blue-600 leading-none">{property.financials?.totalReturn || '10.7%'}</span>
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-6">
                                         <div className="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm relative w-full">
                                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 lg:gap-x-12 relative z-10">
                                                 {/* Listing Price */}
                                                 <div>
-                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Listing price</p>
+                                                    <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Listing price</p>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.assetPrice.replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Market Value */}
                                                 <div>
                                                     <div className="flex items-center gap-2 mb-2">
-                                                        <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Market value</p>
+                                                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider">Market value</p>
                                                         <div className="flex items-center gap-0.5 text-[#10B981] font-bold text-[10px]">
                                                             <TrendingUp size={12} strokeWidth={3} />
                                                             <span>+6.25%</span>
@@ -629,119 +651,92 @@ export default function PropertyDetailPage() {
                                                     </div>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Price per Token */}
                                                 <div>
-                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Price per token</p>
+                                                    <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Price per token</p>
                                                     <div className="flex items-baseline gap-1">
                                                         <span className="text-gray-300 text-xs font-bold">AED</span>
-                                                        <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
+                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.tokenPriceAED.replace(' AED', '')}</span>
                                                     </div>
                                                 </div>
 
                                                 {/* Token Availability */}
                                                 <div>
-                                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-wider mb-2">Token availability</p>
-                                                    <div className="flex flex-col gap-0.5">
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-[#0F172A] text-2xl font-black tracking-tight">{property.availableTokens.toLocaleString()}</span>
-                                                            <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">AVAILABLE</span>
-                                                        </div>
-                                                        <div className="flex items-center mt-0.5">
-                                                            <span className="text-gray-300 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap">OUT OF {property.totalTokens.toLocaleString()}</span>
-                                                        </div>
+                                                    <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider mb-2">Token availability</p>
+                                                    <div className="flex items-baseline gap-1.5">
+                                                        <span className="text-[#0F172A] text-2xl font-bold tracking-tight">{property.availableTokens.toLocaleString()}</span>
+                                                        <span className="text-gray-300 text-lg font-bold">/</span>
+                                                        <span className="text-gray-400 text-sm font-semibold">{property.totalTokens.toLocaleString()}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* New Compact Token Sales Bar */}
-                                        <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                                            <div className="flex justify-between items-center mb-3">
+                                        <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full overflow-hidden">
+                                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center">
-                                                        <div className="grid grid-cols-2 gap-[1px]">
-                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                            <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                        </div>
+                                                    <div className="w-5 h-5 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                                                        <div className="w-2.5 h-2.5 bg-blue-600 rounded-sm opacity-80"></div>
                                                     </div>
-                                                    <span className="text-sm font-semibold text-gray-900">
-                                                        {property.financials?.tokensSold ? property.financials.tokensSold.toLocaleString() : '0'} tokens sold
+                                                    <span className="text-sm md:text-base font-bold text-gray-900 uppercase">
+                                                        Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
                                                     </span>
                                                 </div>
-                                                <span className="text-xs text-gray-500 font-medium tracking-wide">
-                                                    Out of {property.totalTokens.toLocaleString()}
-                                                </span>
                                             </div>
 
-                                            <div className="h-2 bg-gray-100 rounded-full mb-4 overflow-hidden">
+                                            <div className="h-2.5 bg-gray-100 rounded-full mb-5 overflow-hidden w-full">
                                                 <div
-                                                    className="h-full bg-gray-400 rounded-full"
+                                                    className="h-full bg-blue-600 rounded-full transition-all duration-500"
                                                     style={{ width: `${((property.financials?.tokensSold || 0) / property.totalTokens) * 100}%` }}
                                                 />
                                             </div>
 
-                                            <div className="bg-[#f0f9ff] rounded-lg p-3 flex justify-between items-center border border-blue-50">
+                                            <div className="flex justify-between sm:justify-start items-center gap-2 w-full sm:w-auto">
                                                 <div className="flex items-center gap-2">
-                                                    <Percent className="w-4 h-4 text-blue-600" />
-                                                    <span className="text-xs font-bold text-gray-900 uppercase tracking-wider">Available tokens:</span>
+                                                    <Percent className="w-4 h-4 text-blue-600 flex-shrink-0" strokeWidth={3} />
+                                                    <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Available Value:</span>
                                                 </div>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="flex items-center gap-1">
-                                                        <span className="text-xs text-gray-500 font-medium">AED</span>
-                                                        <span className="text-sm font-bold text-gray-900">
-                                                            {((property.availableTokens) * parseFloat(property.tokenPriceAED.replace(/,/g, ''))).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                        </span>
-                                                    </div>
-                                                    <div className="w-px h-3 bg-gray-300" />
-                                                    <div className="flex items-center gap-1.5">
-                                                        <div className="w-3.5 h-3.5 rounded-full bg-blue-100 flex items-center justify-center">
-                                                            <div className="grid grid-cols-2 gap-[1px]">
-                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                                <div className="w-1 h-1 bg-blue-600 rounded-[1px]"></div>
-                                                            </div>
-                                                        </div>
-                                                        <span className="text-sm font-bold text-gray-900">
-                                                            {property.availableTokens.toLocaleString()}
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                            </div>
+
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-xs text-gray-400 font-semibold">AED</span>
+                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                    {((property.availableTokens) * parseFloat(property.tokenPriceAED.replace(/,/g, ''))).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                                                </span>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        {/* New Compact Token Performance */}
-                                        <div className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
-                                            <div className="flex justify-between items-center mb-3">
-                                                <span className="text-sm text-gray-500 font-medium">Current token market value</span>
-                                                <div className="flex items-center gap-1">
-                                                    <span className="text-xs text-gray-400 font-bold">AED</span>
-                                                    <span className="text-sm font-bold text-gray-900">
-                                                        {property.financials?.originalTokenValue ? (parseFloat(property.financials.originalTokenValue.replace(/,/g, '')) * 1.0625).toFixed(2) : (parseFloat(property.tokenPriceAED.replace(/,/g, '')) * 1.0625).toFixed(2)}
-                                                    </span>
-                                                </div>
+                                    {/* New Compact Token Performance */}
+                                    <div className="bg-white rounded-xl p-4 md:p-5 border border-gray-100 shadow-sm w-full">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-3 sm:mb-4">
+                                            <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Current token market value</span>
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
+                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                    {property.financials?.originalTokenValue ? (parseFloat(property.financials.originalTokenValue.replace(/,/g, '')) * 1.0625).toFixed(2) : (parseFloat(property.tokenPriceAED.replace(/,/g, '')) * 1.0625).toFixed(2)}
+                                                </span>
                                             </div>
-                                            <div className="flex justify-between items-center mb-3">
-                                                <span className="text-sm text-gray-500 font-medium">Appreciation</span>
-                                                <div className="flex items-center gap-1 textEmerald-500">
-                                                    <TrendingUp className="w-3.5 h-3.5 stroke-[3]" />
-                                                    <span className="text-sm font-bold">+6.25%</span>
-                                                </div>
+                                        </div>
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-3 sm:mb-4">
+                                            <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Appreciation</span>
+                                            <div className="flex items-center gap-1 text-[#10B981]">
+                                                <TrendingUp className="w-4 h-4 stroke-[3]" />
+                                                <span className="text-sm md:text-base font-bold tracking-tight">+6.25%</span>
                                             </div>
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-sm text-gray-500 font-medium">Original token market value</span>
-                                                <div className="flex items-center gap-1">
-                                                    <span className="text-xs text-gray-400 font-bold">AED</span>
-                                                    <span className="text-sm font-bold text-gray-900">
-                                                        {property.financials?.originalTokenValue ? parseFloat(property.financials.originalTokenValue.replace(/,/g, '')).toFixed(2) : parseFloat(property.tokenPriceAED.replace(/,/g, '')).toFixed(2)}
-                                                    </span>
-                                                </div>
+                                        </div>
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0">
+                                            <span className="text-xs md:text-sm text-gray-500 font-semibold uppercase tracking-wide">Original token market value</span>
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-[10px] md:text-xs text-gray-400 font-semibold">AED</span>
+                                                <span className="text-sm md:text-base font-bold text-gray-900 tracking-tight">
+                                                    {property.financials?.originalTokenValue ? parseFloat(property.financials.originalTokenValue.replace(/,/g, '')).toFixed(2) : parseFloat(property.tokenPriceAED.replace(/,/g, '')).toFixed(2)}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -750,78 +745,110 @@ export default function PropertyDetailPage() {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Main Content */}
-            <div className="max-w-7xl mx-auto px-6 py-8">
-                {/* Main Content Area */}
-                <div className="max-w-5xl space-y-6">
-                    <div className="pt-6 pb-6">
-                        <h3 className="text-xl font-bold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
-                        <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
-                    </div>
-
-                    {/* Investment Strategy */}
-                    <InvestmentStrategy type={property.strategyType} />
-
-                    {/* Horizontal Investment Card */}
-                    <div className="py-6">
-                        <InvestmentCard property={property} />
-                    </div>
-
-                    {/* Investment Calculator */}
-                    <div className="overflow-hidden">
-                        <InvestmentCalculator property={property} />
-                    </div>
-
-                    {/* Payment Plans - Only for Off-Plan properties */}
-                    {property.completionStatus === 'Off-Plan' && (
-                        <div ref={paymentPlansRef} className="pt-8">
-                            <PaymentPlans property={property} />
+                {/* Main Content */}
+                <div className="max-w-7xl mx-auto px-6 py-8">
+                    {/* Main Content Area */}
+                    <div className="max-w-5xl space-y-6">
+                        <div className="pt-6 pb-6">
+                            <h3 className="text-xl font-semibold text-gray-900 mb-4 uppercase tracking-wider">INVESTMENT OVERVIEW</h3>
+                            <p className="text-gray-600 text-sm leading-relaxed">{property.description}</p>
                         </div>
-                    )}
 
-                    {/* Investment Timeline */}
-                    <InvestmentTimeline timeline={property.timeline} />
+                        {/* Investment Strategy */}
+                        <InvestmentStrategy type={property.strategyType} />
 
-                    {/* Expected Process - Only for Off-Plan properties */}
-                    {property.completionStatus === 'Off-Plan' && (
-                        <div ref={expectedProcessRef} className="pt-8">
-                            <ExpectedProcess />
+                        {/* Horizontal Investment Card */}
+                        <div className="py-6">
+                            <InvestmentCard property={property} />
                         </div>
-                    )}
 
-                    <div className="pt-8 mb-6">
-                        <HowItWorks />
+                        {/* Investment Calculator */}
+                        <div className="overflow-hidden">
+                            <InvestmentCalculator
+                                property={property}
+                                onShowHowItWorks={() => setShowHowItWorks(true)}
+                            />
+                        </div>
+
+                        {/* Payment Plans - Only for Off-Plan properties */}
+                        {property.completionStatus === 'Off-Plan' && (
+                            <div ref={paymentPlansRef} className="pt-8">
+                                <PaymentPlans property={property} />
+                            </div>
+                        )}
+
+                        {/* Investment Timeline */}
+                        <InvestmentTimeline timeline={property.timeline} />
+
+                        {/* Expected Process - Only for Off-Plan properties */}
+                        {property.completionStatus === 'Off-Plan' && (
+                            <div ref={expectedProcessRef} className="pt-8">
+                                <ExpectedProcess />
+                            </div>
+                        )}
+
+                        {/* Removed static HowItWorks from here and moved to contextual modal */}
+
+                        <div className="rounded-2xl py-6 text-white flex justify-center">
+                            <Button
+                                text="About this property"
+                                onClick={() => setShowDetailsModal(true)}
+                                className="w-fit px-12"
+                            />
+                        </div>
+
+                        {/* Location Details */}
+                        <div className="pt-6 pb-6">
+                            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
+                                <MapPin size={20} className="text-red-600" />
+                                ASSET LOCATION
+                            </h2>
+
+                            <PropertyMap
+                                address={property.fullAddress}
+                                coordinates={property.coordinates}
+                                city={property.city}
+                            />
+
+                        </div>
+
+
+                        {/* Contact Expert Section */}
+                        <ContactExpert />
                     </div>
-
-                    <div className="rounded-2xl py-6 text-white flex justify-center">
-                        <Button
-                            text="About this property"
-                            onClick={() => setShowDetailsModal(true)}
-                            className="w-fit px-12"
-                        />
-                    </div>
-
-                    {/* Location Details */}
-                    <div className="pt-6 pb-6">
-                        <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
-                            <MapPin size={20} className="text-red-600" />
-                            ASSET LOCATION
-                        </h2>
-
-                        <PropertyMap
-                            address={property.fullAddress}
-                            coordinates={property.coordinates}
-                            city={property.city}
-                        />
-
-                    </div>
-
-
-                    {/* Contact Expert Section */}
-                    <ContactExpert />
                 </div>
+
+                {/* How It Works Modal */}
+                <AnimatePresence>
+                    {showHowItWorks && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setShowHowItWorks(false)}
+                                className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100]"
+                            />
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                                className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8 pointer-events-none"
+                            >
+                                <div className="bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto pointer-events-auto relative p-6 md:p-10">
+                                    <button
+                                        onClick={() => setShowHowItWorks(false)}
+                                        className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors z-10"
+                                    >
+                                        <X size={24} className="text-gray-500" />
+                                    </button>
+                                    <HowItWorks />
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
