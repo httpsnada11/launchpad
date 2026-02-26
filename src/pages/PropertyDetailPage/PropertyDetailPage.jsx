@@ -21,6 +21,7 @@ import TokenDetails from './components/TokenDetails';
 import PaymentPlans from './components/PaymentPlans';
 import ExpectedProcess from './components/ExpectedProcess';
 import PropertyDocuments from './components/PropertyDocuments';
+import WhyInvest from './components/WhyInvest';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -96,7 +97,21 @@ const PROPERTY_DETAILS = {
             { date: 'Q4 2024', event: 'Token launch', status: 'current' },
             { date: 'Q1 2025', event: 'First distribution', status: 'upcoming' }
         ],
-        similarProperties: [2, 3]
+        similarProperties: [2, 3],
+        investmentHighlights: [
+            {
+                title: 'High Capital Growth Potential',
+                description: 'Located in Kensington, one of London\'s most resilient and sought-after residential markets with strong historical price appreciation.'
+            },
+            {
+                title: 'Premium Rental Demand',
+                description: 'Strong demand from high-net-worth professionals and international students ensures consistent occupancy and premium rental yields.'
+            },
+            {
+                title: 'Strategic Urban Infrastructure',
+                description: 'Proximity to major transport links, elite schools, and cultural landmarks boosts long-term asset value and liquidity.'
+            }
+        ]
     },
     2: {
         id: 2,
@@ -184,7 +199,33 @@ const PROPERTY_DETAILS = {
             { date: 'Q4 2024', event: 'Token launch', status: 'current' },
             { date: 'Q4 2025', event: 'Handover', status: 'upcoming' }
         ],
-        similarProperties: [1, 4]
+        similarProperties: [1, 4],
+        investmentHighlights: [
+            {
+                title: 'Luxury Waterfront Living',
+                description: 'Prive by Damac is a twin-tower luxury development in Business Bay offering fully serviced apartments with stunning views and five-star hotel-style amenities.'
+            },
+            {
+                title: 'Rare Full Lake View',
+                description: 'The subject 2-bedroom unit on the 10th floor is one of the few in the tower featuring a full lake view, enhancing its appeal for both rental and resale.'
+            },
+            {
+                title: 'Strong Rental Potential',
+                description: 'Projected gross rental income of AED 175,000 annually, with a first-year net yield of up to 5.17%, ensuring reliable income generation.'
+            },
+            {
+                title: 'High ROI Opportunity',
+                description: 'Estimated annualized ROI of up to 14.77% over a 5-year period, combining rental income and capital appreciation.'
+            },
+            {
+                title: 'Below Market Purchase',
+                description: 'Acquired at AED 2,400,000—secured significantly below the DLD smart valuation of AED 2,890,000—offering an immediate 16.96% discount or a 20.42% unrealized gain.'
+            },
+            {
+                title: 'Prestigious Business Bay Address',
+                description: 'Located in the heart of Business Bay with direct canal views and minutes from Downtown Dubai and DIFC, boosting long-term investment value.'
+            }
+        ]
     },
     3: {
         id: 3,
@@ -259,7 +300,21 @@ const PROPERTY_DETAILS = {
             { date: 'Q1 2024', event: 'Sold out', status: 'completed' },
             { date: 'Q4 2024', event: 'First distribution', status: 'completed' }
         ],
-        similarProperties: [1, 2]
+        similarProperties: [1, 2],
+        investmentHighlights: [
+            {
+                title: 'World-Class Connectivity',
+                description: 'Unmatched access to global business hubs, high-end shopping, and the cultural heart of Manhattan.'
+            },
+            {
+                title: 'Asset Scarcity',
+                description: 'Limited availability of ultra-luxury penthouses in prime New York locations ensures long-term wealth preservation.'
+            },
+            {
+                title: 'Institutional Grade Quality',
+                description: 'Built to the highest standards with premium finishes and exclusive amenities, attracting global institutional investors.'
+            }
+        ]
     },
     4: {
         id: 4,
@@ -336,7 +391,21 @@ const PROPERTY_DETAILS = {
             { date: 'Q1 2025', event: 'Token launch', status: 'upcoming' },
             { date: 'Q3 2025', event: 'Development start', status: 'upcoming' }
         ],
-        similarProperties: [2]
+        similarProperties: [2],
+        investmentHighlights: [
+            {
+                title: 'Strategic Development Zone',
+                description: 'JVC is one of Dubai\'s fastest-growing residential hubs with a high volume of new construction and infrastructure investment.'
+            },
+            {
+                title: 'Favorable Zoning Regulations',
+                description: 'Approved for mixed-use G+4 development, providing flexibility for diverse residential and commercial project planning.'
+            },
+            {
+                title: 'Entry-Level Investment Opportunity',
+                description: 'Lower plot entry costs relative to surrounding areas offer higher potential margins for developers and fix-and-flip investors.'
+            }
+        ]
     }
 };
 
@@ -749,6 +818,12 @@ export default function PropertyDetailPage() {
                         />
                     </div>
 
+                    <WhyInvest highlights={property.investmentHighlights} />
+
+                    <div ref={expectedProcessRef}>
+                        <ExpectedProcess />
+                    </div>
+
                     {property.completionStatus === 'Off-Plan' && (
                         <div ref={paymentPlansRef} className="pt-8">
                             <PaymentPlans property={property} />
@@ -766,11 +841,7 @@ export default function PropertyDetailPage() {
                         }
                     />
 
-                    {property.completionStatus === 'Off-Plan' && (
-                        <div ref={expectedProcessRef} className="pt-8">
-                            <ExpectedProcess />
-                        </div>
-                    )}
+
 
                     <div className="pt-6 pb-6">
                         <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
