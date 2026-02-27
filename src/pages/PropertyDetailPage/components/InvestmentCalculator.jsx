@@ -322,15 +322,6 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                     <h2 className="text-xl font-semibold text-gray-900 tracking-wider">Investment calculator</h2>
                     <p className="text-sm text-gray-500">Project your returns over time</p>
                 </div>
-                <button
-                    onClick={onShowHowItWorks}
-                    className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors group"
-                >
-                    <div className="w-8 h-8 rounded-sm bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                        <HelpCircle size={16} />
-                    </div>
-                    <span>How it works?</span>
-                </button>
             </div>
 
             {/* Graph and Metrics Row */}

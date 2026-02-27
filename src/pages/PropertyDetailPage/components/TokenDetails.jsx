@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Info,
@@ -6,10 +6,11 @@ import {
     PieChart,
     Wallet
 } from 'lucide-react';
+import HowItWorksModal from './HowItWorksModal';
 
 const MetricBox = ({ label, value, icon: Icon, trend, isCurrency = true }) => (
-    <div className="bg-white/5 border border-white/10 rounded-sm p-2.5 shadow-sm transition-all hover:bg-white/10">
-        <div className="flex justify-between items-start mb-1">
+    <div className="bg-white/5 border border-white/10 rounded-sm p-3 shadow-sm transition-all hover:bg-white/10 flex flex-col justify-center min-h-[85px]">
+        <div className="flex justify-between items-start mb-1.5">
             <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">{label}</span>
             {trend && (
                 <div className="flex items-center gap-1 text-[9px] font-bold text-emerald-400">
@@ -19,16 +20,17 @@ const MetricBox = ({ label, value, icon: Icon, trend, isCurrency = true }) => (
             )}
         </div>
         <div className="space-y-0.5">
-            <p className="text-lg font-extrabold text-white tracking-tight leading-none uppercase">
+            <div className="text-lg font-extrabold text-white tracking-tight leading-none uppercase flex items-baseline">
                 {isCurrency && <span className="text-gray-400 mr-1 font-bold text-[10px]">AED</span>}
                 {value}
-            </p>
+            </div>
         </div>
     </div>
 );
 
 export default function TokenDetails({ property }) {
     if (!property) return null;
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const fin = property.financials;
 
     // Extract numbers safely
@@ -40,10 +42,10 @@ export default function TokenDetails({ property }) {
     const availableTotalValue = (maxTokensSold - tokensSold) * tokenPriceNum;
 
     return (
-        <div className="bg-black rounded-xl p-5 lg:p-6 border border-white/10 shadow-2xl shadow-emerald-900/10 relative overflow-hidden group">
+        <div className="bg-black border border-white/10 rounded-xl overflow-hidden relative shadow-2xl min-h-[450px] flex flex-col justify-center">
             {/* Background Graphic Overlay */}
-            <div className="absolute inset-0 z-0 opacity-70">
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10" />
+            <div className="absolute inset-0 z-0 opacity-30">
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
                 <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10" />
                 <img
                     src="/token_details_graphic.png"
@@ -52,11 +54,11 @@ export default function TokenDetails({ property }) {
                 />
             </div>
 
-            <div className="relative z-10 space-y-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+            <div className="relative z-10 p-8 lg:p-10 space-y-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
                     {/* Left Column: Key Metrics Grid */}
-                    <div className="grid grid-cols-2 gap-4 lg:gap-6 self-start">
+                    <div className="grid grid-cols-2 gap-6 lg:gap-6 self-start">
                         <MetricBox
                             label="Listing price"
                             value={property.assetPrice?.replace('AED ', '') || '0'}
@@ -71,8 +73,14 @@ export default function TokenDetails({ property }) {
                             value={property.tokenPriceAED?.replace(' AED', '') || '0'}
                         />
                         <MetricBox
-                            label="Total tokens"
-                            value={property.totalTokens?.toLocaleString() || '0'}
+                            label="Token availability"
+                            value={
+                                <span className="flex items-baseline gap-1.5 whitespace-nowrap">
+                                    <span className="text-white">{(maxTokensSold - tokensSold).toLocaleString()}</span>
+                                    <span className="text-emerald-400 text-[9px] font-extrabold uppercase tracking-tight">AVAILABLE</span>
+                                    <span className="text-gray-500 text-[9px] font-bold">/ {(maxTokensSold).toLocaleString()}</span>
+                                </span>
+                            }
                             isCurrency={false}
                         />
                     </div>
@@ -142,17 +150,25 @@ export default function TokenDetails({ property }) {
                     </div>
 
                     {/* Footer Section */}
-                    <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                        <div className="flex items-center gap-2.5 text-gray-500 group/info cursor-help">
-                            <Info size={16} className="group-hover/info:text-gray-400 transition-colors" />
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] group-hover/info:text-gray-400 transition-colors">How tokens are calculated</span>
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors cursor-help group/info">
+                            <Info size={16} className="text-gray-600 group-hover/info:text-emerald-500 transition-colors" />
+                            <span className="text-[10px] font-extrabold uppercase tracking-[0.2em]">HOW IT WORKS</span>
                         </div>
-                        <button className="text-[10px] font-bold text-emerald-400 hover:text-emerald-300 transition-all uppercase tracking-[0.3em] border-b border-emerald-400/20 hover:border-emerald-400 pb-1">
-                            Learn more
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="text-[10px] font-extrabold text-emerald-500 hover:text-emerald-400 uppercase tracking-[0.2em] underline underline-offset-4 decoration-emerald-500/30"
+                        >
+                            LEARN MORE
                         </button>
                     </div>
                 </div>
             </div>
+
+            <HowItWorksModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 }

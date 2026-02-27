@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Eye, TrendingUp, ShoppingCart, Check, MapPin } from 'lucide-react';
+import { Users, Eye, TrendingUp, ShoppingCart, Check, MapPin, ChevronUp, ChevronDown } from 'lucide-react';
 import Button from '../../../components/Button';
 
 
@@ -105,9 +105,24 @@ export default function InvestmentCard({ property }) {
                                     type="number"
                                     value={investmentAmount}
                                     onChange={(e) => setInvestmentAmount(Math.max(0, parseInt(e.target.value) || 0))}
-                                    className="w-full pl-20 pr-4 py-4 bg-white/5 border border-white/10 rounded-sm text-2xl font-extrabold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all backdrop-blur-sm tracking-tight"
+                                    className="w-full pl-20 pr-12 py-4 bg-white/5 border border-white/10 rounded-sm text-2xl font-extrabold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all backdrop-blur-sm tracking-tight [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                     placeholder="0"
                                 />
+                                {/* Custom Spin Buttons */}
+                                <div className="absolute inset-y-0 right-4 flex flex-col justify-center gap-1 z-20">
+                                    <button
+                                        onClick={() => setInvestmentAmount(prev => prev + 100)}
+                                        className="text-white/40 hover:text-white transition-colors p-0.5"
+                                    >
+                                        <ChevronUp size={16} strokeWidth={3} />
+                                    </button>
+                                    <button
+                                        onClick={() => setInvestmentAmount(prev => Math.max(0, prev - 100))}
+                                        className="text-white/40 hover:text-white transition-colors p-0.5"
+                                    >
+                                        <ChevronDown size={16} strokeWidth={3} />
+                                    </button>
+                                </div>
                                 {/* Subtle internal glow for the input field */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none rounded-sm" />
                             </div>
