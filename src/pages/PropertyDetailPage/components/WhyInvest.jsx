@@ -4,7 +4,7 @@ import { Building2 } from 'lucide-react';
 const HighlightItem = ({ title, description }) => (
     <div className="space-y-3">
         <h3 className="text-white text-xl font-bold tracking-tight">{title}</h3>
-        <p className="text-gray-400 text-base leading-relaxed font-medium">{description}</p>
+        <p className="text-gray-300 text-base leading-relaxed font-bold">{description}</p>
     </div>
 );
 
@@ -12,12 +12,23 @@ const WhyInvest = ({ highlights }) => {
     if (!highlights || highlights.length === 0) return null;
 
     return (
-        <div className="bg-black rounded-3xl overflow-hidden relative border border-white/10 my-8 shadow-2xl">
-            <div className="flex flex-col md:flex-row items-center">
-                {/* Text Content */}
-                <div className="flex-1 p-8 md:p-14 z-10">
-                    <div className="flex items-center gap-5 mb-12">
+        <div className="bg-black rounded-xl overflow-hidden relative border border-white/10 my-8 shadow-2xl">
+            {/* Background Graphic Background - Full Length */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                <img
+                    src="/why_invest_graphic.png"
+                    alt="Investment Highlights"
+                    className="absolute inset-x-0 inset-y-0 w-full h-full object-cover object-center translate-x-1/4 scale-110 opacity-80"
+                />
+                {/* Artistic gradient overlays for readability */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-black via-black/80 to-transparent" />
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+            </div>
 
+            <div className="relative z-10 p-8 md:p-14">
+                {/* Text Content */}
+                <div className="max-w-3xl">
+                    <div className="flex items-center gap-5 mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                             Why invest in this property?
                         </h2>
@@ -32,18 +43,6 @@ const WhyInvest = ({ highlights }) => {
                             />
                         ))}
                     </div>
-                </div>
-
-                {/* 3D Graphic Content */}
-                <div className="flex-1 relative w-full h-[300px] md:h-[600px] overflow-hidden">
-                    <img
-                        src="/why_invest_graphic.png"
-                        alt="Investment Highlights"
-                        className="absolute inset-0 w-full h-full object-cover object-center"
-                    />
-                    {/* Artistic gradient overlays for seamless integration */}
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-black via-black/20 to-transparent hidden md:block" />
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black via-transparent to-black opacity-60 hidden md:block" />
                 </div>
             </div>
 

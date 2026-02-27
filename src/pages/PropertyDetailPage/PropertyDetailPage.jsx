@@ -514,29 +514,42 @@ const InvestmentStrategy = ({ type }) => {
                 Investment strategy
             </h3>
 
-            <div className={`p-8 rounded-[2rem] border border-white/10 bg-black relative overflow-hidden shadow-2xl shadow-emerald-900/10`}>
-                <div className="flex justify-between items-start mb-8">
-                    <div className="max-w-xl">
-                        <h4 className="text-2xl font-bold mb-2 text-white">{strategy.title}</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
-                            {strategy.description}
-                        </p>
-                    </div>
+            <div className={`p-8 rounded-xl border border-white/10 bg-black relative overflow-hidden shadow-2xl shadow-emerald-900/10 group`}>
+                {/* Background Graphic Overlay */}
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent z-10" />
+                    <img
+                        src="/investment_strategy_bg.png"
+                        alt=""
+                        className="w-full h-full object-cover object-center opacity-60 group-hover:scale-110 transition-transform duration-1000 brightness-75 contrast-125"
+                    />
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
-                    <div className="flex flex-wrap items-start gap-6">
-                        {strategy.highlights.map((item, idx) => (
-                            <React.Fragment key={idx}>
-                                {idx > 0 && <span className="text-white/20 self-stretch text-4xl leading-none font-thin text-center flex items-center">|</span>}
-                                <div className="flex-1 min-w-[200px]">
-                                    <h5 className="font-bold text-white mb-1 uppercase text-xs tracking-widest">{item.title}</h5>
-                                    <p className="text-sm text-gray-400 leading-relaxed">
-                                        {item.text}
-                                    </p>
-                                </div>
-                            </React.Fragment>
-                        ))}
+                <div className="relative z-10">
+                    <div className="flex justify-between items-start mb-8">
+                        <div className="max-w-xl">
+                            <h4 className="text-2xl font-bold mb-2 text-white">{strategy.title}</h4>
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                {strategy.description}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="bg-white/5 backdrop-blur-md rounded-sm p-6 border border-white/10">
+                        <div className="flex flex-wrap items-start gap-6">
+                            {strategy.highlights.map((item, idx) => (
+                                <React.Fragment key={idx}>
+                                    {idx > 0 && <span className="text-white/20 self-stretch text-4xl leading-none font-thin text-center flex items-center">|</span>}
+                                    <div className="flex-1 min-w-[200px]">
+                                        <h5 className="font-bold text-white mb-1 uppercase text-xs tracking-widest">{item.title}</h5>
+                                        <p className="text-sm text-gray-400 leading-relaxed">
+                                            {item.text}
+                                        </p>
+                                    </div>
+                                </React.Fragment>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -609,222 +622,100 @@ export default function PropertyDetailPage() {
                 onClose={() => setShowDetailsModal(false)}
             />
 
+            {/* Navigation & Actions */}
+            <div className="bg-white border-b border-gray-100">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                    <Link
+                        to="/marketplace"
+                        className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium text-sm md:text-base"
+                    >
+                        <ChevronLeft size={20} />
+                        Back to Marketplace
+                    </Link>
+
+                    <div className="flex gap-3">
+                        <button
+                            onClick={() => setIsWishlisted(!isWishlisted)}
+                            className={`p-2 rounded-sm border transition-all ${isWishlisted
+                                ? 'bg-red-50 border-red-200 text-red-500'
+                                : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                } `}
+                        >
+                            <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
+                        </button>
+                        <button
+                            onClick={handleShare}
+                            className="p-2 bg-white border border-gray-200 rounded-sm text-gray-500 hover:bg-gray-50 transition-all"
+                        >
+                            <Share2 size={18} />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             {/* Redesigned Hero / Top Section */}
             <div className="bg-white">
-                <div className="max-w-7xl mx-auto px-6 py-6 md:py-10">
-                    {/* Breadcrumbs / Back Link & Actions */}
-                    <div className="flex items-center justify-between mb-8">
-                        <Link
-                            to="/marketplace"
-                            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium"
-                        >
-                            <ChevronLeft size={20} />
-                            Back to Marketplace
-                        </Link>
+                <PropertyGallery
+                    images={property.images}
+                    onOpenFullScreen={(index) => {
+                        setCurrentImageIndex(index);
+                        setShowGallery(true);
+                    }}
+                    stats={{
+                        strategy: property.investmentStrategy,
+                        status: property.completionStatus
+                    }}
+                />
 
-                        <div className="flex gap-3">
-                            <button
-                                onClick={() => setIsWishlisted(!isWishlisted)}
-                                className={`p-2 sm:p-2.5 rounded-xl border transition-all ${isWishlisted
-                                    ? 'bg-red-50 border-red-200 text-red-500'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                                    } `}
-                            >
-                                <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
-                            </button>
-                            <button
-                                onClick={handleShare}
-                                className="p-2 sm:p-2.5 bg-white border border-gray-200 rounded-xl text-gray-500 hover:bg-gray-50 transition-all"
-                            >
-                                <Share2 size={20} />
-                            </button>
-                        </div>
-                    </div>
+                <div className="max-w-7xl mx-auto px-6 py-6 md:py-4">
+                    <div className="flex flex-col h-full w-full mt-4">
+                        <div className="mb-6">
+                            <span className={`inline-flex px-3 py-1 rounded-sm text-[10px] font-semibold tracking-widest mb-4 w-fit ${property.status === 'open'
+                                ? 'bg-emerald-100 text-emerald-700'
+                                : property.status === 'sold-out'
+                                    ? 'bg-red-100 text-red-700'
+                                    : 'bg-blue-100 text-blue-700'
+                                }`}>
+                                {property.badge}
+                            </span>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                        {/* Left Side: Gallery */}
-                        <div className="lg:col-span-12">
-                            <PropertyGallery
-                                images={property.images}
-                                onOpenFullScreen={(index) => {
-                                    setCurrentImageIndex(index);
-                                    setShowGallery(true);
-                                }}
-                                stats={{
-                                    strategy: property.investmentStrategy,
-                                    status: property.completionStatus
-                                }}
-                            />
-                        </div>
+                            <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
+                                {property.title}
+                            </h1>
 
-                        {/* Property Info Section */}
-                        <div className="lg:col-span-12 max-w-5xl mx-auto mt-4">
-                            <div className="flex flex-col h-full w-full">
-                                <div className="mb-6">
-                                    <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-semibold tracking-widest mb-4 w-fit ${property.status === 'open'
-                                        ? 'bg-emerald-100 text-emerald-700'
-                                        : property.status === 'sold-out'
-                                            ? 'bg-red-100 text-red-700'
-                                            : 'bg-blue-100 text-blue-700'
-                                        }`}>
-                                        {property.badge}
-                                    </span>
-
-                                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#0F172A] leading-tight mb-4 lowercase first-letter:uppercase">
-                                        {property.title}
-                                    </h1>
-
-                                    <div className="flex flex-wrap items-center gap-y-2 text-gray-500 mb-6 font-medium">
-                                        <div className="flex items-center gap-2 pr-4">
-                                            <MapPin size={18} className="text-[#15a36e]" />
-                                            <span className="text-base">{property.location}, {property.city}</span>
-                                        </div>
-                                        <div className="hidden sm:block h-4 w-px bg-gray-300 mr-4" />
-                                        <div className="flex items-center gap-4 text-sm sm:text-base">
-                                            <div className="flex items-center gap-1.5">
-                                                <Building size={16} className="text-[#15a36e]" />
-                                                <span className="font-semibold text-gray-700">{property.developerDetails?.name || property.issuerName}</span>
-                                            </div>
-                                            <div className="h-4 w-px bg-gray-300" />
-                                            <span>{property.propertyType || 'Apartment'}</span>
-                                            <div className="h-4 w-px bg-gray-300" />
-                                            <div className="flex items-center gap-1.5">
-                                                <Bed size={18} className="text-gray-400" />
-                                                <span>{property.beds}</span>
-                                            </div>
-                                            <div className="flex items-center gap-1.5">
-                                                <Bath size={18} className="text-gray-400" />
-                                                <span>{property.baths}</span>
-                                            </div>
-                                            <div className="h-4 w-px bg-gray-300" />
-                                            <div className="flex items-center gap-1.5">
-                                                <Ruler size={18} className="text-gray-400" />
-                                                <span>{property.area}</span>
-                                            </div>
-                                        </div>
+                            <div className="flex flex-wrap items-center gap-y-2 text-gray-500 mb-6 font-medium">
+                                <div className="flex items-center gap-2 pr-4">
+                                    <MapPin size={18} className="text-[#15a36e]" />
+                                    <span className="text-base">{property.location}, {property.city}</span>
+                                </div>
+                                <div className="hidden sm:block h-4 w-px bg-gray-300 mr-4" />
+                                <div className="flex items-center gap-4 text-sm sm:text-base">
+                                    <div className="flex items-center gap-1.5">
+                                        <Building size={16} className="text-[#15a36e]" />
+                                        <span className="font-semibold text-gray-700">{property.developerDetails?.name || property.issuerName}</span>
+                                    </div>
+                                    <div className="h-4 w-px bg-gray-300" />
+                                    <span>{property.propertyType || 'Apartment'}</span>
+                                    <div className="h-4 w-px bg-gray-300" />
+                                    <div className="flex items-center gap-1.5">
+                                        <Bed size={18} className="text-gray-400" />
+                                        <span>{property.beds}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <Bath size={18} className="text-gray-400" />
+                                        <span>{property.baths}</span>
+                                    </div>
+                                    <div className="h-4 w-px bg-gray-300" />
+                                    <div className="flex items-center gap-1.5">
+                                        <Ruler size={18} className="text-gray-400" />
+                                        <span>{property.area}</span>
                                     </div>
                                 </div>
-
-                                <div className="mb-8 pb-6 border-b border-gray-100">
-                                    <p className="text-gray-600 text-base leading-relaxed">{property.description}</p>
-                                </div>
-
-                                {/* Dynamic Financials logic */}
-                                {(() => {
-                                    const parseAED = (str) => parseFloat(str?.replace(/[^0-9.]/g, '') || 0);
-                                    const tokenPrice = parseAED(property.tokenPriceAED);
-                                    const annualAppreciation = parseFloat(property.financials?.annualAppreciation) || 0;
-                                    const appreciationFactor = 1 + (annualAppreciation / 100);
-                                    const currentTokenMarketValue = tokenPrice * appreciationFactor;
-                                    const availableValue = property.availableTokens * tokenPrice;
-
-                                    return (
-                                        <div className="space-y-6">
-                                            <div className="bg-black rounded-3xl p-6 lg:p-8 border border-white/10 shadow-2xl shadow-emerald-900/10 relative w-full overflow-hidden">
-                                                <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 lg:gap-x-12 relative z-10">
-                                                    <div>
-                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Listing price</p>
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
-                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.assetPrice.replace('AED ', '')}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <div className="flex items-center gap-2 mb-3">
-                                                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">Market value</p>
-                                                            <div className="flex items-center gap-1 text-emerald-400 font-bold text-[10px] bg-emerald-400/10 px-1.5 py-0.5 rounded">
-                                                                <TrendingUp size={12} strokeWidth={3} />
-                                                                <span>+{annualAppreciation}%</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
-                                                            <span className="text-white text-3xl font-bold tracking-tighter">{(property.financials?.marketValue || property.assetPrice).replace('AED ', '')}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Price per token</p>
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-gray-600 text-xs font-bold uppercase">AED</span>
-                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.tokenPriceAED.replace(' AED', '')}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div>
-                                                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">Token availability</p>
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-white text-3xl font-bold tracking-tighter">{property.availableTokens.toLocaleString()}</span>
-                                                            <span className="text-gray-600 text-lg font-bold">/</span>
-                                                            <span className="text-gray-500 text-sm font-bold">{property.totalTokens.toLocaleString()}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="bg-black rounded-3xl p-5 md:p-6 border border-white/10 shadow-2xl shadow-emerald-900/10 w-full overflow-hidden mb-6">
-                                                <div className="flex items-center gap-3 mb-5">
-                                                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                                                        <PieChart size={14} className="text-emerald-400" />
-                                                    </div>
-                                                    <span className="text-sm md:text-base font-bold text-white uppercase tracking-tight">
-                                                        Token availability: {property.availableTokens.toLocaleString()} / {property.totalTokens.toLocaleString()}
-                                                    </span>
-                                                </div>
-
-                                                <div className="h-2 bg-white/10 rounded-full mb-6 overflow-hidden w-full relative">
-                                                    <div
-                                                        className="h-full bg-emerald-500 rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                                                        style={{ width: `${(1 - (property.availableTokens / property.totalTokens)) * 100}%` }}
-                                                    />
-                                                </div>
-
-                                                <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
-                                                    <div className="flex items-center gap-3">
-                                                        <Percent className="w-4 h-4 text-emerald-400" strokeWidth={3} />
-                                                        <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Available Value:</span>
-                                                        <div className="flex items-baseline gap-1.5">
-                                                            <span className="text-[10px] text-gray-600 font-bold uppercase">AED</span>
-                                                            <span className="text-base md:text-lg font-bold text-white tracking-tight">
-                                                                {availableValue.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="bg-black rounded-3xl p-6 md:p-8 border border-white/10 shadow-2xl shadow-emerald-900/10 w-full">
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-5 py-2 border-b border-white/5">
-                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Current token market value</span>
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-[10px] md:text-xs text-gray-600 font-bold">AED</span>
-                                                        <span className="text-base md:text-lg font-bold text-white tracking-tight">
-                                                            {currentTokenMarketValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 mb-5 py-2 border-b border-white/5">
-                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Appreciation</span>
-                                                    <div className="flex items-center gap-2 text-emerald-400">
-                                                        <TrendingUp className="w-4 h-4 stroke-[3]" />
-                                                        <span className="text-base md:text-lg font-bold tracking-tight">+{annualAppreciation}%</span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0 py-2">
-                                                    <span className="text-xs md:text-sm text-gray-400 font-bold uppercase tracking-widest">Original token market value</span>
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="text-[10px] md:text-xs text-gray-600 font-bold">AED</span>
-                                                        <span className="text-base md:text-lg font-bold text-white tracking-tight">
-                                                            {tokenPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })()}
                             </div>
+                        </div>
+
+                        <div className="mb-0 pb-6">
+                            <p className="text-gray-600 text-base leading-relaxed">{property.description}</p>
                         </div>
                     </div>
                 </div>
@@ -832,63 +723,77 @@ export default function PropertyDetailPage() {
 
             {/* Main Content Area */}
             <div className="max-w-7xl mx-auto px-6 py-8">
-                <div className="max-w-5xl mx-auto space-y-6">
-                    <InvestmentStrategy type={property.strategyType} />
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* Left Column: Details & Insights */}
+                    <div className="lg:col-span-8 space-y-12">
+                        <TokenDetails property={property} />
 
-                    <div className="py-6">
-                        <InvestmentCard property={property} />
-                    </div>
+                        <InvestmentStrategy type={property.strategyType} />
 
-                    <div className="overflow-hidden">
-                        <InvestmentCalculator
-                            property={property}
-                            onShowHowItWorks={() => setShowHowItWorks(true)}
-                        />
-                    </div>
-
-                    <WhyInvest highlights={property.investmentHighlights} />
-
-                    <div ref={expectedProcessRef}>
-                        <ExpectedProcess />
-                    </div>
-
-                    {property.completionStatus === 'Off-Plan' && (
-                        <div ref={paymentPlansRef} className="pt-8">
-                            <PaymentPlans property={property} />
+                        {/* Mobile Investment Card (Hidden on Desktop) */}
+                        <div className="lg:hidden">
+                            <InvestmentCard property={property} />
                         </div>
-                    )}
 
-                    <InvestmentTimeline
-                        timeline={property.timeline}
-                        action={
-                            <Button
-                                text="About this property"
-                                onClick={() => setShowDetailsModal(true)}
-                                className="w-fit px-8"
+                        <div className="overflow-hidden">
+                            <InvestmentCalculator
+                                property={property}
+                                onShowHowItWorks={() => setShowHowItWorks(true)}
                             />
-                        }
-                    />
+                        </div>
 
+                        <WhyInvest highlights={property.investmentHighlights} />
 
+                        <div ref={expectedProcessRef}>
+                            <ExpectedProcess />
+                        </div>
 
-                    <div className="pt-6 pb-6">
-                        <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
-                            <MapPin size={20} className="text-red-600" />
-                            ASSET LOCATION
-                        </h2>
-                        <PropertyMap
-                            address={property.fullAddress}
-                            coordinates={property.coordinates}
-                            city={property.city}
+                        {property.completionStatus === 'Off-Plan' && (
+                            <div ref={paymentPlansRef} className="pt-4">
+                                <PaymentPlans property={property} />
+                            </div>
+                        )}
+
+                        <InvestmentTimeline
+                            timeline={property.timeline}
+                            action={
+                                <Button
+                                    text="About this property"
+                                    onClick={() => setShowDetailsModal(true)}
+                                    className="w-fit px-8"
+                                />
+                            }
                         />
+
+                        <div className="pt-6">
+                            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
+                                <MapPin size={20} className="text-red-600" />
+                                ASSET LOCATION
+                            </h2>
+                            <PropertyMap
+                                address={property.fullAddress}
+                                coordinates={property.coordinates}
+                                city={property.city}
+                            />
+                        </div>
+
+                        <PropertyDocuments documents={property.documents} />
                     </div>
 
-                    <PropertyDocuments documents={property.documents} />
+                    {/* Right Column: Sticky Sidebar Card (Desktop Only) */}
+                    <div className="hidden lg:block lg:col-span-4">
+                        <div className="sticky top-10 space-y-6">
+                            <InvestmentCard property={property} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-16">
                     <ContactExpert />
                 </div>
             </div>
 
-            {/* How It Works Modal */}
+            {/* Modals */}
             <AnimatePresence>
                 {showHowItWorks && (
                     <>
@@ -916,6 +821,65 @@ export default function PropertyDetailPage() {
                             </div>
                         </motion.div>
                     </>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {showGallery && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black z-[200] flex flex-col items-center justify-center"
+                    >
+                        <button
+                            onClick={() => setShowGallery(false)}
+                            className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 rounded-sm text-white transition-all z-50 backdrop-blur-md border border-white/10"
+                        >
+                            <X size={28} />
+                        </button>
+
+                        <button
+                            onClick={() => setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)}
+                            className="absolute left-6 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 rounded-sm text-white transition-all z-50 backdrop-blur-md border border-white/10"
+                        >
+                            <ChevronLeft size={32} />
+                        </button>
+                        <button
+                            onClick={() => setCurrentImageIndex((prev) => (prev + 1) % property.images.length)}
+                            className="absolute right-6 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 rounded-sm text-white transition-all z-50 backdrop-blur-md border border-white/10"
+                        >
+                            <ChevronRight size={32} />
+                        </button>
+
+                        <div className="relative w-full h-[80vh] flex items-center justify-center p-4">
+                            <motion.img
+                                key={currentImageIndex}
+                                src={property.images[currentImageIndex]}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3 }}
+                                className="max-w-full max-h-full object-contain shadow-2xl"
+                            />
+                        </div>
+
+                        <div className="absolute bottom-10 flex flex-col items-center gap-6">
+                            <p className="text-white font-bold tracking-widest uppercase text-sm">
+                                {currentImageIndex + 1} / {property.images.length}
+                            </p>
+                            <div className="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+                                {property.images.map((img, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => setCurrentImageIndex(idx)}
+                                        className={`w-16 h-16 rounded-sm overflow-hidden border-2 transition-all ${currentImageIndex === idx ? 'border-emerald-500 scale-110 shadow-lg shadow-emerald-500/20' : 'border-transparent opacity-50 hover:opacity-100'}`}
+                                    >
+                                        <img src={img} className="w-full h-full object-cover" />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
         </div>

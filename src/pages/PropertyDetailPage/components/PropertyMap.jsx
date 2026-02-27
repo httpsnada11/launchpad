@@ -12,7 +12,7 @@ const PropertyMap = ({ address, coordinates, city }) => {
     const fallBackUrl = `https://maps.google.com/maps?q=${query}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
 
     return (
-        <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
+        <div className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm">
             <div className="relative h-[300px] w-full bg-gray-100">
                 <iframe
                     title="Property Location"
@@ -27,8 +27,8 @@ const PropertyMap = ({ address, coordinates, city }) => {
                 />
 
                 {/* Overlay label for context */}
-                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-gray-100 flex items-center gap-3">
-                    <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-3 rounded-sm shadow-lg border border-gray-100 flex items-center gap-3">
+                    <div className="p-2 bg-blue-50 text-blue-600 rounded-sm">
                         <Navigation size={18} />
                     </div>
                     <div>

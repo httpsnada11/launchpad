@@ -18,7 +18,7 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
     };
 
     return (
-        <div className="relative aspect-[16/7] rounded-2xl overflow-hidden bg-gray-100 group shadow-lg border border-gray-100">
+        <div className="relative aspect-[21/9] md:aspect-[24/10] w-full overflow-hidden bg-gray-100 group">
             <AnimatePresence mode="wait">
                 <motion.img
                     key={currentIndex}
@@ -48,13 +48,13 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
                 <>
                     <button
                         onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-sm bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
                     >
                         <ChevronLeft size={24} />
                     </button>
                     <button
                         onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-sm bg-white/40 backdrop-blur-md text-[#0F172A] opacity-0 group-hover:opacity-100 transition-all hover:bg-white/60 shadow-sm border border-white/20"
                     >
                         <ChevronRight size={24} />
                     </button>
@@ -64,7 +64,7 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
             {/* Fullscreen Button */}
             <button
                 onClick={() => onOpenFullScreen(currentIndex)}
-                className="absolute bottom-5 right-5 px-4 py-2 rounded-full bg-[#0F172A]/80 backdrop-blur-md text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#0F172A] flex items-center gap-2 text-sm font-medium border border-white/10 shadow-lg"
+                className="absolute bottom-5 right-5 px-4 py-2 rounded-sm bg-[#0F172A]/80 backdrop-blur-md text-white hover:bg-[#0F172A] transition-all flex items-center gap-2 text-sm font-medium border border-white/10 shadow-lg z-20"
             >
                 <Maximize2 size={18} />
                 View All
@@ -74,8 +74,8 @@ export default function PropertyGallery({ images, onOpenFullScreen, stats }) {
 }
 
 const StatPill = ({ icon: Icon, label, value }) => (
-    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-xl px-2.5 py-1.5 rounded-full border border-white/20 shadow-[0_4px_24px_0_rgba(0,0,0,0.2)] hover:bg-white/20 transition-all group/pill cursor-default flex-shrink-0">
-        <div className="p-1 bg-white/10 rounded-full group-hover/pill:bg-white/20 transition-colors flex items-center justify-center">
+    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-xl px-2.5 py-1.5 rounded-sm border border-white/20 shadow-[0_4px_24px_0_rgba(0,0,0,0.2)] hover:bg-white/20 transition-all group/pill cursor-default flex-shrink-0">
+        <div className="p-1 bg-white/10 rounded-sm group-hover/pill:bg-white/20 transition-colors flex items-center justify-center">
             <Icon size={12} className="text-white" />
         </div>
         <div className="flex items-center gap-2 pr-1">

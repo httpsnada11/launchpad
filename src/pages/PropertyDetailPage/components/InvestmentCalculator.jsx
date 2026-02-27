@@ -148,6 +148,105 @@ const StackedBarChart = ({ data }) => {
     );
 };
 
+// Custom Vertical Slider Component
+const VerticalSlider = ({ label, value, min, max, step, onChange, formatValue, unit = '' }) => {
+    const percentage = ((value - min) / (max - min)) * 100;
+    const trackRef = React.useRef(null);
+
+    const handleDrag = (event, info) => {
+        if (!trackRef.current) return;
+
+        const trackBounds = trackRef.current.getBoundingClientRect();
+        // Calculate position relative to track bottom (where value is min)
+        const relativeY = info.point.y - trackBounds.top;
+        const clampedY = Math.max(0, Math.min(relativeY, trackBounds.height));
+
+        // Inverse: bottom is 0%, top is 100%
+        const inversePercentage = 1 - (clampedY / trackBounds.height);
+        let newValue = min + (inversePercentage * (max - min));
+
+        // Snap to step
+        newValue = Math.round(newValue / step) * step;
+        newValue = Math.max(min, Math.min(max, newValue));
+
+        if (newValue !== value) {
+            onChange(newValue);
+        }
+    };
+
+    const handleTrackClick = (e) => {
+        if (!trackRef.current) return;
+        const rect = trackRef.current.getBoundingClientRect();
+        const y = e.clientY - rect.top;
+        const inversePercentage = 1 - (y / rect.height);
+        let newValue = min + (inversePercentage * (max - min));
+        newValue = Math.round(newValue / step) * step;
+        newValue = Math.max(min, Math.min(max, newValue));
+        onChange(newValue);
+    };
+
+    return (
+        <div className="flex flex-col items-center h-full group relative">
+            <div className="relative h-48 w-12 flex justify-center py-4">
+                {/* Max label (Top) */}
+                <div className="absolute top-0 text-[9px] font-bold text-gray-400 uppercase tracking-tighter w-max">
+                    {max >= 1000 ? `${(max / 1000).toFixed(0)}K` : max} {unit}
+                </div>
+
+                {/* Vertical Track Area (wider for better hit surface) */}
+                <div
+                    ref={trackRef}
+                    className="h-full w-8 flex justify-center cursor-pointer relative"
+                    onClick={handleTrackClick}
+                >
+                    {/* Actual Track Line - Centered within w-8 */}
+                    <div className="h-full w-[2px] bg-gray-100 rounded-full relative">
+                        {/* Active Track */}
+                        <motion.div
+                            initial={false}
+                            animate={{ height: `${percentage}%` }}
+                            className="absolute bottom-0 left-0 right-0 bg-emerald-500 rounded-full"
+                        />
+                    </div>
+
+                    {/* Draggable Thumb - Sibling of track line, centered in w-8 */}
+                    <motion.div
+                        drag="y"
+                        dragConstraints={trackRef}
+                        dragElastic={0}
+                        dragMomentum={false}
+                        onDrag={handleDrag}
+                        animate={{ bottom: `${percentage}%` }}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9, cursor: 'grabbing' }}
+                        className="absolute w-4 h-4 bg-emerald-600 rounded-full border-2 border-white shadow-lg cursor-grab z-30"
+                        style={{
+                            left: '50%',
+                            x: '-50%',
+                            marginBottom: '-8px' // Offset the bottom-aligned anchor to center circle on the point
+                        }}
+                    />
+                </div>
+
+                {/* Min label (Bottom) */}
+                <div className="absolute bottom-0 text-[9px] font-bold text-gray-400 uppercase tracking-tighter w-max">
+                    {min >= 1000 ? `${(min / 1000).toFixed(0)}K` : min} {unit}
+                </div>
+            </div>
+
+            {/* Value Display */}
+            <div className="mt-6 text-emerald-700 font-bold text-xs whitespace-nowrap">
+                {formatValue ? formatValue(value) : `${value}${unit}`}
+            </div>
+
+            {/* Label (Bottom) */}
+            <div className="mt-2 text-[9.5px] font-bold text-gray-500 uppercase tracking-widest text-center h-10 w-28 leading-tight">
+                {label}
+            </div>
+        </div>
+    );
+};
+
 // Investment Calculator Component
 export default function InvestmentCalculator({ property, onShowHowItWorks }) {
     const [investmentAmount, setInvestmentAmount] = useState(10000);
@@ -157,9 +256,6 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
 
     // Parse property financial data
     const tokenPrice = parseFloat(property.tokenPriceAED?.replace(/[, AED]/g, '')) || 165;
-
-    // Calculate tokens purchased
-    const tokensPurchased = investmentAmount / tokenPrice;
 
     // Calculate projections
     const projections = useMemo(() => {
@@ -199,8 +295,6 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
     const finalProjection = projections[projections.length - 1];
     const capitalGains = finalProjection.propertyValue - investmentAmount;
     const totalReturns = capitalGains + finalProjection.rentalIncome;
-    const totalROI = ((totalReturns / investmentAmount) * 100).toFixed(2);
-    const annualizedROI = (((Math.pow(1 + totalReturns / investmentAmount, 1 / holdingPeriod) - 1) * 100)).toFixed(2);
 
     // Chart data for single projection chart
     const chartData = projections.map(p => ({
@@ -232,7 +326,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                     onClick={onShowHowItWorks}
                     className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-sm transition-colors group"
                 >
-                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                    <div className="w-8 h-8 rounded-sm bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
                         <HelpCircle size={16} />
                     </div>
                     <span>How it works?</span>
@@ -257,7 +351,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                     <div className="lg:w-64 flex flex-col sm:flex-row lg:flex-col flex-wrap gap-x-12 gap-y-8 lg:gap-y-10 pt-4 lg:pt-14 order-2">
                         {/* Investment */}
                         <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#64748B] flex-shrink-0 mt-1" />
+                            <div className="w-2.5 h-2.5 rounded-sm bg-[#64748B] flex-shrink-0 mt-1" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Investment</p>
                                 <p className="text-lg font-bold text-gray-900 leading-tight">AED {investmentAmount.toLocaleString()}</p>
@@ -266,7 +360,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
 
                         {/* Rental Income */}
                         <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] flex-shrink-0 mt-1" />
+                            <div className="w-2.5 h-2.5 rounded-sm bg-[#10B981] flex-shrink-0 mt-1" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Total rental income</p>
                                 <p className="text-lg font-bold text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
@@ -275,7 +369,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
 
                         {/* Capital Appreciation */}
                         <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#1E293B] flex-shrink-0 mt-1" />
+                            <div className="w-2.5 h-2.5 rounded-sm bg-[#1E293B] flex-shrink-0 mt-1" />
                             <div>
                                 <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Value appreciation</p>
                                 <p className="text-lg font-bold text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
@@ -285,199 +379,88 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                 </div>
             </motion.div>
 
-            {/* Key Metrics Cards
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-green-50 to-emerald-100 p-5 rounded-2xl border border-green-200"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <div className="flex items-center gap-2 mb-2">
-                            <TrendingUp size={18} className="text-green-600" />
-                            <span className="text-xs font-bold text-green-700">TOTAL RETURNS</span>
-                        </div>
-                        <p className="text-3xl font-bold text-green-900">{totalROI}%</p>
-                        <p className="text-xs text-green-600 mt-1">{formatCurrency(totalReturns)} total profit</p>
-                    </div>
-                </motion.div>
+            {/* EQUALIZER INPUTS SECTION - Hybrid Style */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm mt-8">
+                <div className="flex flex-wrap items-end justify-center gap-x-1 gap-y-12">
 
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="bg-gradient-to-br from-blue-50 to-indigo-100 p-5 rounded-2xl border border-blue-200"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <Percent size={18} className="text-blue-600" />
-                        <span className="text-xs font-bold text-blue-700">ANNUALIZED ROI</span>
-                    </div>
-                    <p className="text-3xl font-bold text-blue-900">{annualizedROI}%</p>
-                    <p className="text-xs text-blue-600 mt-1">Average per year</p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-br from-purple-50 to-violet-100 p-5 rounded-2xl border border-purple-200"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <ArrowUpRight size={18} className="text-purple-600" />
-                        <span className="text-xs font-bold text-purple-700">CAPITAL GAINS</span>
-                    </div>
-                    <p className="text-3xl font-bold text-purple-900">{formatCurrency(capitalGains)}</p>
-                    <p className="text-xs text-purple-600 mt-1">Property appreciation</p>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-gradient-to-br from-orange-50 to-amber-100 p-5 rounded-2xl border border-orange-200"
-                >
-                    <div className="flex items-center gap-2 mb-2">
-                        <DollarSign size={18} className="text-orange-600" />
-                        <span className="text-xs font-bold text-orange-700">RENTAL INCOME</span>
-                    </div>
-                    <p className="text-3xl font-bold text-orange-900">{formatCurrency(finalProjection.rentalIncome)}</p>
-                    <p className="text-xs text-orange-600 mt-1">{rentalYield}% annual yield</p>
-                </motion.div>
-            </div>
-            */}
-
-            {/* Input Controls */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 py-8 border-t border-gray-100">
-                {/* Investment Amount Slider */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                            Initial Investment (AED)
-                        </label>
-                        <div className="text-emerald-700 px-0 py-2 font-bold text-sm">
-                            {formatCurrency(investmentAmount)}
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1000"
-                        max="100000"
-                        step="1000"
-                        value={investmentAmount}
-                        onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
-                    />
-                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
-                        <span>1,000 AED</span>
-                        <span>100,000 AED</span>
-                    </div>
-
-                    {/* Quick Amount Buttons */}
-                    <div className="flex gap-2 flex-wrap">
-                        {[5000, 10000, 25000, 50000].map(amount => (
+                    {/* Left Presets (Investment) */}
+                    <div className="flex flex-col gap-3 pb-20">
+                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-center mb-1">Picks</span>
+                        {[50000, 25000, 10000, 5000].map(amount => (
                             <button
                                 key={amount}
                                 onClick={() => setInvestmentAmount(amount)}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${investmentAmount === amount
-                                    ? 'bg-emerald-600 text-white'
-                                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                className={`w-24 py-2 rounded-sm text-[10px] font-bold transition-all ${investmentAmount === amount
+                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200 scale-105'
+                                    : 'bg-white border border-gray-200 text-gray-600 hover:border-emerald-300'
                                     }`}
                             >
                                 {amount.toLocaleString()}
                             </button>
                         ))}
                     </div>
-                </div>
 
-                {/* Holding Period Slider */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700">
-                            Holding Period
-                        </label>
-                        <div className="text-emerald-700 px-0 py-2 font-bold text-sm">
-                            {holdingPeriod} Years
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1"
-                        max="10"
-                        step="1"
-                        value={holdingPeriod}
-                        onChange={(e) => setHoldingPeriod(Number(e.target.value))}
-                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
-                    />
-                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
-                        <span>1 Year</span>
-                        <span>10 Years</span>
+                    {/* Sliders Grid */}
+                    <div className="flex flex-1 max-w-md justify-between items-end gap-x-0">
+                        <VerticalSlider
+                            label="Initial Investment"
+                            value={investmentAmount}
+                            min={1000}
+                            max={100000}
+                            step={1000}
+                            unit="AED"
+                            onChange={setInvestmentAmount}
+                            formatValue={(v) => `AED ${v.toLocaleString()}`}
+                        />
+
+                        <VerticalSlider
+                            label="Rental Yield"
+                            value={rentalYield}
+                            min={1}
+                            max={20}
+                            step={0.1}
+                            unit="%"
+                            onChange={setRentalYield}
+                        />
+
+                        <VerticalSlider
+                            label="Annual Appreciation"
+                            value={appreciation}
+                            min={1}
+                            max={25}
+                            step={0.1}
+                            unit="%"
+                            onChange={setAppreciation}
+                        />
+
+                        <VerticalSlider
+                            label="Holding Period"
+                            value={holdingPeriod}
+                            min={1}
+                            max={10}
+                            step={1}
+                            unit="Years"
+                            onChange={setHoldingPeriod}
+                        />
                     </div>
 
-                    {/* Quick Period Buttons */}
-                    <div className="flex gap-2 flex-wrap">
-                        {[3, 5, 7, 10].map(years => (
+                    {/* Right Presets (Years) */}
+                    <div className="flex flex-col gap-3 pb-20">
+                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-center mb-1">Years</span>
+                        {[10, 7, 5, 3].map(years => (
                             <button
                                 key={years}
                                 onClick={() => setHoldingPeriod(years)}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${holdingPeriod === years
-                                    ? 'bg-emerald-600 text-white'
-                                    : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                                className={`w-24 py-2 rounded-sm text-[10px] font-bold transition-all ${holdingPeriod === years
+                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200 scale-105'
+                                    : 'bg-white border border-gray-200 text-gray-600 hover:border-emerald-300'
                                     }`}
                             >
                                 {years} Years
                             </button>
                         ))}
                     </div>
-                </div>
 
-                {/* Rental Yield Slider */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700">
-                            Rental Yield (ROI)
-                        </label>
-                        <div className="text-emerald-700 px-0 py-2 font-bold text-sm">
-                            {rentalYield}%
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1"
-                        max="20"
-                        step="0.1"
-                        value={rentalYield}
-                        onChange={(e) => setRentalYield(Number(e.target.value))}
-                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
-                    />
-                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
-                        <span>1%</span>
-                        <span>20%</span>
-                    </div>
-                </div>
-
-                {/* Appreciation Slider (CAGR) */}
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                        <label className="text-sm font-bold text-gray-700">
-                            Annual Appreciation (CAGR)
-                        </label>
-                        <div className="text-emerald-700 px-0 py-2 font-bold text-sm">
-                            {appreciation}%
-                        </div>
-                    </div>
-                    <input
-                        type="range"
-                        min="1"
-                        max="25"
-                        step="0.1"
-                        value={appreciation}
-                        onChange={(e) => setAppreciation(Number(e.target.value))}
-                        className="w-full h-1 bg-gray-200 rounded-full appearance-none cursor-pointer accent-emerald-600"
-                    />
-                    <div className="flex justify-between text-[10px] text-gray-400 font-medium">
-                        <span>1%</span>
-                        <span>25%</span>
-                    </div>
                 </div>
             </div>
         </div>

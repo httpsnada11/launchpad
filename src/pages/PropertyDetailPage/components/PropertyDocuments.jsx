@@ -2,9 +2,9 @@ import React from 'react';
 import { FileText, Download } from 'lucide-react';
 
 const DocumentRow = ({ doc }) => (
-    <div className="flex items-center justify-between bg-gray-50/50 rounded-2xl p-4 hover:bg-gray-100 transition-all group border border-gray-100/50">
+    <div className="flex items-center justify-between bg-gray-50/50 rounded-sm p-4 hover:bg-gray-100 transition-all group border border-gray-100/50">
         <div className="flex items-center gap-4">
-            <div className="p-3 bg-red-50 rounded-xl group-hover:bg-red-100 transition-colors">
+            <div className="p-3 bg-red-50 rounded-sm group-hover:bg-red-100 transition-colors">
                 <FileText size={22} className="text-red-500" />
             </div>
             <div>
@@ -12,7 +12,7 @@ const DocumentRow = ({ doc }) => (
                 <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">{doc.type} • {doc.size}</p>
             </div>
         </div>
-        <button className="p-2.5 hover:bg-white bg-white/50 shadow-sm border border-gray-100 rounded-xl transition-all hover:shadow-md active:scale-95">
+        <button className="p-2.5 hover:bg-white bg-white/50 shadow-sm border border-gray-100 rounded-sm transition-all hover:shadow-md active:scale-95">
             <Download size={20} className="text-gray-600" />
         </button>
     </div>

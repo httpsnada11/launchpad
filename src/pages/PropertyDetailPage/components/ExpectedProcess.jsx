@@ -1,22 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ChevronRight } from 'lucide-react';
 
 const ProcessStep = ({ step, title, description, isLast }) => (
-    <div className="flex gap-8 relative">
-        {/* Step Indicator */}
-        <div className="flex flex-col items-center">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-900 flex items-center justify-center text-white font-bold text-lg z-10 shadow-lg shadow-emerald-900/40">
-                {step}
+    <div className="flex gap-4 relative">
+        {/* Step Indicator - Icon instead of Box */}
+        <div className="flex flex-col items-center pt-1">
+            <div className="text-emerald-500 z-10">
+                <ChevronRight size={24} strokeWidth={3} />
             </div>
         </div>
 
         {/* Content */}
         <div className={`pb-12 ${isLast ? 'pb-0' : ''}`}>
-            <h3 className="text-white text-xl font-bold tracking-tight mb-3">
+            <h3 className="text-white text-xl font-bold tracking-tight mb-3 whitespace-nowrap">
                 {title}
             </h3>
             {description && (
-                <p className="text-gray-400 text-base leading-relaxed font-medium max-w-2xl">
+                <p className="text-gray-300 text-base leading-relaxed font-bold max-w-2xl">
                     {description}
                 </p>
             )}
@@ -44,10 +45,22 @@ export default function ExpectedProcess() {
     ];
 
     return (
-        <div className="bg-black rounded-3xl overflow-hidden relative border border-white/10 my-8 shadow-2xl">
-            <div className="flex flex-col md:flex-row items-center">
+        <div className="bg-black rounded-xl overflow-hidden relative border border-white/10 my-8 shadow-2xl">
+            {/* 3D Graphic Background - Full Length */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                <img
+                    src="/process_section_graphic.png"
+                    alt="Process Visualization"
+                    className="absolute inset-x-0 inset-y-0 w-full h-full object-cover object-center translate-x-1/4 scale-110 opacity-70"
+                />
+                {/* Artistic gradient overlays for readable text on the left */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-black via-black/80 to-transparent" />
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+            </div>
+
+            <div className="relative z-10 p-8 md:p-14">
                 {/* Text Content */}
-                <div className="flex-1 p-8 md:p-14 z-10">
+                <div className="max-w-3xl">
                     <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-12">
                         What's the process?
                     </h2>
@@ -68,18 +81,6 @@ export default function ExpectedProcess() {
                             </motion.div>
                         ))}
                     </div>
-                </div>
-
-                {/* 3D Graphic Content */}
-                <div className="flex-1 relative w-full h-[300px] md:h-[500px] overflow-hidden">
-                    <img
-                        src="/process_section_graphic.png"
-                        alt="Process Visualization"
-                        className="absolute inset-0 w-full h-full object-cover object-center"
-                    />
-                    {/* Artistic gradient overlays for seamless integration */}
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-black via-black/20 to-transparent hidden md:block" />
-                    <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black via-transparent to-black opacity-60 hidden md:block" />
                 </div>
             </div>
 

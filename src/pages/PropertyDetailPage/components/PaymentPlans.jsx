@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Wallet, Building2, CheckCircle } from 'lucide-react';
 
 const PlanCard = ({ step, percentage, label, date, active }) => (
-    <div className={`p-6 rounded-2xl border-2 transition-all duration-300 ${active
+    <div className={`p-6 rounded-sm border-2 transition-all duration-300 ${active
         ? 'bg-[#0F172A] border-[#0F172A] text-white shadow-xl shadow-slate-200'
         : 'bg-white border-slate-100 text-slate-900 hover:border-emerald-200 shadow-sm'
         }`}>

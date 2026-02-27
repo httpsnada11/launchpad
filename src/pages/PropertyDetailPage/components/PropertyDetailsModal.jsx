@@ -10,7 +10,7 @@ import {
 const TabButton = ({ active, onClick, icon: Icon, label }) => (
     <button
         onClick={onClick}
-        className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold rounded-xl transition-all ${active
+        className={`flex items-center gap-2 px-4 py-3 text-sm font-semibold rounded-sm transition-all ${active
             ? 'bg-[#0F172A] text-white shadow-lg'
             : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
             }`}
@@ -22,7 +22,7 @@ const TabButton = ({ active, onClick, icon: Icon, label }) => (
 
 // Feature Badge Component
 const FeatureBadge = ({ feature }) => (
-    <div className="flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-xl text-sm font-medium">
+    <div className="flex items-center gap-2 bg-green-50 text-green-700 px-4 py-3 rounded-sm text-sm font-medium">
         <CheckCircle2 size={18} />
         {feature}
     </div>
@@ -31,8 +31,8 @@ const FeatureBadge = ({ feature }) => (
 
 // Floor Plan Card
 const FloorPlanCard = ({ plan }) => (
-    <div className="bg-gray-50 rounded-xl p-4">
-        <div className="aspect-video bg-white rounded-lg mb-3 flex items-center justify-center overflow-hidden">
+    <div className="bg-gray-50 rounded-sm p-4">
+        <div className="aspect-video bg-white rounded-sm mb-3 flex items-center justify-center overflow-hidden">
             <img
                 src={plan.image}
                 alt={plan.name}
@@ -47,7 +47,7 @@ const FloorPlanCard = ({ plan }) => (
 const GalleryImageCard = ({ image, index, onClick, isMain }) => (
     <button
         onClick={() => onClick(index)}
-        className="relative aspect-square rounded-xl overflow-hidden group"
+        className="relative aspect-square rounded-sm overflow-hidden group"
     >
         <img
             src={image}
@@ -104,9 +104,9 @@ const FullScreenGallery = ({ images, currentIndex, onClose, onNext, onPrev }) =>
 
 // Document Row
 const DocumentRow = ({ doc }) => (
-    <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
+    <div className="flex items-center justify-between bg-gray-50 rounded-sm p-4 hover:bg-gray-100 transition-colors">
         <div className="flex items-center gap-3">
-            <div className="p-2 bg-red-50 rounded-lg">
+            <div className="p-2 bg-red-50 rounded-sm">
                 <FileText size={20} className="text-red-600" />
             </div>
             <div>
@@ -114,7 +114,7 @@ const DocumentRow = ({ doc }) => (
                 <p className="text-xs text-gray-500">{doc.type} • {doc.size}</p>
             </div>
         </div>
-        <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+        <button className="p-2 hover:bg-gray-200 rounded-sm transition-colors">
             <Download size={18} className="text-gray-600" />
         </button>
     </div>
@@ -153,7 +153,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.95, opacity: 0 }}
-                    className="bg-white rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl"
+                    className="bg-white rounded-xl w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Header */}
@@ -199,14 +199,14 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div className="bg-gray-50 rounded-xl p-4">
+                                    <div className="bg-gray-50 rounded-sm p-4">
                                         <div className="flex items-center gap-2 text-gray-500 mb-1">
                                             <Home size={16} />
                                             <span className="text-xs font-semibold uppercase">Property Type</span>
                                         </div>
                                         <p className="font-bold text-gray-900">{property.propertyType}</p>
                                     </div>
-                                    <div className="bg-gray-50 rounded-xl p-4">
+                                    <div className="bg-gray-50 rounded-sm p-4">
                                         <div className="flex items-center gap-2 text-gray-500 mb-1">
                                             <TrendingUp size={16} />
                                             <span className="text-xs font-semibold uppercase">Strategy</span>
@@ -214,7 +214,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                         <p className="font-bold text-gray-900">{property.investmentStrategy}</p>
                                     </div>
                                     {property.beds > 0 && (
-                                        <div className="bg-gray-50 rounded-xl p-4">
+                                        <div className="bg-gray-50 rounded-sm p-4">
                                             <div className="flex items-center gap-2 text-gray-500 mb-1">
                                                 <Bed size={16} />
                                                 <span className="text-xs font-semibold uppercase">Bedrooms</span>
@@ -223,7 +223,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                         </div>
                                     )}
                                     {property.baths > 0 && (
-                                        <div className="bg-gray-50 rounded-xl p-4">
+                                        <div className="bg-gray-50 rounded-sm p-4">
                                             <div className="flex items-center gap-2 text-gray-500 mb-1">
                                                 <Bath size={16} />
                                                 <span className="text-xs font-semibold uppercase">Bathrooms</span>
@@ -231,7 +231,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                             <p className="font-bold text-gray-900">{property.baths}</p>
                                         </div>
                                     )}
-                                    <div className="bg-gray-50 rounded-xl p-4">
+                                    <div className="bg-gray-50 rounded-sm p-4">
                                         <div className="flex items-center gap-2 text-gray-500 mb-1">
                                             <Ruler size={16} />
                                             <span className="text-xs font-semibold uppercase">Area</span>
@@ -239,7 +239,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                         <p className="font-bold text-gray-900">{property.area}</p>
                                     </div>
                                     {property.yearBuilt && (
-                                        <div className="bg-gray-50 rounded-xl p-4">
+                                        <div className="bg-gray-50 rounded-sm p-4">
                                             <div className="flex items-center gap-2 text-gray-500 mb-1">
                                                 <Calendar size={16} />
                                                 <span className="text-xs font-semibold uppercase">Year Built</span>
@@ -247,7 +247,7 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                             <p className="font-bold text-gray-900">{property.yearBuilt}</p>
                                         </div>
                                     )}
-                                    <div className="bg-gray-50 rounded-xl p-4">
+                                    <div className="bg-gray-50 rounded-sm p-4">
                                         <div className="flex items-center gap-2 text-gray-500 mb-1">
                                             <Shield size={16} />
                                             <span className="text-xs font-semibold uppercase">Status</span>
@@ -292,9 +292,9 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                     <Building size={20} className="text-blue-600" />
                                     Property Developer
                                 </h3>
-                                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
+                                <div className="bg-gray-50 rounded-xl p-8 border border-gray-100 shadow-sm">
                                     <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
-                                        <div className="w-32 h-32 rounded-3xl overflow-hidden bg-white border border-gray-200 p-4 flex items-center justify-center shadow-md shrink-0">
+                                        <div className="w-32 h-32 rounded-xl overflow-hidden bg-white border border-gray-200 p-4 flex items-center justify-center shadow-md shrink-0">
                                             <img
                                                 src={property.developerDetails.logo}
                                                 alt={property.developerDetails.name}
@@ -320,15 +320,15 @@ export default function PropertyDetailsModal({ property, isOpen, onClose }) {
                                     </div>
 
                                     <div className="mt-10 pt-8 border-t border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                        <div className="text-center p-4 bg-white rounded-sm border border-gray-100">
                                             <div className="text-2xl font-bold text-gray-900">15+</div>
                                             <div className="text-xs text-gray-500 uppercase font-bold mt-1">Years Experience</div>
                                         </div>
-                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                        <div className="text-center p-4 bg-white rounded-sm border border-gray-100">
                                             <div className="text-2xl font-bold text-gray-900">50+</div>
                                             <div className="text-xs text-gray-500 uppercase font-bold mt-1">Projects Delivered</div>
                                         </div>
-                                        <div className="text-center p-4 bg-white rounded-2xl border border-gray-100">
+                                        <div className="text-center p-4 bg-white rounded-sm border border-gray-100">
                                             <div className="text-2xl font-bold text-gray-900">Premium</div>
                                             <div className="text-xs text-gray-500 uppercase font-bold mt-1">Portfolio Tier</div>
                                         </div>
