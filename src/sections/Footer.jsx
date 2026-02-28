@@ -23,17 +23,17 @@ export default function Footer() {
 
                     {/* Links Section */}
                     <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 text-[15px] font-medium tracking-wide">
-                        <Link to="/about" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>About</Link>
-                        <Link to="/how-it-works" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>How it Works</Link>
-                        <Link to="/marketplace" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Marketplace</Link>
-                        <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Terms & Support</Link>
-                        <Link to="/privacy" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300" style={{ fontFamily: 'Palanquin, sans-serif' }}>Privacy</Link>
+                        <Link to="/about" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300">About</Link>
+                        <Link to="/how-it-works" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300">How it Works</Link>
+                        <Link to="/marketplace" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300">Marketplace</Link>
+                        <Link to="/terms" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300">Terms & Support</Link>
+                        <Link to="/privacy" className="text-gray-400 hover:text-[#15a36e] transition-colors duration-300">Privacy</Link>
                     </div>
                 </div>
 
                 {/* Copyright Section */}
                 <div className="mt-12 pt-8 border-t border-white/5 text-center">
-                    <p className="text-[12px] text-gray-500 font-medium tracking-[0.15em]" style={{ fontFamily: 'Palanquin, sans-serif' }}>
+                    <p className="text-[12px] text-gray-500 font-medium tracking-[0.15em]">
                         © 2026 COPYM. ALL RIGHTS RESERVED.
                     </p>
                 </div>

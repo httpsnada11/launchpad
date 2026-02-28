@@ -17,10 +17,10 @@ const TermsOfService = () => {
                     transition={{ duration: 0.5 }}
                     className="mb-12"
                 >
-                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4" style={{ fontFamily: 'Palanquin, sans-serif' }}>
+                    <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight mb-4">
                         Terms of Service
                     </h1>
-                    <p className="text-gray-500 text-sm font-medium" style={{ fontFamily: 'Palanquin, sans-serif' }}>
+                    <p className="text-gray-500 text-sm font-medium">
                         Last updated: January 2026
                     </p>
                 </motion.div>
@@ -31,7 +31,6 @@ const TermsOfService = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}
                     className="prose prose-lg max-w-none text-gray-700 space-y-10"
-                    style={{ fontFamily: 'Palanquin, sans-serif' }}
                 >
                     {/* Section 1 */}
                     <section>

@@ -24,6 +24,7 @@ import PaymentPlans from './components/PaymentPlans';
 import ExpectedProcess from './components/ExpectedProcess';
 import PropertyDocuments from './components/PropertyDocuments';
 import WhyInvest from './components/WhyInvest';
+import MobileInvestmentBar from './components/MobileInvestmentBar';
 
 // Mock Property Data - Extended with comprehensive details
 const PROPERTY_DETAILS = {
@@ -941,6 +942,8 @@ export default function PropertyDetailPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+            {/* Sticky Mobile Investment Bar */}
+            <MobileInvestmentBar property={property} />
         </div>
     );
 }

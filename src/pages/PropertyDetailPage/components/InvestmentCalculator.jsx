@@ -36,7 +36,7 @@ const StackedBarChart = ({ data }) => {
                             y1={y}
                             x2={width - padding.right}
                             y2={y}
-                            stroke="rgba(255,255,255,0.05)"
+                            stroke="rgba(0,0,0,0.05)"
                             strokeWidth="1"
                         />
                         <text
@@ -321,8 +321,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-white tracking-tight uppercase">Investment calculator</h2>
-                    <p className="text-sm text-gray-400 mt-1">Project your returns with high-precision metrics</p>
+                    <h2 className="text-2xl font-bold text-[#0F172A] tracking-tight uppercase">Investment calculator</h2>
+                    <p className="text-sm text-gray-500 mt-1">Project your returns with high-precision metrics</p>
                 </div>
             </div>
 
@@ -330,7 +330,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-10 border-y border-white/5"
+                className="py-10 border-y border-gray-100"
             >
                 <div className="flex flex-col lg:flex-row gap-x-12 gap-y-10 items-start">
                     {/* Chart - Left Side (Main) */}
@@ -346,8 +346,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-4">
                             <div className="w-3 h-3 rounded-full bg-[#64748B] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(100,116,139,0.3)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Investment</p>
-                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {investmentAmount.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-2">Investment</p>
+                                <p className="text-2xl font-black text-[#0F172A] leading-tight tracking-tight">AED {investmentAmount.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -355,8 +355,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-4">
                             <div className="w-3 h-3 rounded-full bg-[#10B981] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Total rental income</p>
-                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {finalProjection.rentalIncome.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-2">Total rental income</p>
+                                <p className="text-2xl font-black text-[#0F172A] leading-tight tracking-tight">AED {finalProjection.rentalIncome.toLocaleString()}</p>
                             </div>
                         </div>
 
@@ -364,8 +364,8 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                         <div className="flex items-start gap-4">
                             <div className="w-3 h-3 rounded-full bg-[#1E293B] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(30,41,59,0.5)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Value appreciation</p>
-                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {capitalGains.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-2">Value appreciation</p>
+                                <p className="text-2xl font-black text-[#0F172A] leading-tight tracking-tight">AED {capitalGains.toLocaleString()}</p>
                             </div>
                         </div>
                     </div>
