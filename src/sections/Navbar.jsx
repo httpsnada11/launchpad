@@ -32,7 +32,7 @@ const Navbar = () => {
             }}
             animate={hidden ? 'hidden' : 'visible'}
             transition={{ duration: 0.35, ease: 'easeInOut' }}
-            className="fixed top-0 left-0 w-full z-[100] bg-black/80 backdrop-blur-md py-3 px-8 border-b border-white/10"
+            className="fixed top-0 left-0 w-full z-[100] bg-black/80 backdrop-blur-md py-3 px-4 sm:px-8 border-b border-white/10"
         >
             <div className="max-w-7xl mx-auto flex justify-between items-center">
                 <Link to="/" className="cursor-pointer">

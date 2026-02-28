@@ -25,19 +25,23 @@ const PrivacyPage = () => (
   </div>
 );
 
+let lenisInstance = null;
+export const getLenis = () => lenisInstance;
+
 export default function App() {
   useEffect(() => {
-    const lenis = new Lenis();
+    lenisInstance = new Lenis();
 
     function raf(time) {
-      lenis.raf(time);
+      lenisInstance.raf(time);
       requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy();
+      lenisInstance.destroy();
+      lenisInstance = null;
     };
   }, []);
 

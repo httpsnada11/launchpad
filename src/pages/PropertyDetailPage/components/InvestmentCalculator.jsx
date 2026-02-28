@@ -13,21 +13,22 @@ const StackedBarChart = ({ data }) => {
     const chartHeight = height - padding.top - padding.bottom;
     const chartWidth = width - padding.left - padding.right;
 
-    // Find max value for scaling
-    const maxValue = Math.max(...data.map(d => d.totalValue));
+    // Find max value for scaling - Add 20% headroom for labels
+    const rawMax = Math.max(...data.map(d => d.totalValue));
+    const maxValue = Math.ceil(rawMax * 1.2 / 1000) * 1000;
     const yScale = (value) => chartHeight - (value / maxValue) * chartHeight;
 
     // Bar dimensions
-    const barWidth = chartWidth / data.length - 20;
-    const gap = 20;
+    const barWidth = chartWidth / data.length - 12;
+    const gap = 12;
 
     return (
         <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full" preserveAspectRatio="xMidYMid meet">
 
             {/* Grid lines */}
-            {[0, 1, 2, 3, 4].map(i => {
-                const y = padding.top + (i * chartHeight) / 4;
-                const value = maxValue - (i * maxValue) / 4;
+            {[0, 0.25, 0.5, 0.75, 1].map((pct, i) => {
+                const value = maxValue * (1 - pct);
+                const y = padding.top + (pct * chartHeight);
                 return (
                     <g key={i}>
                         <line
@@ -35,17 +36,17 @@ const StackedBarChart = ({ data }) => {
                             y1={y}
                             x2={width - padding.right}
                             y2={y}
-                            stroke="#E5E7EB"
+                            stroke="rgba(255,255,255,0.05)"
                             strokeWidth="1"
-                            strokeDasharray="4,4"
                         />
                         <text
-                            x={padding.left - 10}
+                            x={padding.left - 12}
                             y={y + 4}
                             textAnchor="end"
-                            fontSize="11"
-                            fill="#9CA3AF"
-                            fontWeight="500"
+                            fontSize="10"
+                            fill="#64748B"
+                            fontWeight="600"
+                            className="font-mono"
                         >
                             {value >= 1000 ? `${(value / 1000).toFixed(0)}K` : value.toFixed(0)} AED
                         </text>
@@ -117,14 +118,14 @@ const StackedBarChart = ({ data }) => {
                         <motion.text
                             initial={false}
                             animate={{
-                                y: padding.top + chartHeight - invScale - gainsScale - rentalScale - 10
+                                y: padding.top + chartHeight - invScale - gainsScale - rentalScale - 12
                             }}
                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
                             x={x + barWidth / 2}
                             textAnchor="middle"
-                            fontSize="11"
+                            fontSize="10"
                             fill="#10B981"
-                            fontWeight="700"
+                            fontWeight="800"
                         >
                             {d.totalValue >= 1000 ? `${(d.totalValue / 1000).toFixed(1)}K` : d.totalValue.toFixed(0)}
                         </motion.text>
@@ -132,11 +133,12 @@ const StackedBarChart = ({ data }) => {
                         {/* Year Label */}
                         <text
                             x={x + barWidth / 2}
-                            y={height - padding.bottom + 25}
+                            y={height - padding.bottom + 30}
                             textAnchor="middle"
-                            fontSize="11"
-                            fill="#9CA3AF"
-                            fontWeight="500"
+                            fontSize="10"
+                            fill="#64748B"
+                            fontWeight="700"
+                            className="uppercase tracking-widest"
                         >
                             {new Date().getFullYear() + d.year}
                         </text>
@@ -189,7 +191,7 @@ const VerticalSlider = ({ label, value, min, max, step, onChange, formatValue, u
         <div className="flex flex-col items-center h-full group relative">
             <div className="relative h-48 w-12 flex justify-center py-4">
                 {/* Max label (Top) */}
-                <div className="absolute top-0 text-[9px] font-bold text-gray-400 uppercase tracking-tighter w-max">
+                <div className="absolute top-0 text-[10px] font-bold text-gray-500 uppercase tracking-widest w-max">
                     {max >= 1000 ? `${(max / 1000).toFixed(0)}K` : max} {unit}
                 </div>
 
@@ -200,12 +202,12 @@ const VerticalSlider = ({ label, value, min, max, step, onChange, formatValue, u
                     onClick={handleTrackClick}
                 >
                     {/* Actual Track Line - Centered within w-8 */}
-                    <div className="h-full w-[2px] bg-gray-100 rounded-full relative">
+                    <div className="h-full w-[2px] bg-white/5 rounded-full relative">
                         {/* Active Track */}
                         <motion.div
                             initial={false}
                             animate={{ height: `${percentage}%` }}
-                            className="absolute bottom-0 left-0 right-0 bg-emerald-500 rounded-full"
+                            className="absolute bottom-0 left-0 right-0 bg-emerald-500 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.3)]"
                         />
                     </div>
 
@@ -235,12 +237,12 @@ const VerticalSlider = ({ label, value, min, max, step, onChange, formatValue, u
             </div>
 
             {/* Value Display */}
-            <div className="mt-6 text-emerald-700 font-bold text-xs whitespace-nowrap">
+            <div className="mt-6 text-emerald-400 font-bold text-xs whitespace-nowrap bg-emerald-400/5 px-2 py-1 rounded-sm border border-emerald-400/10">
                 {formatValue ? formatValue(value) : `${value}${unit}`}
             </div>
 
             {/* Label (Bottom) */}
-            <div className="mt-2 text-[9.5px] font-bold text-gray-500 uppercase tracking-widest text-center h-10 w-28 leading-tight">
+            <div className="mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-center h-10 w-28 leading-tight">
                 {label}
             </div>
         </div>
@@ -319,51 +321,51 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 className="text-xl font-semibold text-gray-900 tracking-wider">Investment calculator</h2>
-                    <p className="text-sm text-gray-500">Project your returns over time</p>
+                    <h2 className="text-2xl font-bold text-white tracking-tight uppercase">Investment calculator</h2>
+                    <p className="text-sm text-gray-400 mt-1">Project your returns with high-precision metrics</p>
                 </div>
             </div>
 
             {/* Graph and Metrics Row */}
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-6 border-0"
+                className="py-10 border-y border-white/5"
             >
                 <div className="flex flex-col lg:flex-row gap-x-12 gap-y-10 items-start">
                     {/* Chart - Left Side (Main) */}
                     <div className="flex-1 w-full order-1">
-                        <div className="h-64 sm:h-80 w-full">
+                        <div className="h-64 sm:h-96 w-full">
                             <StackedBarChart data={chartData} />
                         </div>
                     </div>
 
                     {/* Metrics Sidebar - Right Side on Desktop */}
-                    <div className="lg:w-64 flex flex-col sm:flex-row lg:flex-col flex-wrap gap-x-12 gap-y-8 lg:gap-y-10 pt-4 lg:pt-14 order-2">
+                    <div className="lg:w-72 flex flex-col sm:flex-row lg:flex-col flex-wrap gap-x-12 gap-y-8 lg:gap-y-12 pt-4 lg:pt-14 order-2">
                         {/* Investment */}
-                        <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-sm bg-[#64748B] flex-shrink-0 mt-1" />
+                        <div className="flex items-start gap-4">
+                            <div className="w-3 h-3 rounded-full bg-[#64748B] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(100,116,139,0.3)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Investment</p>
-                                <p className="text-lg font-bold text-gray-900 leading-tight">AED {investmentAmount.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Investment</p>
+                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {investmentAmount.toLocaleString()}</p>
                             </div>
                         </div>
 
                         {/* Rental Income */}
-                        <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-sm bg-[#10B981] flex-shrink-0 mt-1" />
+                        <div className="flex items-start gap-4">
+                            <div className="w-3 h-3 rounded-full bg-[#10B981] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Total rental income</p>
-                                <p className="text-lg font-bold text-gray-900 leading-tight">Ð {finalProjection.rentalIncome.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Total rental income</p>
+                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {finalProjection.rentalIncome.toLocaleString()}</p>
                             </div>
                         </div>
 
                         {/* Capital Appreciation */}
-                        <div className="flex items-start gap-3">
-                            <div className="w-2.5 h-2.5 rounded-sm bg-[#1E293B] flex-shrink-0 mt-1" />
+                        <div className="flex items-start gap-4">
+                            <div className="w-3 h-3 rounded-full bg-[#1E293B] flex-shrink-0 mt-1 shadow-[0_0_10px_rgba(30,41,59,0.5)]" />
                             <div>
-                                <p className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider mb-1">Value appreciation</p>
-                                <p className="text-lg font-bold text-gray-900 leading-tight">Ð {capitalGains.toLocaleString()}</p>
+                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] mb-2">Value appreciation</p>
+                                <p className="text-2xl font-black text-white leading-tight tracking-tight">AED {capitalGains.toLocaleString()}</p>
                             </div>
                         </div>
                     </div>
@@ -371,19 +373,19 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
             </motion.div>
 
             {/* EQUALIZER INPUTS SECTION - Hybrid Style */}
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm mt-8">
-                <div className="flex flex-wrap items-end justify-center gap-x-1 gap-y-12">
+            <div className="bg-[#0a0a0b] rounded-2xl border border-white/5 p-4 md:p-8 shadow-2xl mt-8">
+                <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-y-12 md:gap-x-1">
 
                     {/* Left Presets (Investment) */}
-                    <div className="flex flex-col gap-3 pb-20">
-                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-center mb-1">Picks</span>
+                    <div className="grid grid-cols-2 md:flex md:flex-col gap-3 pb-8 md:pb-20 w-full md:w-auto px-4 md:px-0">
+                        <span className="col-span-2 md:col-span-1 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] text-center mb-2">Picks</span>
                         {[50000, 25000, 10000, 5000].map(amount => (
                             <button
                                 key={amount}
                                 onClick={() => setInvestmentAmount(amount)}
-                                className={`w-24 py-2 rounded-sm text-[10px] font-bold transition-all ${investmentAmount === amount
-                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200 scale-105'
-                                    : 'bg-white border border-gray-200 text-gray-600 hover:border-emerald-300'
+                                className={`py-2 px-6 rounded-sm text-[10px] font-bold transition-all border ${investmentAmount === amount
+                                    ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.2)] scale-105'
+                                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-emerald-500/50'
                                     }`}
                             >
                                 {amount.toLocaleString()}
@@ -392,7 +394,7 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                     </div>
 
                     {/* Sliders Grid */}
-                    <div className="flex flex-1 max-w-md justify-between items-end gap-x-0">
+                    <div className="grid grid-cols-2 md:flex md:flex-1 w-full md:max-w-md justify-items-center md:items-end gap-x-4 md:gap-x-0">
                         <VerticalSlider
                             label="Initial Investment"
                             value={investmentAmount}
@@ -436,15 +438,15 @@ export default function InvestmentCalculator({ property, onShowHowItWorks }) {
                     </div>
 
                     {/* Right Presets (Years) */}
-                    <div className="flex flex-col gap-3 pb-20">
-                        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-center mb-1">Years</span>
+                    <div className="grid grid-cols-2 md:flex md:flex-col gap-3 pt-8 md:pb-20 w-full md:w-auto px-4 md:px-0">
+                        <span className="col-span-2 md:col-span-1 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] text-center mb-2">Years</span>
                         {[10, 7, 5, 3].map(years => (
                             <button
                                 key={years}
                                 onClick={() => setHoldingPeriod(years)}
-                                className={`w-24 py-2 rounded-sm text-[10px] font-bold transition-all ${holdingPeriod === years
-                                    ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200 scale-105'
-                                    : 'bg-white border border-gray-200 text-gray-600 hover:border-emerald-300'
+                                className={`py-2 px-6 rounded-sm text-[10px] font-bold transition-all border ${holdingPeriod === years
+                                    ? 'bg-emerald-500 border-emerald-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.2)] scale-105'
+                                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-emerald-500/50'
                                     }`}
                             >
                                 {years} Years

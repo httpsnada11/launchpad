@@ -42,7 +42,7 @@ export default function TokenDetails({ property }) {
     const availableTotalValue = (maxTokensSold - tokensSold) * tokenPriceNum;
 
     return (
-        <div className="bg-black border border-white/10 rounded-xl overflow-hidden relative shadow-2xl min-h-[450px] flex flex-col justify-center">
+        <div className="bg-black border border-white/10 rounded-xl overflow-hidden relative shadow-2xl min-h-[400px] md:min-h-[450px] flex flex-col justify-center">
             {/* Background Graphic Overlay */}
             <div className="absolute inset-0 z-0 opacity-30">
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
@@ -54,8 +54,8 @@ export default function TokenDetails({ property }) {
                 />
             </div>
 
-            <div className="relative z-10 p-8 lg:p-10 space-y-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <div className="relative z-10 p-6 md:p-8 lg:p-10 space-y-8 md:space-y-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
 
                     {/* Left Column: Key Metrics Grid */}
                     <div className="grid grid-cols-2 gap-6 lg:gap-6 self-start">
@@ -71,6 +71,7 @@ export default function TokenDetails({ property }) {
                         <MetricBox
                             label="Issued Token In Marketplace"
                             value={property.tokenPriceAED?.replace(' AED', '') || '0'}
+                            isCurrency={false}
                         />
                         <MetricBox
                             label="Token availability"
@@ -115,8 +116,8 @@ export default function TokenDetails({ property }) {
 
                         {/* Total Tokens Card (Full Width Style) */}
                         <div className="bg-white/10 border border-white/20 rounded-sm p-4 w-full transition-all hover:bg-white/20 group/tokens flex items-center justify-between shadow-lg backdrop-blur-sm">
-                            <span className="text-[11px] font-extrabold text-gray-300 uppercase tracking-[0.25em]">TOTAL TOKENS</span>
-                            <span className="text-3xl font-extrabold text-white tracking-tighter">
+                            <span className="text-[10px] md:text-[11px] font-extrabold text-gray-300 uppercase tracking-[0.25em]">TOTAL TOKENS</span>
+                            <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tighter">
                                 {(maxTokensSold - tokensSold).toLocaleString()}
                             </span>
                         </div>
@@ -150,14 +151,14 @@ export default function TokenDetails({ property }) {
                     </div>
 
                     {/* Footer Section */}
-                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between gap-4">
                         <div className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors cursor-help group/info">
-                            <Info size={16} className="text-gray-600 group-hover/info:text-emerald-500 transition-colors" />
-                            <span className="text-[10px] font-extrabold uppercase tracking-[0.2em]">HOW IT WORKS</span>
+                            <Info size={14} className="md:size-16 text-gray-600 group-hover/info:text-emerald-500 transition-colors" />
+                            <span className="text-[9px] md:text-[10px] font-extrabold uppercase tracking-[0.2em]">HOW IT WORKS</span>
                         </div>
                         <button
                             onClick={() => setIsModalOpen(true)}
-                            className="text-[10px] font-extrabold text-emerald-500 hover:text-emerald-400 uppercase tracking-[0.2em] underline underline-offset-4 decoration-emerald-500/30"
+                            className="text-[9px] md:text-[10px] font-extrabold text-emerald-500 hover:text-emerald-400 uppercase tracking-[0.2em] underline underline-offset-4 decoration-emerald-500/30 whitespace-nowrap"
                         >
                             LEARN MORE
                         </button>

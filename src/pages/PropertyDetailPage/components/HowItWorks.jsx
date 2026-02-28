@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import { getLenis } from '../../../App';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, FileText, ChevronRight, ChevronLeft, ShieldCheck, TrendingUp, Building2, Wallet, X, Download, FileCheck, Award, Calendar } from 'lucide-react';
 
@@ -98,6 +100,47 @@ const DocumentsModal = ({ isOpen, onClose }) => {
         }, 1500);
     };
 
+    const scrollRef = useRef(null);
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        const lenis = getLenis();
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            if (lenis) lenis.stop();
+        } else {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        };
+    }, [isOpen]);
+
+    // Local smooth scroll (Lenis) for modal
+    useEffect(() => {
+        if (!isOpen || !scrollRef.current) return;
+
+        const localLenis = new Lenis({
+            wrapper: scrollRef.current,
+            content: scrollRef.current.querySelector('.lenis-content') || scrollRef.current,
+            smoothWheel: true,
+            duration: 1.2,
+        });
+
+        function raf(time) {
+            localLenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        return () => {
+            localLenis.destroy();
+        };
+    }, [isOpen]);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -108,17 +151,18 @@ const DocumentsModal = ({ isOpen, onClose }) => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 overflow-y-auto flex justify-center p-4 md:p-12"
                     />
 
                     {/* Modal */}
                     <motion.div
+                        ref={scrollRef}
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+                        className="fixed inset-0 z-50 overflow-y-auto flex justify-center p-4 pointer-events-none md:p-12"
                     >
-                        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden pointer-events-auto">
+                        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden pointer-events-auto my-auto relative">
                             {/* Header */}
                             <div className="bg-gradient-to-r from-[#0F172A] to-slate-800 p-6 flex items-center justify-between">
                                 <div>
@@ -138,7 +182,7 @@ const DocumentsModal = ({ isOpen, onClose }) => {
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 overflow-y-auto max-h-[calc(80vh-140px)]">
+                            <div className="p-6">
                                 {/* Info Banner */}
                                 <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
                                     <div className="flex items-start gap-3">

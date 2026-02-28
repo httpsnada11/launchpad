@@ -32,17 +32,7 @@ export default function InvestmentCard({ property }) {
     return (
         <div className="bg-black border border-white/10 rounded-xl shadow-2xl shadow-emerald-900/10 overflow-hidden transition-all duration-500">
             <div className="flex flex-col h-full">
-                {/* 1. Preview Image - Top */}
-                <div className="relative h-48 sm:h-56 group overflow-hidden">
-                    <img
-                        src={property.images[0]}
-                        alt={property.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                    />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-white/95 text-[#0F172A] text-[10px] font-bold rounded-sm backdrop-blur-sm shadow-sm border border-slate-100 uppercase tracking-tighter">
-                        {property.badge}
-                    </div>
-                </div>
+                {/* 1. Preview Image removed as per user request */}
 
                 {/* 2. Content Area */}
                 <div className="flex flex-col">
@@ -98,36 +88,48 @@ export default function InvestmentCard({ property }) {
                             </div>
 
                             <div className="group relative mb-4">
-                                <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none z-20">
-                                    <span className="text-gray-400 font-extrabold text-sm group-focus-within:text-emerald-500 transition-colors uppercase tracking-[0.1em]">AED</span>
+                                {/* AED Prefix */}
+                                <div className="absolute inset-y-0 left-4 sm:left-5 flex items-center pointer-events-none z-20">
+                                    <span className="text-gray-400 font-extrabold text-[10px] sm:text-xs group-focus-within:text-emerald-500 transition-colors uppercase tracking-[0.1em]">AED</span>
                                 </div>
+
                                 <input
                                     type="number"
                                     value={investmentAmount}
                                     onChange={(e) => setInvestmentAmount(Math.max(0, parseInt(e.target.value) || 0))}
-                                    className="w-full pl-20 pr-12 py-4 bg-white/5 border border-white/10 rounded-sm text-2xl font-extrabold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all backdrop-blur-sm tracking-tight [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                    className="w-full pl-12 sm:pl-16 pr-[9rem] sm:pr-[11rem] py-3.5 sm:py-4 bg-white/5 border border-white/10 rounded-sm text-lg sm:text-xl font-extrabold text-white focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all backdrop-blur-sm tracking-tight [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                     placeholder="0"
                                 />
-                                {/* Custom Spin Buttons */}
-                                <div className="absolute inset-y-0 right-4 flex flex-col justify-center gap-1 z-20">
+
+                                {/* Custom Spin Buttons - Positioned to the left of the integrated button */}
+                                <div className="absolute inset-y-0 right-[7.5rem] sm:right-[10rem] flex flex-col justify-center gap-0.5 z-20">
                                     <button
                                         onClick={() => setInvestmentAmount(prev => prev + 100)}
                                         className="text-white/40 hover:text-white transition-colors p-0.5"
                                     >
-                                        <ChevronUp size={16} strokeWidth={3} />
+                                        <ChevronUp size={14} strokeWidth={3} />
                                     </button>
                                     <button
                                         onClick={() => setInvestmentAmount(prev => Math.max(0, prev - 100))}
                                         className="text-white/40 hover:text-white transition-colors p-0.5"
                                     >
-                                        <ChevronDown size={16} strokeWidth={3} />
+                                        <ChevronDown size={14} strokeWidth={3} />
                                     </button>
                                 </div>
-                                {/* Subtle internal glow for the input field */}
+
+                                {/* Integrated ADD TO CART Button */}
+                                <button
+                                    onClick={handleAddToCart}
+                                    disabled={isAdded || investmentAmount <= 0}
+                                    className="absolute inset-y-0 right-0 px-4 sm:px-6 flex items-center justify-center bg-white/5 border-l border-white/10 hover:bg-emerald-500 hover:text-white transition-all duration-300 font-black uppercase text-[10px] tracking-[0.2em] text-white disabled:opacity-50 disabled:cursor-not-allowed group-hover:border-emerald-500/50 z-20"
+                                >
+                                    {isAdded ? "ADDED" : "ADD TO CART"}
+                                </button>
+
                                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none rounded-sm" />
                             </div>
 
-                            <div className="flex gap-2 mb-5">
+                            <div className="flex gap-2 mb-2">
                                 {quickAmounts.map((amount) => (
                                     <button
                                         key={amount}
@@ -141,15 +143,6 @@ export default function InvestmentCard({ property }) {
                                     </button>
                                 ))}
                             </div>
-
-                            <Button
-                                text={isAdded ? "SECURED" : "INVEST NOW"}
-                                icon={isAdded ? Check : ShoppingCart}
-                                onClick={handleAddToCart}
-                                disabled={isAdded || investmentAmount <= 0}
-                                variant="dark"
-                                className="w-full h-14"
-                            />
                         </div>
                     </div>
 

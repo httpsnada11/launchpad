@@ -23,8 +23,7 @@ const PropertyDocuments = ({ documents }) => {
 
     return (
         <div className="pt-10 pb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-3 uppercase tracking-wider">
-                <FileText size={20} className="text-red-600" />
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center justify-start uppercase tracking-wider">
                 OFFICIAL DOCUMENTS
             </h2>
 

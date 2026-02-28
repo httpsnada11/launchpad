@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import { getLenis } from '../../App';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -510,9 +512,7 @@ const InvestmentStrategy = ({ type }) => {
 
     return (
         <div className="pb-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-6 tracking-wider">
-                Investment strategy
-            </h3>
+
 
             <div className={`p-8 rounded-xl border border-white/10 bg-black relative overflow-hidden shadow-2xl shadow-emerald-900/10 group`}>
                 {/* Background Graphic Overlay */}
@@ -602,6 +602,47 @@ export default function PropertyDetailPage() {
             alert('Link copied to clipboard!');
         }
     };
+
+    const howItWorksScrollRef = useRef(null);
+
+    // Lock body scroll when any modal is open
+    useEffect(() => {
+        const lenis = getLenis();
+        if (showDetailsModal || showHowItWorks || showGallery) {
+            document.body.style.overflow = 'hidden';
+            if (lenis) lenis.stop();
+        } else {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        };
+    }, [showDetailsModal, showHowItWorks, showGallery]);
+
+    // Local smooth scroll (Lenis) for How It Works modal
+    useEffect(() => {
+        if (!showHowItWorks || !howItWorksScrollRef.current) return;
+
+        const localLenis = new Lenis({
+            wrapper: howItWorksScrollRef.current,
+            content: howItWorksScrollRef.current.querySelector('.lenis-content') || howItWorksScrollRef.current,
+            smoothWheel: true,
+            duration: 1.2,
+        });
+
+        function raf(time) {
+            localLenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        return () => {
+            localLenis.destroy();
+        };
+    }, [showHowItWorks]);
 
     if (!property) {
         return (
@@ -712,6 +753,23 @@ export default function PropertyDetailPage() {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="bg-white px-5 py-3 rounded-sm border border-gray-100 shadow-sm flex items-center gap-6 group transition-all duration-300">
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] leading-none mb-2">Listing Price per token</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-2xl font-black tracking-tight text-[#0F172A] group-hover:text-emerald-600 transition-colors uppercase">AED {property.tokenPriceAED}</span>
+                                            <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-sm">/ Token</span>
+                                        </div>
+                                    </div>
+                                    <div className="h-10 w-px bg-gray-100" />
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] leading-none mb-2">Total Return</span>
+                                        <span className="text-lg font-black text-emerald-600 uppercase tabular-nums">{property.financials?.totalReturn}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="mb-0 pb-6">
@@ -754,6 +812,8 @@ export default function PropertyDetailPage() {
                             </div>
                         )}
 
+                        <PropertyDocuments documents={property.documents} />
+
                         <InvestmentTimeline
                             timeline={property.timeline}
                             action={
@@ -766,8 +826,7 @@ export default function PropertyDetailPage() {
                         />
 
                         <div className="pt-6">
-                            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2 uppercase tracking-wider">
-                                <MapPin size={20} className="text-red-600" />
+                            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center justify-start uppercase tracking-wider">
                                 ASSET LOCATION
                             </h2>
                             <PropertyMap
@@ -777,7 +836,6 @@ export default function PropertyDetailPage() {
                             />
                         </div>
 
-                        <PropertyDocuments documents={property.documents} />
                     </div>
 
                     {/* Right Column: Sticky Sidebar Card (Desktop Only) */}
@@ -805,12 +863,13 @@ export default function PropertyDetailPage() {
                             className="fixed inset-0 bg-black/60 backdrop-blur-md z-[100]"
                         />
                         <motion.div
+                            ref={howItWorksScrollRef}
                             initial={{ opacity: 0, scale: 0.9, y: 40 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 40 }}
-                            className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8 pointer-events-none"
+                            className="fixed inset-0 z-[101] overflow-y-auto flex justify-center p-4 md:p-12 pointer-events-none"
                         >
-                            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-6xl max-h-[90vh] overflow-y-auto pointer-events-auto relative p-6 md:p-10">
+                            <div className="bg-white rounded-3xl shadow-2xl w-full max-w-6xl pointer-events-auto relative p-6 md:p-10 my-auto">
                                 <button
                                     onClick={() => setShowHowItWorks(false)}
                                     className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors z-10"

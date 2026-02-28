@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import { getLenis } from '../../../App';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, FileText, Wallet, TrendingUp } from 'lucide-react';
 
@@ -24,10 +26,51 @@ export default function HowItWorksModal({ isOpen, onClose }) {
         }
     ];
 
+    const scrollRef = useRef(null);
+
+    // Lock body scroll when modal is open
+    useEffect(() => {
+        const lenis = getLenis();
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            if (lenis) lenis.stop();
+        } else {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+            if (lenis) lenis.start();
+        };
+    }, [isOpen]);
+
+    // Local smooth scroll (Lenis) for modal
+    useEffect(() => {
+        if (!isOpen || !scrollRef.current) return;
+
+        const localLenis = new Lenis({
+            wrapper: scrollRef.current,
+            content: scrollRef.current.querySelector('.lenis-content') || scrollRef.current,
+            smoothWheel: true,
+            duration: 1.2,
+        });
+
+        function raf(time) {
+            localLenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+
+        return () => {
+            localLenis.destroy();
+        };
+    }, [isOpen]);
+
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+                <div ref={scrollRef} className="fixed inset-0 z-[200] overflow-y-auto flex justify-center p-4 md:p-12">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -42,7 +85,7 @@ export default function HowItWorksModal({ isOpen, onClose }) {
                         initial={{ scale: 0.95, opacity: 0, y: 20 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                        className="relative w-full max-w-5xl bg-[#0a0a0b] rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
+                        className="relative w-full max-w-5xl bg-[#0a0a0b] rounded-2xl border border-white/10 shadow-2xl my-auto"
                     >
                         {/* 3D Background Overlay */}
                         <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
@@ -56,7 +99,7 @@ export default function HowItWorksModal({ isOpen, onClose }) {
 
                         <div className="relative z-10 flex flex-col md:flex-row min-h-[400px]">
                             {/* Vertical Title Sidebar */}
-                            <div className="w-full md:w-24 bg-black flex items-center justify-center p-6 md:p-0 border-r border-white/10">
+                            <div className="w-full md:w-24 bg-black flex items-center justify-center p-8 md:p-0 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
                                 <h2 className="text-white font-extrabold text-2xl md:text-3xl uppercase tracking-[0.3em] md:[writing-mode:vertical-lr] md:rotate-180 whitespace-nowrap">
                                     HOW IT WORKS
                                 </h2>
